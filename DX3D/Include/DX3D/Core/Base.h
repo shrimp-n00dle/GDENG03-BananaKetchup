@@ -14,6 +14,9 @@ namespace dx3d
 		Base(Base&&) = delete;
 		Base& operator = (const Base&) = delete;
 		Base& operator = (Base&&) = delete;
+
+	protected:
+		//Logger& m_logger;
 	};
 }
 
