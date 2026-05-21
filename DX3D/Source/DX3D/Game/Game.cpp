@@ -15,7 +15,7 @@ m_loggerPtr(&m_logger)
 }
 dx3d::Game::~Game()
 {
-	DX3DLogInfo("Game deallocation started.");
+	DX3DLogInfo("Game is shutting down.");
 }
 
 

@@ -12,8 +12,10 @@ namespace dx3d
 
 		RenderSystem& getRenderSystem() const noexcept;
 
+		void render(SwapChain& swapChain);
 	private:
 		std::shared_ptr<RenderSystem> m_renderSystem{};
+		DeviceContextPtr m_deviceContext{};
 	};
 }
 
