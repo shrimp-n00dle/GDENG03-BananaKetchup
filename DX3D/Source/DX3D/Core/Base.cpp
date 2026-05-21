@@ -9,7 +9,7 @@ dx3d::Base::~Base()
 {
 }
 
-Logger& dx3d::Base::getLogger() const noexcept
+Logger& dx3d::Base::getLogger()noexcept
 {
 	// TODO: insert return statement here
 	return m_logger;

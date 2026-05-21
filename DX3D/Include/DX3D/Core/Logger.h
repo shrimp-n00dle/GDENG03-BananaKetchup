@@ -16,7 +16,7 @@ namespace dx3d
 		~Logger();
 
 		//Const - doesnt alter the state of the class
-		void log(LogLevel level, const char* message) const;
+		void log(LogLevel level, const char* message);
 
 	protected:
 		Logger(const Logger&) = delete;

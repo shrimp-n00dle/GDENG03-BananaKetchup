@@ -19,6 +19,16 @@ dx3d::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc
 
 	DX3DGraphicsLogErrorAndThrow(m_factory.CreateSwapChain(&m_device, &dxgiDesc, &m_swapChain), "SwapChain failed, check SwapChain.cpp");
 
+	reloadBuffers();
+
+}
+
+void dx3d::SwapChain::present(bool vsync)
+{
+	DX3DGraphicsLogErrorAndThrow(
+		m_swapChain->Present(vsync, 0),
+		"Present() failed from SwapChain.cpp");
+
 }
 
 void dx3d::SwapChain::reloadBuffers()

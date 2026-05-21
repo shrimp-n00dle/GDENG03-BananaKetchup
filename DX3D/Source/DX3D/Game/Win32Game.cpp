@@ -16,6 +16,6 @@ void dx3d::Game::run()
 			TranslateMessage(&msg);
 			DispatchMessageW(&msg);
 		}
-		Sleep(1);
+		onInternalUpdate();
 	}
 }

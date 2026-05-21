@@ -10,7 +10,7 @@ namespace dx3d
 		explicit GraphicsEngine(const GraphicsEngineDesc& desc);
 		virtual ~GraphicsEngine() override;
 
-		RenderSystem& getRenderSystem() const noexcept;
+		RenderSystem& getRenderSystem() noexcept;
 
 		void render(SwapChain& swapChain);
 	private:
