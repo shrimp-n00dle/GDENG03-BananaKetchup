@@ -13,7 +13,7 @@ namespace dx3d
 		explicit RenderSystem(const RenderSystemDesc& desc);
 		virtual ~RenderSystem() override;
 
-		SwapChainPtr createSwapChain(const SwapChainDesc& desc) const;
+		SwapChainPtr createSwapChain(const SwapChainDesc& desc);
 		DeviceContextPtr createDeviceContext();
 
 		void executeCommandList(DeviceContext& context);

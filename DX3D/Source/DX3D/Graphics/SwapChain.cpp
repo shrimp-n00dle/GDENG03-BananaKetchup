@@ -5,8 +5,8 @@ dx3d::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc
 {
 	DXGI_SWAP_CHAIN_DESC dxgiDesc{};
 
-	dxgiDesc.BufferDesc.Width = std::max(1,desc.winSize.width);
-	dxgiDesc.BufferDesc.Height = std::max(1,desc.winSize.height);
+	dxgiDesc.BufferDesc.Width = std::max(1, desc.winSize.width);
+	dxgiDesc.BufferDesc.Height = std::max(1, desc.winSize.height);
 	dxgiDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	dxgiDesc.BufferCount = 2;
 	dxgiDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;

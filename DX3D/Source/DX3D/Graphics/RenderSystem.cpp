@@ -36,7 +36,7 @@ dx3d::RenderSystem::~RenderSystem()
 {
 }
 
-SwapChainPtr dx3d::RenderSystem::createSwapChain(const SwapChainDesc& desc) const
+SwapChainPtr dx3d::RenderSystem::createSwapChain(const SwapChainDesc& desc)
 {
 	return std::make_shared<SwapChain>(desc,getGraphicsResourceDesc());
 }

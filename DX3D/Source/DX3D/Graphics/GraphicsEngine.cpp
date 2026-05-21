@@ -27,7 +27,7 @@ RenderSystem& dx3d::GraphicsEngine::getRenderSystem()noexcept
 void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 {
 	auto& context = *m_deviceContext;
-	context.clearAndSetBackBuffer(swapChain, {1,0,0,1});
+	context.clearAndSetBackBuffer(swapChain, { 1, 0, 0, 1 });
 
 	auto& device = *m_renderSystem;
 	device.executeCommandList(context);

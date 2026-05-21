@@ -6,7 +6,7 @@ dx3d::Display::Display(const DisplayDesc& desc) : Window(desc.window)
 	m_swapChain = desc.renderSystem.createSwapChain({m_handle, m_size});
 }
 
-dx3d::SwapChain& dx3d::Display::getSwapChain()noexcept
+dx3d::SwapChain& dx3d::Display::getSwapChain() noexcept
 {
 	// TODO: insert return statement here
 	return *m_swapChain;
