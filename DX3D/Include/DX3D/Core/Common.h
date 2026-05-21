@@ -1,8 +1,7 @@
 #pragma once
 #include <DX3D/Core/Core.h>
 #include <DX3D/Core/Logger.h>
-
-
+#include <DX3D/Math/Rect.h>
 
 namespace dx3d
 {
@@ -14,6 +13,14 @@ namespace dx3d
 	struct WindowDesc
 	{
 		BaseDesc base;
+		//Size of window
+		Rect size{};
+	};
+
+	struct DisplayDesc
+	{
+		WindowDesc window;
+		RenderSystem& renderSystem;
 	};
 
 	struct GraphicsEngineDesc
@@ -24,6 +31,12 @@ namespace dx3d
 	struct RenderSystemDesc
 	{
 		BaseDesc base;
+	};
+
+	struct SwapChainDesc
+	{
+		void* winHandle{};
+		Rect winSize{};
 	};
 
 	struct GameDesc

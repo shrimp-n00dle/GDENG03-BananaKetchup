@@ -15,7 +15,7 @@ static LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPAR
 	return 0;
 }
 
-dx3d::Window::Window(const WindowDesc& desc) : Base(desc.base)
+dx3d::Window::Window(const WindowDesc& desc) : Base(desc.base), m_size(desc.size)
 {
 	auto registerWindowClassFunction = []()
 		{
@@ -52,7 +52,7 @@ dx3d::Window::Window(const WindowDesc& desc) : Base(desc.base)
 	if (!windowClassId) {
 		DX3DLogErrorAndThrow("RegisterClassEx failed.");
 	}
-	RECT rc{ 0,0,1280,700 };
+	RECT rc{ 0,0,m_size.width,m_size.height };
 	AdjustWindowRect(&rc, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, false);
 	m_handle = CreateWindowEx(NULL, MAKEINTATOM(windowClassId), L"BananaKetchup_Ver1.0",
 		WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
