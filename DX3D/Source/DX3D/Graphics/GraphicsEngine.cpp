@@ -5,7 +5,7 @@ using namespace dx3d;
 
 dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.base)
 {
-	m_renderSystem = std::make_unique<RenderSystem>(RenderSystemDesc{m_logger});
+	m_renderSystem = std::make_shared<RenderSystem>(RenderSystemDesc{m_logger});
 }
 
 
