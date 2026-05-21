@@ -27,9 +27,6 @@
     <ClCompile Include="DX3D\Source\DX3D\Game\Win32\Win32Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DX3D\Source\DX3D\Window\Win32\Win32Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DX3D\Source\DX3D\Graphics\GraphicsEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
