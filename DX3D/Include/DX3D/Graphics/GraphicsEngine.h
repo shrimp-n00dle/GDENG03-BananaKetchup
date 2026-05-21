@@ -7,7 +7,7 @@ namespace dx3d
 	class GraphicsEngine final: public Base
 	{
 	public:
-		GraphicsEngine();
+		explicit GraphicsEngine(const GraphicsEngineDesc& desc);
 		virtual ~GraphicsEngine() override;
 
 	private:

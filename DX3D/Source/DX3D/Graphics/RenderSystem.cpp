@@ -1,6 +1,6 @@
 #include <DX3D/Graphics/RenderSystem.h>
 
-dx3d::RenderSystem::RenderSystem()
+dx3d::RenderSystem::RenderSystem(const RenderSystemDesc& desc) : Base(desc.base)
 {
 	D3D_FEATURE_LEVEL featureLevel{};
 	UINT createDeviceFlags{};
@@ -15,6 +15,7 @@ dx3d::RenderSystem::RenderSystem()
 
 	if (FAILED(hr))
 	{
+		getLogger().log(Logger::LogLevel::Error, "Direct3D11 initialization failed.");
 		throw std::runtime_error("Direct3D11 initialization failed.");
 	}
 }

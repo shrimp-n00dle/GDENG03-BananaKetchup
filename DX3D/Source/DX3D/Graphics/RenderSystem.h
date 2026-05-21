@@ -9,7 +9,7 @@ namespace dx3d
 	class RenderSystem final: public Base
 	{
 	public:
-		RenderSystem();
+		explicit RenderSystem(const RenderSystemDesc& desc);
 		virtual ~RenderSystem() override;
 
 	private:
