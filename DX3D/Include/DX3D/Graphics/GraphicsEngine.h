@@ -16,6 +16,7 @@ namespace dx3d
 	private:
 		std::shared_ptr<RenderSystem> m_renderSystem{};
 		DeviceContextPtr m_deviceContext{};
+		GraphicsPipelineStatePtr m_pipeline{};
 	};
 }
 
