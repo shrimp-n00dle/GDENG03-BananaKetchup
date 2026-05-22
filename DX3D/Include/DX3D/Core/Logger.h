@@ -27,7 +27,6 @@ namespace dx3d
 	private:
 		LogLevel m_logLevel = LogLevel::Error;
 	};
-}
 
 #define DX3DLog(logger,type,message)\
 logger.log((type), message)
@@ -37,3 +36,6 @@ logger.log((type), message)
 DX3DLog(logger,type,message);\
 throw exception(message);\
 }
+
+}
+

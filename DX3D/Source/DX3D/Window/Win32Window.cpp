@@ -1,4 +1,5 @@
 #include <DX3D/Window/Window.h>
+
 static LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	switch (msg)
