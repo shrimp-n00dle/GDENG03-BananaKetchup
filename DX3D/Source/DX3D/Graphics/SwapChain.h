@@ -9,6 +9,8 @@ namespace dx3d
 		SwapChain(const SwapChainDesc& desc,
 				const GraphicsResourceDesc& gDesc);
 
+		Rect getSize() const noexcept;
+
 		void present(bool vsync = false);
 	private:
 		void reloadBuffers();
@@ -16,6 +18,8 @@ namespace dx3d
 	private:
 		Microsoft::WRL::ComPtr<IDXGISwapChain> m_swapChain{};
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_rtv{};
+
+		Rect m_size{};
 
 		friend class DeviceContext;
 	};
