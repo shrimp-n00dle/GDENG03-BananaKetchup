@@ -2,6 +2,9 @@
 #include <DX3D/Graphics/GraphicsLogUtils.h>
 #include <DX3D/Graphics/SwapChain.h>
 #include <DX3D/Graphics/DeviceContext.h>
+#include <DX3D/Graphics/ShaderBinary.h>
+#include <DX3D/Graphics/GraphicsPipelineState.h>
+#include <DX3D/Graphics/VertexBuffer.h>
 
 using namespace dx3d;
 
@@ -13,7 +16,6 @@ dx3d::RenderSystem::RenderSystem(const RenderSystemDesc& desc) : Base(desc.base)
 	#ifdef _DEBUG
 	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 	#endif
-
 
 	DX3DGraphicsLogErrorAndThrow(D3D11CreateDevice(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, createDeviceFlags, NULL,
 		0, D3D11_SDK_VERSION,
@@ -44,6 +46,21 @@ SwapChainPtr dx3d::RenderSystem::createSwapChain(const SwapChainDesc& desc)
 DeviceContextPtr dx3d::RenderSystem::createDeviceContext()
 {
 	return std::make_shared<DeviceContext>(getGraphicsResourceDesc());
+}
+
+ShaderBinaryPtr dx3d::RenderSystem::compileShader(const ShaderCompileDesc& desc)
+{
+	return std::make_shared<ShaderBinary>(desc, getGraphicsResourceDesc());
+}
+
+GraphicsPipelineStatePtr dx3d::RenderSystem::createGraphicsPipelineState(const GraphicsPipelineStateDesc& desc)
+{
+	return std::make_shared<GraphicsPipelineState>(desc, getGraphicsResourceDesc());
+}
+
+VertexBufferPtr dx3d::RenderSystem::createVertexBuffer(const VertexBufferDesc& desc)
+{
+	return std::make_shared<VertexBuffer>(desc, getGraphicsResourceDesc());
 }
 
 void dx3d::RenderSystem::executeCommandList(DeviceContext& context)

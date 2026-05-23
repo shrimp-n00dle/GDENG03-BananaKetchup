@@ -1,7 +1,7 @@
 #include <DX3D/All.h>
 
 
-//STOPPED AT 37:32 OF VIDEO #2
+//STOPPED AT 47:55 OF VIDEO #5
 int main()
 {
 	try
@@ -10,6 +10,10 @@ int main()
 		game.run();
 	}
 	catch (const std::runtime_error&)
+	{
+		return EXIT_FAILURE;
+	}
+	catch (const std::invalid_argument&)
 	{
 		return EXIT_FAILURE;
 	}
