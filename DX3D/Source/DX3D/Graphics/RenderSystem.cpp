@@ -5,6 +5,7 @@
 #include <DX3D/Graphics/ShaderBinary.h>
 #include <DX3D/Graphics/GraphicsPipelineState.h>
 #include <DX3D/Graphics/VertexBuffer.h>
+#include <DX3D/Graphics/VertexShaderSignature.h>
 
 using namespace dx3d;
 
@@ -61,6 +62,11 @@ GraphicsPipelineStatePtr dx3d::RenderSystem::createGraphicsPipelineState(const G
 VertexBufferPtr dx3d::RenderSystem::createVertexBuffer(const VertexBufferDesc& desc)
 {
 	return std::make_shared<VertexBuffer>(desc, getGraphicsResourceDesc());
+}
+
+VertexShaderSignaturePtr dx3d::RenderSystem::createVertexShaderSignature(const VertexShaderSignatureDesc& desc)
+{
+	return std::make_shared<VertexShaderSignature>(desc, getGraphicsResourceDesc());
 }
 
 void dx3d::RenderSystem::executeCommandList(DeviceContext& context)

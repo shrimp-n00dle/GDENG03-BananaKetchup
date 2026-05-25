@@ -1,7 +1,7 @@
 #include <DX3D/All.h>
 
 
-//STOPPED AT 47:55 OF VIDEO #5
+//STOPPED AT 55:14
 int main()
 {
 	try

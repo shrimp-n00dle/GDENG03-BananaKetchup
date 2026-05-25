@@ -33,16 +33,24 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	auto ps = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
 	"PSMain", ShaderType::PixelShader });
 
-	m_pipeline = device.createGraphicsPipelineState({*vs, *ps});
+	auto vsSig = device.createVertexShaderSignature({vs});
 
-	const Vec3 vertextList[] =
+	m_pipeline = device.createGraphicsPipelineState({*vsSig, *ps});
+
+	const Vertex vertextList[] =
 	{
-		{-1.0f,-0.5f,0.0f},
-		{0.0f,1.0f,0.0f},
-		{1.0f,-0.5f,0.0f}
+		//Position            //Color
+		{ {-0.5f,-0.5f,0.0f}, {1,0,0,1} },
+		{ {-0.5f,0.5f,0.0f},  {0,1,0,1} },
+		{ {0.5f,0.5f,0.0f},   {0,0,1,1} },
+
+		
+		{ {0.5f,0.5f,0.0f},   {0,0,1,1} },
+		{ {0.5f,-0.5f,0.0f},  {0,0,1,1} },
+		{ {-0.5f,-0.5f,0.0f}, {1,0,0,1} }
 	};
 
-	m_vb = device.createVertexBuffer({vertextList, std::size(vertextList), sizeof(Vec3)});
+	m_vb = device.createVertexBuffer({vertextList, std::size(vertextList), sizeof(Vertex)});
 }
 
 
@@ -59,7 +67,7 @@ RenderSystem& dx3d::GraphicsEngine::getRenderSystem()noexcept
 void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 {
 	auto& context = *m_deviceContext;
-	context.clearAndSetBackBuffer(swapChain, { 1, 0, 0, 1 });
+	context.clearAndSetBackBuffer(swapChain, { 0.27f, 0.39f,0.55f, 1.0f });
 	context.setGraphicsPipelineState(*m_pipeline);
 
 	context.setViewportSize(swapChain.getSize());
