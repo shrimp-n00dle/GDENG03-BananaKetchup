@@ -30,6 +30,9 @@ namespace dx3d
 
 		//Triangle
 		VertexBufferPtr m_vb2{};
+
+		//Green Rectangle
+		VertexBufferPtr m_vb3{};
 	};
 }
 
