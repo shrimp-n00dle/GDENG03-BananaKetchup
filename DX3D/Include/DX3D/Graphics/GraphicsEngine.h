@@ -27,6 +27,9 @@ namespace dx3d
 		DeviceContextPtr m_deviceContext{};
 		GraphicsPipelineStatePtr m_pipeline{};
 		VertexBufferPtr m_vb{};
+
+		//Triangle
+		VertexBufferPtr m_vb2{};
 	};
 }
 
