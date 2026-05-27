@@ -50,7 +50,16 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 		{ {-0.5f,-0.5f,0.0f}, {1,0,0,1} }
 	};
 
+	const Vertex vertextList2[] =
+	{
+		//Position            //Color
+		{ {0.5f,0.5f,0.0f}, {0,1,0,0} },
+		{ {0.5f,0.5f,0.0f},  {0,1,0,0} },
+		{ {0.5f,0.5f,0.0f},   {0,1,0,0} },
+	};
+
 	m_vb = device.createVertexBuffer({vertextList, std::size(vertextList), sizeof(Vertex)});
+	m_vb = device.createVertexBuffer({ vertextList2, std::size(vertextList2), sizeof(Vertex) });
 }
 
 
