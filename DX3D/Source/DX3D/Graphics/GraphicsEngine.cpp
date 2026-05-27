@@ -59,7 +59,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	};
 
 	m_vb = device.createVertexBuffer({vertextList, std::size(vertextList), sizeof(Vertex)});
-	m_vb = device.createVertexBuffer({ vertextList2, std::size(vertextList2), sizeof(Vertex) });
+	//m_vb = device.createVertexBuffer({ vertextList2, std::size(vertextList2), sizeof(Vertex) });
 }
 
 
