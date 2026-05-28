@@ -54,9 +54,9 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	const Vertex vertextList2[] =
 	{
 		//Position            //Color
-		{ {0.25f,-0.25f,0.0f}, {1,0,0,1} },
-		{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
-		{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
+		{ {-0.90f,-0.25f,0.0f}, {1,0,0,1} },
+		{ {-0.90f,0.25f,0.0f},  {0,1,0,1} },
+		{ {-0.30f,0.25f,0.0f},   {0,0,1,1} },
 	};
 
 	//Green Rectangle
