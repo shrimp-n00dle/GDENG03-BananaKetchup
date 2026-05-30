@@ -54,23 +54,23 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	const Vertex vertextList2[] =
 	{
 		//Position            //Color
-		{ {-0.90f,-0.25f,0.0f}, {1,0,0,1} },
-		{ {-0.90f,0.25f,0.0f},  {0,1,0,1} },
-		{ {-0.30f,0.25f,0.0f},   {0,0,1,1} },
+		{ {-0.9f,-0.25f,0.0f}, {1,0,0,1} },
+		{ {-0.60f,0.25f,0.0f},  {0,1,0,1} },
+		{ {-0.3f,-0.25f,0.0f},   {0,0,1,1} },
 	};
 
 	//Green Rectangle
 	const Vertex vertextList3[] =
 	{
 		//Position            //Color
-		{ {-0.1f,-0.1f,0.0f}, {0,1,0,1} },
-		{ {-0.1f,0.1f,0.0f},  {0,1,0,1} },
-		{ {0.1f,0.1f,0.0f},   {0,1,0,1} },
+		{ {0.4f,-0.25f,0.0f}, {0,1,0,1} },
+		{ {0.4f,0.25f,0.0f},  {0,1,0,1} },
+		{ {0.8f,0.25f,0.0f},   {0,1,0,1} },
 
 
-		{ {0.1f,0.1f,0.0f},   {0,1,0,1} },
-		{ {0.1f,-0.1f,0.0f},  {0,1,0,1} },
-		{ {-0.1f,-0.1f,0.0f}, {0,1,0,1} }
+		{ {0.8f,0.25f,0.0f},   {0,1,0,1} },
+		{ {0.8f,-0.25f,0.0f},  {0,1,0,1} },
+		{ {0.4f,-0.25f,0.0f}, {0,1,0,1} }
 	};
 
 	m_vb = device.createVertexBuffer({vertextList, std::size(vertextList), sizeof(Vertex)});
