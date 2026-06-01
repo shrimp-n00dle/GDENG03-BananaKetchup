@@ -10,10 +10,10 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 
 namespace bananaCatsup
 {
-	class TicketHolder
+	class TicketHolder final
 	{
 	public:
-		TicketHolder();
+		explicit TicketHolder();
 		~TicketHolder();
 
 		HRESULT Initialize(HWND hwndParent);
