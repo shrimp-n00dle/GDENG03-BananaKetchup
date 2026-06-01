@@ -69,6 +69,11 @@ VertexShaderSignaturePtr dx3d::RenderSystem::createVertexShaderSignature(const V
 	return std::make_shared<VertexShaderSignature>(desc, getGraphicsResourceDesc());
 }
 
+ConstantBufferPtr dx3d::RenderSystem::createConstantBuffer(const ConstantBufferDesc& desc)
+{
+	return std::make_shared<ConstantBuffer>(desc, getGraphicsResourceDesc());
+}
+
 void dx3d::RenderSystem::executeCommandList(DeviceContext& context)
 {
 	Microsoft::WRL::ComPtr<ID3D11CommandList> list{};

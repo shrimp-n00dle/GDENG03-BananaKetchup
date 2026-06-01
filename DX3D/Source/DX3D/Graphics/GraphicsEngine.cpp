@@ -5,6 +5,7 @@
 #include <DX3D/Graphics/VertexBuffer.h>
 #include <DX3D/Math/Vec3.h>
 #include <fstream>
+#include <Windows.h>
 
 using namespace dx3d;
 
@@ -77,6 +78,11 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	m_vb2 = device.createVertexBuffer({ vertextList2, std::size(vertextList2), sizeof(Vertex) });
 	m_vb3 = device.createVertexBuffer({ vertextList3, std::size(vertextList3), sizeof(Vertex) });
 
+	//COnstant Buffer
+	constant cc;
+	cc.m_time = 0;
+
+	m_cb = device.createConstantBuffer({ &cc, sizeof(constant) });
 }
 
 
@@ -100,7 +106,7 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 
 	auto& vb = *m_vb;
 	context.setVertexBuffer(vb);
-	context.drawTriangleList(vb.getVertexListSize(),0u);
+	context.drawTriangleList(vb.getVertexListSize(), 0u);
 
 	//Triangle Rainbow
 	auto& vb2 = *m_vb2;
@@ -111,6 +117,13 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 	auto& vb3 = *m_vb3;
 	context.setVertexBuffer(vb3);
 	context.drawTriangleList(vb3.getVertexListSize(), 0u);
+
+	//Constant Buffer
+	constant cc;
+	cc.m_time = ::GetTickCount();
+
+	context.setConstantBuffer({cc,&m_cb});
+
 
 	auto& device = *m_renderSystem;
 	device.executeCommandList(context);

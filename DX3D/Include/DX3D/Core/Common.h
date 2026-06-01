@@ -94,4 +94,10 @@ namespace dx3d
 		Rect windowSize{ 1280,720 };
 		Logger::LogLevel logLevel = Logger::LogLevel::Error;
 	};
+
+	_declspec(align(16))
+		struct constant
+	{
+		unsigned int m_time;
+	};
 }
