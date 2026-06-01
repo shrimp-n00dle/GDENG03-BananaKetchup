@@ -11,11 +11,28 @@ namespace bananaCatsup
 		TicketHolder();
 		~TicketHolder();
 
+		HRESULT Initialize(HWND hwndParent);
+
+		HWND GetHwnd() { return hwnd_; }
+
+	private:
 		HRESULT CreateDeviceIndependentResources();
 		HRESULT CreateDeviceResources();
 		void DiscardDeviceResources();
-
 		HRESULT drawText();
+
+		void OnResize(
+			UINT width,
+			UINT height
+		);
+
+		static LRESULT CALLBACK WndProc(
+			HWND hWnd,
+			UINT message,
+			WPARAM wParam,
+			LPARAM lParam
+		);
+
 	private:
 		//holding the text string
 		const wchar_t* wszText_;

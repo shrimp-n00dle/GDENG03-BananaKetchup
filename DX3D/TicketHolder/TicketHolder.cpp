@@ -10,6 +10,96 @@ bananaCatsup::TicketHolder::~TicketHolder()
 {
 }
 
+HRESULT bananaCatsup::Initialize(HWND hwndParent)
+{
+    WNDCLASSEX wcex;
+
+    //get the dpi information
+    HDC screen = GetDC(0);
+    dpiScaleX_ = GetDeviceCaps(screen, LOGPIXELSX) / 96.0f;
+    dpiScaleY_ = GetDeviceCaps(screen, LOGPIXELSY) / 96.0f;
+    ReleaseDC(0, screen);
+
+    HRESULT hr = S_OK;
+
+    ATOM atom;
+
+    // Register window class.
+    wcex.cbSize = sizeof(WNDCLASSEX);
+    wcex.style = CS_HREDRAW | CS_VREDRAW;
+    wcex.lpfnWndProc = bananaCatsup::WndProc;
+    wcex.cbClsExtra = 0;
+    wcex.cbWndExtra = sizeof(LONG_PTR);
+    wcex.hInstance = HINST_THISCOMPONENT;
+    wcex.hbrBackground = NULL;
+    wcex.lpszMenuName = NULL;
+    wcex.hIcon = LoadIcon(
+        NULL,
+        IDI_APPLICATION);
+    wcex.hCursor = LoadCursor(
+        NULL,
+        IDC_ARROW);
+    wcex.lpszClassName = TEXT("D2DSimpleText");
+    wcex.hIconSm = LoadIcon(
+        NULL,
+        IDI_APPLICATION
+    );
+
+    atom = RegisterClassEx(
+        &wcex
+    );
+
+    hr = atom ? S_OK : E_FAIL;
+
+    // Create window.
+    hwnd_ = CreateWindow(
+        TEXT("D2DSimpleText"),
+        TEXT(""),
+        WS_CHILD,
+        0,
+        0,
+        static_cast<int>(640.0f / dpiScaleX_),
+        static_cast<int>(480.0f / dpiScaleY_),
+        hwndParent,
+        NULL,
+        HINST_THISCOMPONENT,
+        this
+    );
+
+    if (SUCCEEDED(hr))
+    {
+        hr = hwnd_ ? S_OK : E_FAIL;
+    }
+
+    if (SUCCEEDED(hr))
+    {
+        hr = CreateDeviceIndependentResources(
+        );
+    }
+
+
+    if (SUCCEEDED(hr))
+    {
+        ShowWindow(
+            hwnd_,
+            SW_SHOWNORMAL
+        );
+
+
+        UpdateWindow(
+            hwnd_
+        );
+    }
+
+    if (SUCCEEDED(hr))
+    {
+        DrawD2DContent();
+    }
+
+    return hr;
+}
+
+
 HRESULT bananaCatsup::TicketHolder::CreateDeviceIndependentResources()
 {
     HRESULT hr;
