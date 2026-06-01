@@ -3,6 +3,11 @@
 #include <d2d1.h>
 #include <wrl.h>
 
+#ifndef HINST_THISCOMPONENT
+EXTERN_C IMAGE_DOS_HEADER __ImageBase;
+#define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)
+#endif
+
 namespace bananaCatsup
 {
 	class TicketHolder
@@ -19,6 +24,7 @@ namespace bananaCatsup
 		HRESULT CreateDeviceIndependentResources();
 		HRESULT CreateDeviceResources();
 		void DiscardDeviceResources();
+		HRESULT DrawD2DContent();
 		HRESULT drawText();
 
 		void OnResize(

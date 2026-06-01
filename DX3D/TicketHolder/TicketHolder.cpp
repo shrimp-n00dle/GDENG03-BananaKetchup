@@ -10,7 +10,7 @@ bananaCatsup::TicketHolder::~TicketHolder()
 {
 }
 
-HRESULT bananaCatsup::Initialize(HWND hwndParent)
+HRESULT bananaCatsup::TicketHolder::Initialize(HWND hwndParent)
 {
     WNDCLASSEX wcex;
 
@@ -27,7 +27,7 @@ HRESULT bananaCatsup::Initialize(HWND hwndParent)
     // Register window class.
     wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc = bananaCatsup::WndProc;
+    wcex.lpfnWndProc = bananaCatsup::TicketHolder::WndProc;
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = sizeof(LONG_PTR);
     wcex.hInstance = HINST_THISCOMPONENT;
@@ -145,6 +145,8 @@ HRESULT bananaCatsup::TicketHolder::CreateDeviceIndependentResources()
     {
         hr = pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
     }
+
+    return hr;
 }
 
 HRESULT bananaCatsup::TicketHolder::CreateDeviceResources()
@@ -176,6 +178,8 @@ HRESULT bananaCatsup::TicketHolder::CreateDeviceResources()
             );
         }
     }
+
+    return hr;
 }
 
 void bananaCatsup::TicketHolder::DiscardDeviceResources()
@@ -206,12 +210,117 @@ HRESULT bananaCatsup::TicketHolder::drawText()
     pRT_->DrawText(
         wszText_,        // The string to render.
         cTextLength_,    // The string's length.
-        pTextFormat_,    // The text format.
+        pTextFormat_.Get(),    // The text format.
         layoutRect,       // The region of the window where the text will be rendered.
-        pBlackBrush_     // The brush used to draw the text.
+        pBlackBrush_.Get()     // The brush used to draw the text.
     );
 
 
     return S_OK;
+}
+
+
+HRESULT bananaCatsup::TicketHolder::DrawD2DContent()
+{
+    HRESULT hr;
+
+
+    hr = CreateDeviceResources();
+
+    if (!(pRT_->CheckWindowState() & D2D1_WINDOW_STATE_OCCLUDED))
+    {
+        pRT_->BeginDraw();
+
+        pRT_->SetTransform(D2D1::IdentityMatrix());
+
+        pRT_->Clear(D2D1::ColorF(D2D1::ColorF::White));
+
+        // Call the DrawText method of this class.
+        hr = drawText();
+
+        if (SUCCEEDED(hr))
+        {
+            hr = pRT_->EndDraw(
+            );
+        }
+    }
+
+    if (FAILED(hr))
+    {
+        DiscardDeviceResources();
+    }
+
+
+    return hr;
+}
+
+
+void bananaCatsup::TicketHolder::OnResize(UINT width, UINT height)
+{
+    if (pRT_)
+    {
+        D2D1_SIZE_U size;
+        size.width = width;
+        size.height = height;
+        pRT_->Resize(size);
+    }
+}
+
+LRESULT CALLBACK bananaCatsup::TicketHolder::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    if (message == WM_CREATE)
+    {
+        LPCREATESTRUCT pcs = (LPCREATESTRUCT)lParam;
+        TicketHolder* pSimpleText = (TicketHolder*)pcs->lpCreateParams;
+
+        ::SetWindowLongPtrW(
+            hwnd,
+            GWLP_USERDATA,
+            PtrToUlong(pSimpleText));
+
+        return 1;
+    }
+
+    TicketHolder* pSimpleText = reinterpret_cast<TicketHolder*>(
+        ::GetWindowLongPtr(hwnd, GWLP_USERDATA));
+
+    if (pSimpleText)
+    {
+        switch (message)
+        {
+        case WM_SIZE:
+        {
+            UINT width = LOWORD(lParam);
+            UINT height = HIWORD(lParam);
+            pSimpleText->OnResize(width, height);
+        }
+        return 0;
+
+        case WM_PAINT:
+        case WM_DISPLAYCHANGE:
+        {
+            PAINTSTRUCT ps;
+            BeginPaint(hwnd, &ps);
+            pSimpleText->DrawD2DContent();
+            EndPaint(
+                hwnd,
+                &ps
+            );
+        }
+        return 0;
+
+        case WM_DESTROY:
+        {
+            PostQuitMessage(0);
+        }
+        return 1;
+        }
+    }
+    return DefWindowProc(
+        hwnd,
+        message,
+        wParam,
+        lParam
+    );
 }
 
