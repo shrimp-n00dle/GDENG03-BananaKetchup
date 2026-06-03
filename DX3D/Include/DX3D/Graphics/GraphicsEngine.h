@@ -19,9 +19,9 @@ namespace dx3d
 
 		void render(SwapChain& swapChain);
 	public:
-	
-	private:
 		std::shared_ptr<RenderSystem> m_renderSystem{};
+	private:
+		
 		DeviceContextPtr m_deviceContext{};
 		GraphicsPipelineStatePtr m_pipeline{};
 		VertexBufferPtr m_vb{};

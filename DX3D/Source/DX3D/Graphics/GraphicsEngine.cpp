@@ -37,20 +37,23 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 	m_pipeline = device.createGraphicsPipelineState({*vsSig, *ps});
 
+	//Baking shapes here
 
 
-	const Vertex vertextList[] =
-	{
-		//Position            //Color
-		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
-		{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
-		{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
 
-		
-		{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
-		{ {0.25f,-0.25f,0.0f},  {0,0,1,1} },
-		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
-	};
+
+	//const Vertex vertextList[] =
+	//{
+	//	//Position            //Color
+	//	{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
+	//	{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
+	//	{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
+
+	//	
+	//	{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
+	//	{ {0.25f,-0.25f,0.0f},  {0,0,1,1} },
+	//	{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
+	//};
 
 	//Traingle Rainbow
 	//const Vertex vertextList2[] =
@@ -75,7 +78,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	//	{ {0.4f,-0.25f,0.0f}, {0,1,0,1} }
 	//};
 
-	m_vb = device.createVertexBuffer({vertextList, std::size(vertextList), sizeof(Vertex)});
+	//m_vb = device.createVertexBuffer({vertextList, std::size(vertextList), sizeof(Vertex)});
 	//m_vb2 = device.createVertexBuffer({ vertextList2, std::size(vertextList2), sizeof(Vertex) });
 	//m_vb3 = device.createVertexBuffer({ vertextList3, std::size(vertextList3), sizeof(Vertex) });
 
@@ -100,9 +103,11 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 
 	context.setViewportSize(swapChain.getSize());
 
-	auto& vb = *m_vb;
+	//Shoawing shapes here
+
+	/*auto& vb = *m_vb;
 	context.setVertexBuffer(vb);
-	context.drawTriangleList(vb.getVertexListSize(),0u);
+	context.drawTriangleList(vb.getVertexListSize(),0u);*/
 
 	////Triangle Rainbow
 	//auto& vb2 = *m_vb2;

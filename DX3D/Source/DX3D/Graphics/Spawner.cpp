@@ -8,21 +8,32 @@ catsup::Spawner::~Spawner()
 {
 }
 
-void catsup::Spawner::bakeShapes(int index)
+void catsup::Spawner::bakeShapes(int index, RenderSystem& device)
 {
 	for (int i = 0; i < index; i++)
 	{
 	//Create the shape
-	//Position            //Color
-	
+	const Vertex vertextList[] =
+	{
+		//Position            //Color
+		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
+		{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
+		{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
 
-	//Create the shape color
+		
+		{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
+		{ {0.25f,-0.25f,0.0f},  {0,0,1,1} },
+		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
+	};
 
+	//Add it to the VertexBufferPtr
+	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
 
-		//Add to list
+	//Add to buffer list
+	bufferList.push_back(m_vb);
 
-		//Message prompt
-		std::cout << "Shape number# " << i << " printed!" << std::endl;
+	//Message prompt
+	std::cout << "Shape number# " << i << " printed!" << std::endl;
 	}
 }
 
