@@ -1,8 +1,11 @@
 #pragma once
 #include <DX3D/Core/Core.h>
 #include <DX3D/Core/Base.h>
-#include <DX3D/Math/Vec3.h>
-#include <DX3D/Math/Vec4.h>
+//#include <DX3D/Math/Vec3.h>
+//#include <DX3D/Math/Vec4.h>
+#include <DX3D/Math/Vertex.h>
+
+#include <DX3D/Graphics/Spawner.h>
 
 namespace dx3d
 {
@@ -16,12 +19,7 @@ namespace dx3d
 
 		void render(SwapChain& swapChain);
 	public:
-		//MUST BE EXACT TO BASIC.HLSL or it wont work
-		struct Vertex
-		{
-			Vec3 position;
-			Vec4 color;
-		};
+	
 	private:
 		std::shared_ptr<RenderSystem> m_renderSystem{};
 		DeviceContextPtr m_deviceContext{};

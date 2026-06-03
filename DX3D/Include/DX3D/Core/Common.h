@@ -28,6 +28,11 @@ namespace dx3d
 		BaseDesc base;
 	};
 
+	struct SpawnerDesc
+	{
+		BaseDesc base;
+	};
+
 	struct RenderSystemDesc
 	{
 		BaseDesc base;
