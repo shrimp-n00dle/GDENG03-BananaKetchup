@@ -15,7 +15,7 @@ namespace dx3d
 		RenderSystem& getRenderSystem() noexcept;
 
 		void render(SwapChain& swapChain);
-	private:
+	public:
 		//MUST BE EXACT TO BASIC.HLSL or it wont work
 		struct Vertex
 		{
