@@ -40,10 +40,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 	//Baking shapes here
 	auto& spawner = *m_spawner;
-
-	VertexBufferPtr test{};
-	test = spawner.bakeShapes(1, device);
-	spawner.addBuffer(test);
+	spawner.bakeShapes(1,device);
 	
 
 	//const Vertex vertextList[] =

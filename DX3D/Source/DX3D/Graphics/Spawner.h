@@ -21,7 +21,7 @@ namespace catsup
 		explicit Spawner(const SpawnerDesc& desc);
 		virtual ~Spawner() override;
 
-		VertexBufferPtr bakeShapes(int index, RenderSystem& device);
+		void bakeShapes(int index, RenderSystem& device);
 		void decoShapes(DeviceContext& context);
 		void addBuffer(VertexBufferPtr m_vb);
 		VertexBufferPtr getList();
@@ -37,5 +37,6 @@ namespace catsup
 
 		//list of vertex buffers
 		std::vector<VertexBufferPtr> bufferList;
+		VertexBufferPtr originalCopy{};
 	};
 }

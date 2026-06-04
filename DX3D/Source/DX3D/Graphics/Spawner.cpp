@@ -9,44 +9,33 @@ catsup::Spawner::~Spawner()
 {
 }
 
-VertexBufferPtr catsup::Spawner::bakeShapes(int index, RenderSystem& device)
+void catsup::Spawner::bakeShapes(int index, RenderSystem& device)
 {
-	VertexBufferPtr test{};
-	bool bTesting = true;
-
-	if (bTesting)
+	for (int i = 0; i < index; i++)
 	{
-		for (int i = 0; i < index; i++)
+		//Create the shape
+		const Vertex vertextList[] =
 		{
-			//Create the shape
-			const Vertex vertextList[] =
-			{
-				//Position            //Color
-				{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
-				{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
-				{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
+			//Position            //Color
+			{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
+			{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
+			{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
 
 
-				{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
-				{ {0.25f,-0.25f,0.0f},  {0,0,1,1} },
-				{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
-			};
+			{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
+			{ {0.25f,-0.25f,0.0f},  {0,0,1,1} },
+			{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
+		};
 
-			
-			//Add it to the VertexBufferPtr
-			//m_vb =
-
-			test = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
-
-			//Add to buffer list
-			//bufferList.push_back(test);
-
-			//Message prompt
-			std::cout << "Shape number# " << i + 1 << " printed!" << std::endl;
+		if (originalCopy == nullptr) {
+			std::cout << "NULL";
 		}
-	};
 
-	return test;
+		originalCopy = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
+
+		//Message prompt
+		std::cout << "Shape number# " << i + 1 << " printed!" << std::endl;
+	};
 }
 
 void catsup::Spawner::addBuffer(VertexBufferPtr m_vb)
@@ -64,10 +53,9 @@ void catsup::Spawner::decoShapes(DeviceContext& context)
 {
 	//std::list<VertexBufferPtr>* listPtr = &bufferList;
 	//std::list<VertexBufferPtr&>::iterator i = listPtr.begin();
-	//auto& vb = bufferList.at(0);//std::next(bufferList.begin(), 0);
-	//std::cout << bufferList.at(0) << std::endl;
-	//context.setVertexBuffer(*vb);
-	//context.drawTriangleList(*vb->getVertexListSize(), 0u);
+	auto& vb = *originalCopy;
+	context.setVertexBuffer(vb);
+	context.drawTriangleList(vb.getVertexListSize(), 0u);
 
 	//for (const auto& index : bufferList)
 	//{
