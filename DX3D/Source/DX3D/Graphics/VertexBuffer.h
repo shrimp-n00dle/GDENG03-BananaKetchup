@@ -8,6 +8,8 @@ namespace dx3d
 	public:
 		VertexBuffer(const VertexBufferDesc& desc,const GraphicsResourceDesc& gDesc);
 		ui32 getVertexListSize() const noexcept;
+		Microsoft::WRL::ComPtr<ID3D11Buffer> getBuffer();
+		int TEST();
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_buffer{};
 		ui32 m_vertexSize{};

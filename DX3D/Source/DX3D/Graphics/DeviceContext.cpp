@@ -54,3 +54,8 @@ void dx3d::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLoc
 	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	m_context->Draw(vertexCount, startVertexLocation);
 }
+
+Microsoft::WRL::ComPtr<ID3D11DeviceContext> dx3d::DeviceContext::getContext()
+{
+	return m_context;
+}

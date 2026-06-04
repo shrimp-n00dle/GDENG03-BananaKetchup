@@ -1,5 +1,6 @@
 #include "Spawner.h"
-#include <iterator> // Required for std::next
+#include <iterator>
+
 
 catsup::Spawner::Spawner(const SpawnerDesc& desc) : Base(desc.base)
 {
@@ -52,9 +53,19 @@ void catsup::Spawner::decoShapes(VertexBufferPtr vb,DeviceContext& context)
 {
 	//std::list<VertexBufferPtr>* listPtr = &bufferList;
 	//std::list<VertexBufferPtr&>::iterator i = listPtr.begin();
-	auto& copy = *vb;
-	context.setVertexBuffer(copy);
-	context.drawTriangleList(copy.getVertexListSize(), 0u);
+	copyShape copyData =
+	{
+		DirectX::XMFLOAT4(0.3,0.3,0.0,0.0)
+	};
+	
+	ID3D11Resource* copyBuffer = static_cast<ID3D11Resource*>(vb->getBuffer().Get());
+	context.getContext()->UpdateSubresource(copyBuffer, 0, nullptr, &copyData, 0, 0);
+		auto& copy = *vb;
+		//context.setVertexBuffer(copy);
+		context.getContext()->VSSetConstantBuffers(0,1,vb->getBuffer().GetAddressOf());
+		context.drawTriangleList(copy.getVertexListSize(), 0u);
+		std::cout << "SHAPEE " << std::endl;
+
 
 	//for (const auto& index : bufferList)
 	//{

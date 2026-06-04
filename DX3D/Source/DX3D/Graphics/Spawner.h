@@ -8,13 +8,21 @@
 #include <DX3D/Graphics/VertexBuffer.h>
 #include <list>
 #include <vector> // Required header
+#include <DirectXMath.h>
 
 #include <iostream>
 
 using namespace dx3d;
 
+
+
 namespace catsup
 {
+
+	struct copyShape {
+		DirectX::XMFLOAT4 newPos;
+	};
+
 	class Spawner final : public Base
 	{
 	public:
@@ -27,10 +35,9 @@ namespace catsup
 		VertexBufferPtr getList();
 
 
-		//bool b
+		bool bDone;
 
 	private:
-		//Each QUAD
 
 		//Has a list of the vertices and colors
 		std::list<Vertex> objlist;

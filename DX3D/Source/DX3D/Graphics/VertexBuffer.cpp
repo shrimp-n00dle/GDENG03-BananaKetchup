@@ -24,3 +24,13 @@ dx3d::ui32 dx3d::VertexBuffer::getVertexListSize() const noexcept
 	return m_vertextListSize;
 }
 
+Microsoft::WRL::ComPtr<ID3D11Buffer> dx3d::VertexBuffer::getBuffer()
+{
+	return m_buffer;
+}
+
+int dx3d::VertexBuffer::TEST()
+{
+	return 0;
+}
+
