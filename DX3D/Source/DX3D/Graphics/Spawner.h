@@ -7,6 +7,7 @@
 #include <DX3D/Graphics/DeviceContext.h>
 #include <DX3D/Graphics/VertexBuffer.h>
 #include <list>
+#include <vector> // Required header
 
 #include <iostream>
 
@@ -23,6 +24,8 @@ namespace catsup
 		VertexBufferPtr bakeShapes(int index, RenderSystem& device);
 		void decoShapes(DeviceContext& context);
 		void addBuffer(VertexBufferPtr m_vb);
+		VertexBufferPtr getList();
+
 
 		//bool b
 
@@ -33,6 +36,6 @@ namespace catsup
 		std::list<Vertex> objlist;
 
 		//list of vertex buffers
-		std::list<VertexBufferPtr> bufferList;
+		std::vector<VertexBufferPtr> bufferList;
 	};
 }

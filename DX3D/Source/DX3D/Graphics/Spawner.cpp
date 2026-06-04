@@ -39,7 +39,7 @@ VertexBufferPtr catsup::Spawner::bakeShapes(int index, RenderSystem& device)
 			test = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
 
 			//Add to buffer list
-			//bufferList.push_back(m_vb);
+			//bufferList.push_back(test);
 
 			//Message prompt
 			std::cout << "Shape number# " << i + 1 << " printed!" << std::endl;
@@ -52,15 +52,22 @@ VertexBufferPtr catsup::Spawner::bakeShapes(int index, RenderSystem& device)
 void catsup::Spawner::addBuffer(VertexBufferPtr m_vb)
 {
 	bufferList.push_back(m_vb);
+	std::cout << "LIST SIZE IS " << bufferList.size() << std::endl;
+}
+
+VertexBufferPtr catsup::Spawner::getList()
+{
+	return bufferList[0];
 }
 
 void catsup::Spawner::decoShapes(DeviceContext& context)
 {
 	//std::list<VertexBufferPtr>* listPtr = &bufferList;
 	//std::list<VertexBufferPtr&>::iterator i = listPtr.begin();
-	//auto& vb = bufferList.begin();//std::next(bufferList.begin(), 0);
-	//context.setVertexBuffer(vb);
-	//context.drawTriangleList(vb.getVertexListSize(), 0u);
+	//auto& vb = bufferList.at(0);//std::next(bufferList.begin(), 0);
+	//std::cout << bufferList.at(0) << std::endl;
+	//context.setVertexBuffer(*vb);
+	//context.drawTriangleList(*vb->getVertexListSize(), 0u);
 
 	//for (const auto& index : bufferList)
 	//{

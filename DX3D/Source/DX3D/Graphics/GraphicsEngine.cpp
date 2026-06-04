@@ -41,13 +41,10 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	//Baking shapes here
 	auto& spawner = *m_spawner;
 
-
-	for (int i = 0; i > 2; i++)
-	{
-		VertexBufferPtr test{};
-		test = spawner.bakeShapes(1, device);
-		spawner.addBuffer(test);
-	}
+	VertexBufferPtr test{};
+	test = spawner.bakeShapes(1, device);
+	spawner.addBuffer(test);
+	
 
 	//const Vertex vertextList[] =
 	//{
@@ -113,6 +110,10 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 	//Shoawing shapes here
 	auto& spawner = *m_spawner;
 	spawner.decoShapes(context);
+
+	/*auto& vb = spawner.getList();
+	context.setVertexBuffer(vb);
+	context.drawTriangleList(vb.getVertexListSize(), 0u);*/
 
 	/*auto& vb = *m_vb;
 	context.setVertexBuffer(vb);
