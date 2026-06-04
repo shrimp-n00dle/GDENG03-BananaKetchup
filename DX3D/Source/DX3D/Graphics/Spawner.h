@@ -4,6 +4,8 @@
 #include <DX3D/Graphics/GraphicsEngine.h>
 #include <DX3D/Graphics/RenderSystem.h>
 #include <DX3D/Math/Vertex.h>
+#include <DX3D/Graphics/DeviceContext.h>
+#include <DX3D/Graphics/VertexBuffer.h>
 #include <list>
 
 #include <iostream>
@@ -18,8 +20,11 @@ namespace catsup
 		explicit Spawner(const SpawnerDesc& desc);
 		virtual ~Spawner() override;
 
-		void bakeShapes(int index, RenderSystem& device);
+		VertexBufferPtr bakeShapes(int index, RenderSystem& device);
 		void decoShapes(DeviceContext& context);
+		void addBuffer(VertexBufferPtr m_vb);
+
+		//bool b
 
 	private:
 		//Each QUAD
@@ -29,8 +34,5 @@ namespace catsup
 
 		//list of vertex buffers
 		std::list<VertexBufferPtr> bufferList;
-		VertexBufferPtr m_vb{};
-
-
 	};
 }
