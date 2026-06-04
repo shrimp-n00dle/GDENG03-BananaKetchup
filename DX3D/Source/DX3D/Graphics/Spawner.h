@@ -21,8 +21,8 @@ namespace catsup
 		explicit Spawner(const SpawnerDesc& desc);
 		virtual ~Spawner() override;
 
-		void bakeShapes(int index, RenderSystem& device);
-		void decoShapes(DeviceContext& context);
+		VertexBufferPtr bakeShapes(int index, RenderSystem& device);
+		void decoShapes(VertexBufferPtr vb,DeviceContext& context);
 		void addBuffer(VertexBufferPtr m_vb);
 		VertexBufferPtr getList();
 

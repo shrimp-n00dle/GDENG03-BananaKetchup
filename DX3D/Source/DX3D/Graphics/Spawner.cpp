@@ -9,8 +9,9 @@ catsup::Spawner::~Spawner()
 {
 }
 
-void catsup::Spawner::bakeShapes(int index, RenderSystem& device)
+VertexBufferPtr catsup::Spawner::bakeShapes(int index, RenderSystem& device)
 {
+	VertexBufferPtr vb{};
 	for (int i = 0; i < index; i++)
 	{
 		//Create the shape
@@ -27,15 +28,13 @@ void catsup::Spawner::bakeShapes(int index, RenderSystem& device)
 			{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
 		};
 
-		if (originalCopy == nullptr) {
-			std::cout << "NULL";
-		}
-
-		originalCopy = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
+		vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
 
 		//Message prompt
 		std::cout << "Shape number# " << i + 1 << " printed!" << std::endl;
 	};
+
+	return vb;
 }
 
 void catsup::Spawner::addBuffer(VertexBufferPtr m_vb)
@@ -49,13 +48,13 @@ VertexBufferPtr catsup::Spawner::getList()
 	return bufferList[0];
 }
 
-void catsup::Spawner::decoShapes(DeviceContext& context)
+void catsup::Spawner::decoShapes(VertexBufferPtr vb,DeviceContext& context)
 {
 	//std::list<VertexBufferPtr>* listPtr = &bufferList;
 	//std::list<VertexBufferPtr&>::iterator i = listPtr.begin();
-	auto& vb = *originalCopy;
-	context.setVertexBuffer(vb);
-	context.drawTriangleList(vb.getVertexListSize(), 0u);
+	auto& copy = *vb;
+	context.setVertexBuffer(copy);
+	context.drawTriangleList(copy.getVertexListSize(), 0u);
 
 	//for (const auto& index : bufferList)
 	//{

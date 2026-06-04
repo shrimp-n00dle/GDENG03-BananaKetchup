@@ -40,9 +40,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 	//Baking shapes here
 	auto& spawner = *m_spawner;
-	spawner.bakeShapes(1,device);
-	
-
+	m_vb = spawner.bakeShapes(1,device);
 	//const Vertex vertextList[] =
 	//{
 	//	//Position            //Color
@@ -106,7 +104,7 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 
 	//Shoawing shapes here
 	auto& spawner = *m_spawner;
-	spawner.decoShapes(context);
+	spawner.decoShapes(m_vb,context);
 
 	/*auto& vb = spawner.getList();
 	context.setVertexBuffer(vb);
