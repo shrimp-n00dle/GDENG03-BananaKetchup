@@ -7,8 +7,11 @@
 
 #include <DX3D/Graphics/Spawner.h>
 
+using namespace catsup;
 namespace dx3d
 {
+
+
 	class GraphicsEngine final: public Base
 	{
 	public:
@@ -31,6 +34,8 @@ namespace dx3d
 
 		//Green Rectangle
 		VertexBufferPtr m_vb3{};
+
+		SpawnerPtr m_spawner{};
 	};
 }
 

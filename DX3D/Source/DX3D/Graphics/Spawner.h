@@ -19,6 +19,7 @@ namespace catsup
 		virtual ~Spawner() override;
 
 		void bakeShapes(int index, RenderSystem& device);
+		void decoShapes(DeviceContextPtr& device);
 
 	private:
 		//Each QUAD

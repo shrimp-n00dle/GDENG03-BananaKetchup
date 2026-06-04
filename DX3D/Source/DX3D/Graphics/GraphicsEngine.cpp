@@ -7,6 +7,7 @@
 #include <fstream>
 
 using namespace dx3d;
+using namespace catsup;
 
 dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.base)
 {
@@ -38,9 +39,8 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	m_pipeline = device.createGraphicsPipelineState({*vsSig, *ps});
 
 	//Baking shapes here
-
-
-
+	auto& spawner = *m_spawner;
+	spawner.bakeShapes(3,device);
 
 	//const Vertex vertextList[] =
 	//{
@@ -104,6 +104,8 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 	context.setViewportSize(swapChain.getSize());
 
 	//Shoawing shapes here
+	/*auto& spawner = *m_spawner;
+	spawner.decoShapes();*/
 
 	/*auto& vb = *m_vb;
 	context.setVertexBuffer(vb);

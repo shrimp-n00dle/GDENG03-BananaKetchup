@@ -1,6 +1,14 @@
 #pragma once
 #include <stdexcept>
 #include <memory>
+
+//CATSUP 
+namespace catsup
+{
+	class Spawner;
+	using SpawnerPtr = std::shared_ptr<Spawner>;
+}
+
 namespace dx3d
 {
 	class Base;
