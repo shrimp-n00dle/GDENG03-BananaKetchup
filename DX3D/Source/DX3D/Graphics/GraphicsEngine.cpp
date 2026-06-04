@@ -104,8 +104,8 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 	context.setViewportSize(swapChain.getSize());
 
 	//Shoawing shapes here
-	/*auto& spawner = *m_spawner;
-	spawner.decoShapes();*/
+	auto& spawner = *m_spawner;
+	spawner.decoShapes(context);
 
 	/*auto& vb = *m_vb;
 	context.setVertexBuffer(vb);

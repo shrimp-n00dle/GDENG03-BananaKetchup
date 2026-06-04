@@ -19,7 +19,7 @@ namespace catsup
 		virtual ~Spawner() override;
 
 		void bakeShapes(int index, RenderSystem& device);
-		void decoShapes(DeviceContextPtr& device);
+		void decoShapes(DeviceContext& context);
 
 	private:
 		//Each QUAD
@@ -28,7 +28,7 @@ namespace catsup
 		std::list<Vertex> objlist;
 
 		//list of vertex buffers
-		std::list<VertexBufferPtr> bufferList{};
+		std::list<VertexBufferPtr> bufferList;
 		VertexBufferPtr m_vb{};
 
 

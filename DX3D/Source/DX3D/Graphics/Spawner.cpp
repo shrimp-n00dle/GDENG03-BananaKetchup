@@ -30,11 +30,21 @@ void catsup::Spawner::bakeShapes(int index, RenderSystem& device)
 	//m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
 
 	//Add to buffer list
-	//bufferList.push_back(m_vb);
+	/*bufferList.push_back(m_vb);*/
 
 	//Message prompt
 	std::cout << "Shape number# " << i + 1 << " printed!" << std::endl;
 	}
+}
+
+void catsup::Spawner::decoShapes(DeviceContext& device)
+{
+	std::cout << "DECO SHAPES" << std::endl;
+	/*for (const auto& index : bufferList)
+	{
+		context.setVertexBuffer(index);
+		context.drawTriangleList(index.getVertexListSize(), 0u);
+	}*/
 }
 
 
