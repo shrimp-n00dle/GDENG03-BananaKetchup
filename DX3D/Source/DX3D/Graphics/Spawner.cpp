@@ -42,14 +42,10 @@ VertexBufferPtr catsup::Spawner::bakeShapes(int index, RenderSystem& device, std
 		copyData data;
 		data.newPos = DirectX::XMFLOAT3(0.01, 0.0, 0.0);
 
-		//ID3D11Resource* copyBuffer = static_cast<ID3D11Resource*>(vb->getBuffer().Get());
-		//ID3D11Resource* copyBuffer = static_cast<ID3D11Resource*>(indexList.at(0)->getBuffer().Get());
 		Microsoft::WRL::ComPtr<ID3D11Resource> copyBuffer = indexList.at(0)->getBuffer().Get();
 		context.getContext()->UpdateSubresource(copyBuffer.Get(), 0, nullptr, &data, 0, 0);
 		context.getContext()->VSSetConstantBuffers(0, 1, indexList.at(0)->getBuffer().GetAddressOf());
 
-	//test = yes;
-	//originalCopy = vb;
 	return vb;
 }
 
@@ -69,22 +65,10 @@ void catsup::Spawner::decoShapes(VertexBufferPtr vb,DeviceContext& context, std:
 	auto& copyA = *vb;
 	context.setVertexBuffer(copyA);
 	context.drawTriangleList(copyA.getVertexListSize(), 0u);
-	//std::list<VertexBufferPtr>* listPtr = &bufferList;
-	//std::list<VertexBufferPtr&>::iterator i = listPtr.begin();
 
-	
 	auto& copyB = *indexList.at(0);
 	context.setVertexBuffer(copyB);
 	context.drawTriangleList(copyB.getVertexListSize(), 0u);
-		//std::cout << "SHAPEE " << std::endl;
-
-
-	//for (const auto& index : bufferList)
-	//{
-	//	context.setVertexBuffer(*index);
-	////	//context.drawTriangleList(&m_vb.getVertexListSize(), 0u);
-	//	context.drawTriangleList((*index).getVertexListSize(), 0u);
-	//}
 }
 
 
