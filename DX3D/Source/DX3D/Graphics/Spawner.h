@@ -33,15 +33,8 @@ namespace catsup
 			DeviceContext& context);
 		void decoShapes(VertexBufferPtr vb,DeviceContext& context, std::vector<VertexBufferPtr> indexList);
 		void addBuffer(VertexBufferPtr m_vb);
-		VertexBufferPtr getList();
-
-
-		bool bDone;
 
 	public:
-		int test;
-		//Has a list of the vertices and colors
-		std::list<Vertex> objList;
 
 		//list of vertex buffers
 		std::vector<VertexBufferPtr> bufferList;

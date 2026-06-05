@@ -44,48 +44,6 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	bufferList.push_back(m_vb3);
 
 	m_vb = spawner.bakeShapes(1,device,bufferList, *m_deviceContext);
-
-
-	//const Vertex vertextList[] =
-	//{
-	//	//Position            //Color
-	//	{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
-	//	{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
-	//	{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
-
-	//	
-	//	{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
-	//	{ {0.25f,-0.25f,0.0f},  {0,0,1,1} },
-	//	{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
-	//};
-
-	//Traingle Rainbow
-	//const Vertex vertextList2[] =
-	//{
-	//	//Position            //Color
-	//	{ {-0.9f,-0.25f,0.0f}, {1,0,0,1} },
-	//	{ {-0.60f,0.25f,0.0f},  {0,1,0,1} },
-	//	{ {-0.3f,-0.25f,0.0f},   {0,0,1,1} },
-	//};
-
-	//Green Rectangle
-	//const Vertex vertextList3[] =
-	//{
-	//	//Position            //Color
-	//	{ {0.4f,-0.25f,0.0f}, {0,1,0,1} },
-	//	{ {0.4f,0.25f,0.0f},  {0,1,0,1} },
-	//	{ {0.8f,0.25f,0.0f},   {0,1,0,1} },
-
-
-	//	{ {0.8f,0.25f,0.0f},   {0,1,0,1} },
-	//	{ {0.8f,-0.25f,0.0f},  {0,1,0,1} },
-	//	{ {0.4f,-0.25f,0.0f}, {0,1,0,1} }
-	//};
-
-	//m_vb = device.createVertexBuffer({vertextList, std::size(vertextList), sizeof(Vertex)});
-	//m_vb2 = device.createVertexBuffer({ vertextList2, std::size(vertextList2), sizeof(Vertex) });
-	//m_vb3 = device.createVertexBuffer({ vertextList3, std::size(vertextList3), sizeof(Vertex) });
-
 }
 
 
@@ -110,24 +68,6 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 	//Shoawing shapes here
 	auto& spawner = *m_spawner;
 	spawner.decoShapes(m_vb,context,bufferList);
-
-	/*auto& vb = spawner.getList();
-	context.setVertexBuffer(vb);
-	context.drawTriangleList(vb.getVertexListSize(), 0u);*/
-
-	/*auto& vb = *m_vb;
-	context.setVertexBuffer(vb);
-	context.drawTriangleList(vb.getVertexListSize(),0u);*/
-
-	////Triangle Rainbow
-	//auto& vb2 = *m_vb2;
-	//context.setVertexBuffer(vb2);
-	//context.drawTriangleList(vb2.getVertexListSize(), 0u);
-
-	////Rectangle Green
-	//auto& vb3 = *m_vb3;
-	//context.setVertexBuffer(vb3);
-	//context.drawTriangleList(vb3.getVertexListSize(), 0u);
 
 	auto& device = *m_renderSystem;
 	device.executeCommandList(context);

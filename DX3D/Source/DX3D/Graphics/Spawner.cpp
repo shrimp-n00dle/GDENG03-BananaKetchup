@@ -49,24 +49,13 @@ VertexBufferPtr catsup::Spawner::bakeShapes(int index, RenderSystem& device, std
 	return vb;
 }
 
-void catsup::Spawner::addBuffer(VertexBufferPtr m_vb)
-{
-	bufferList.push_back(m_vb);
-	std::cout << "LIST SIZE IS " << bufferList.size() << std::endl;
-}
-
-VertexBufferPtr catsup::Spawner::getList()
-{
-	return bufferList[0];
-}
-
 void catsup::Spawner::decoShapes(VertexBufferPtr vb,DeviceContext& context, std::vector<VertexBufferPtr> indexList)
 {
 	auto& copyA = *vb;
 	context.setVertexBuffer(copyA);
 	context.drawTriangleList(copyA.getVertexListSize(), 0u);
 
-	auto& copyB = *indexList.at(0);
+	auto& copyB = *vb;//*indexList.at(0);
 	context.setVertexBuffer(copyB);
 	context.drawTriangleList(copyB.getVertexListSize(), 0u);
 }
