@@ -1,4 +1,9 @@
-struct VSInput
+cbuffer copyData : register(b0)
+{
+    float3 newPos;
+};
+
+    struct VSInput
 {
     float3 position : POSITION0;
     float4 color : COLOR0;
@@ -13,7 +18,8 @@ struct VSOutput
 VSOutput VSMain(VSInput input)
 {
     VSOutput output;
-    output.position = float4(input.position,1);
+    float3 editPos = input.position + newPos;
+    output.position = float4(editPos, 1);
     output.color = input.color;
     return output;
 }

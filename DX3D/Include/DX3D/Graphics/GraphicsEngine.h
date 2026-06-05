@@ -4,6 +4,7 @@
 //#include <DX3D/Math/Vec3.h>
 //#include <DX3D/Math/Vec4.h>
 #include <DX3D/Math/Vertex.h>
+#include <vector>
 
 #include <DX3D/Graphics/Spawner.h>
 
@@ -34,6 +35,8 @@ namespace dx3d
 
 		//Green Rectangle
 		VertexBufferPtr m_vb3{};
+
+		std::vector<VertexBufferPtr> bufferList;
 
 		SpawnerPtr m_spawner{};
 	};

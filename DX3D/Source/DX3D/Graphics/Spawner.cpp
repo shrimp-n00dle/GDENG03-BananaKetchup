@@ -10,11 +10,11 @@ catsup::Spawner::~Spawner()
 {
 }
 
-VertexBufferPtr catsup::Spawner::bakeShapes(int index, RenderSystem& device)
+VertexBufferPtr catsup::Spawner::bakeShapes(int index, RenderSystem& device, std::vector<VertexBufferPtr> indexList,
+	DeviceContext& context)
 {
 	VertexBufferPtr vb{};
-	for (int i = 0; i < index; i++)
-	{
+	int yes = 0;
 		//Create the shape
 		const Vertex vertextList[] =
 		{
@@ -31,10 +31,25 @@ VertexBufferPtr catsup::Spawner::bakeShapes(int index, RenderSystem& device)
 
 		vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
 
-		//Message prompt
-		std::cout << "Shape number# " << i + 1 << " printed!" << std::endl;
-	};
+		for (int i = 0; i < indexList.size(); i++)
+		{
+			indexList.at(i) = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
+		}
 
+		//Message prompt
+		std::cout << "List size is# " << indexList.size()  << " printed!" << std::endl;
+
+		copyData data;
+		data.newPos = DirectX::XMFLOAT3(0.01, 0.0, 0.0);
+
+		//ID3D11Resource* copyBuffer = static_cast<ID3D11Resource*>(vb->getBuffer().Get());
+		//ID3D11Resource* copyBuffer = static_cast<ID3D11Resource*>(indexList.at(0)->getBuffer().Get());
+		Microsoft::WRL::ComPtr<ID3D11Resource> copyBuffer = indexList.at(0)->getBuffer().Get();
+		context.getContext()->UpdateSubresource(copyBuffer.Get(), 0, nullptr, &data, 0, 0);
+		context.getContext()->VSSetConstantBuffers(0, 1, indexList.at(0)->getBuffer().GetAddressOf());
+
+	//test = yes;
+	//originalCopy = vb;
 	return vb;
 }
 
@@ -49,22 +64,19 @@ VertexBufferPtr catsup::Spawner::getList()
 	return bufferList[0];
 }
 
-void catsup::Spawner::decoShapes(VertexBufferPtr vb,DeviceContext& context)
+void catsup::Spawner::decoShapes(VertexBufferPtr vb,DeviceContext& context, std::vector<VertexBufferPtr> indexList)
 {
+	auto& copyA = *vb;
+	context.setVertexBuffer(copyA);
+	context.drawTriangleList(copyA.getVertexListSize(), 0u);
 	//std::list<VertexBufferPtr>* listPtr = &bufferList;
 	//std::list<VertexBufferPtr&>::iterator i = listPtr.begin();
-	copyShape copyData =
-	{
-		DirectX::XMFLOAT4(0.3,0.3,0.0,0.0)
-	};
+
 	
-	ID3D11Resource* copyBuffer = static_cast<ID3D11Resource*>(vb->getBuffer().Get());
-	context.getContext()->UpdateSubresource(copyBuffer, 0, nullptr, &copyData, 0, 0);
-		auto& copy = *vb;
-		//context.setVertexBuffer(copy);
-		context.getContext()->VSSetConstantBuffers(0,1,vb->getBuffer().GetAddressOf());
-		context.drawTriangleList(copy.getVertexListSize(), 0u);
-		std::cout << "SHAPEE " << std::endl;
+	auto& copyB = *indexList.at(0);
+	context.setVertexBuffer(copyB);
+	context.drawTriangleList(copyB.getVertexListSize(), 0u);
+		//std::cout << "SHAPEE " << std::endl;
 
 
 	//for (const auto& index : bufferList)

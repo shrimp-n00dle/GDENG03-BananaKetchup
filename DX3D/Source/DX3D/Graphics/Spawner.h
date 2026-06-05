@@ -19,8 +19,8 @@ using namespace dx3d;
 namespace catsup
 {
 
-	struct copyShape {
-		DirectX::XMFLOAT4 newPos;
+	struct copyData {
+		DirectX::XMFLOAT3 newPos;
 	};
 
 	class Spawner final : public Base
@@ -29,21 +29,22 @@ namespace catsup
 		explicit Spawner(const SpawnerDesc& desc);
 		virtual ~Spawner() override;
 
-		VertexBufferPtr bakeShapes(int index, RenderSystem& device);
-		void decoShapes(VertexBufferPtr vb,DeviceContext& context);
+		VertexBufferPtr bakeShapes(int index, RenderSystem& device, std::vector<VertexBufferPtr> indexList,
+			DeviceContext& context);
+		void decoShapes(VertexBufferPtr vb,DeviceContext& context, std::vector<VertexBufferPtr> indexList);
 		void addBuffer(VertexBufferPtr m_vb);
 		VertexBufferPtr getList();
 
 
 		bool bDone;
 
-	private:
-
+	public:
+		int test;
 		//Has a list of the vertices and colors
-		std::list<Vertex> objlist;
+		std::list<Vertex> objList;
 
 		//list of vertex buffers
 		std::vector<VertexBufferPtr> bufferList;
-		VertexBufferPtr originalCopy{};
+		VertexBufferPtr originalCopy{}, cloneCopy{};
 	};
 }
