@@ -25,7 +25,7 @@ namespace dx3d
 	public:
 		std::shared_ptr<RenderSystem> m_renderSystem{};
 	private:
-		
+	
 		DeviceContextPtr m_deviceContext{};
 		GraphicsPipelineStatePtr m_pipeline{};
 		VertexBufferPtr m_vb{};
