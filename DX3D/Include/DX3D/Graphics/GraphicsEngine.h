@@ -18,6 +18,8 @@ namespace dx3d
 		explicit GraphicsEngine(const GraphicsEngineDesc& desc);
 		virtual ~GraphicsEngine() override;
 
+		void reloadShaders(RenderSystem& device);
+
 		RenderSystem& getRenderSystem() noexcept;
 
 		void render(SwapChain& swapChain);

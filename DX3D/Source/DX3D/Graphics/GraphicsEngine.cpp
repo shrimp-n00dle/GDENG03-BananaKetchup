@@ -15,44 +15,24 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 	auto& device = *m_renderSystem;
 	m_deviceContext = device.createDeviceContext();
-
-	//Shader file path
-	constexpr char shaderFilePath[] = "DX3D/Assets/Shaders/Basic.hlsl";
-	std::ifstream shaderStream(shaderFilePath);
-	if (!shaderStream) DX3DLogThrowError("shaderStream failed to open, from GE.cpp");
-	std::string shaderFileData{
-		std::istreambuf_iterator<char>(shaderStream),
-		std::istreambuf_iterator<char>()
-		};
-
-	auto shaderSourceCode = shaderFileData.c_str();
-	auto shaderSourceCodeSize = shaderFileData.length();
-
-	auto vs = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
-		"VSMain", ShaderType::VertexShader});
-
-	auto ps = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
-	"PSMain", ShaderType::PixelShader });
-
-	auto vsSig = device.createVertexShaderSignature({vs});
-
-	m_pipeline = device.createGraphicsPipelineState({*vsSig, *ps});
+	reloadShaders(device);
 
 	//Baking shapes here
-	auto& spawner = *m_spawner;
-	m_vb = spawner.bakeShapes(1,device);
-	//const Vertex vertextList[] =
-	//{
-	//	//Position            //Color
-	//	{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
-	//	{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
-	//	{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
+	//auto& spawner = *m_spawner;
+	//m_vb = spawner.bakeShapes(1,device);
+	
+	const Vertex vertextList[] =
+	{
+		//Position            //Color
+		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
+		{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
+		{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
 
-	//	
-	//	{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
-	//	{ {0.25f,-0.25f,0.0f},  {0,0,1,1} },
-	//	{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
-	//};
+		
+		{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
+		{ {0.25f,-0.25f,0.0f},  {0,0,1,1} },
+		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
+	};
 
 	//Traingle Rainbow
 	//const Vertex vertextList2[] =
@@ -77,7 +57,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	//	{ {0.4f,-0.25f,0.0f}, {0,1,0,1} }
 	//};
 
-	//m_vb = device.createVertexBuffer({vertextList, std::size(vertextList), sizeof(Vertex)});
+	m_vb = device.createVertexBuffer({vertextList, std::size(vertextList), sizeof(Vertex)});
 	//m_vb2 = device.createVertexBuffer({ vertextList2, std::size(vertextList2), sizeof(Vertex) });
 	//m_vb3 = device.createVertexBuffer({ vertextList3, std::size(vertextList3), sizeof(Vertex) });
 
@@ -86,6 +66,32 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 dx3d::GraphicsEngine::~GraphicsEngine()
 {
+}
+
+void dx3d::GraphicsEngine::reloadShaders(RenderSystem& device)
+{
+	//Shader file path
+	constexpr char shaderFilePath[] = "DX3D/Assets/Shaders/Basic.hlsl";
+	std::ifstream shaderStream(shaderFilePath);
+	if (!shaderStream) DX3DLogThrowError("shaderStream failed to open, from GE.cpp");
+	std::string shaderFileData{
+		std::istreambuf_iterator<char>(shaderStream),
+		std::istreambuf_iterator<char>()
+	};
+
+	auto shaderSourceCode = shaderFileData.c_str();
+	auto shaderSourceCodeSize = shaderFileData.length();
+
+	auto vs = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
+		"VSMain", ShaderType::VertexShader });
+
+	auto ps = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
+	"MovingColors", ShaderType::PixelShader });
+
+	auto vsSig = device.createVertexShaderSignature({ vs });
+
+	m_pipeline = device.createGraphicsPipelineState({ *vsSig, *ps });
+
 }
 
 RenderSystem& dx3d::GraphicsEngine::getRenderSystem()noexcept
@@ -103,16 +109,16 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 	context.setViewportSize(swapChain.getSize());
 
 	//Shoawing shapes here
-	auto& spawner = *m_spawner;
-	spawner.decoShapes(m_vb,context);
+	//auto& spawner = *m_spawner;
+	//spawner.decoShapes(m_vb,context);
 
 	/*auto& vb = spawner.getList();
 	context.setVertexBuffer(vb);
 	context.drawTriangleList(vb.getVertexListSize(), 0u);*/
 
-	/*auto& vb = *m_vb;
+	auto& vb = *m_vb;
 	context.setVertexBuffer(vb);
-	context.drawTriangleList(vb.getVertexListSize(),0u);*/
+	context.drawTriangleList(vb.getVertexListSize(),0u);
 
 	////Triangle Rainbow
 	//auto& vb2 = *m_vb2;
