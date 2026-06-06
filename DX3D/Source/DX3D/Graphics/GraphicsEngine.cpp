@@ -34,6 +34,11 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
 	};
 
+	for (int i = 0; i < 6; i++)
+	{
+		colorList.push_back(vertextList[i].color);
+	}
+
 	//Traingle Rainbow
 	//const Vertex vertextList2[] =
 	//{
@@ -91,7 +96,6 @@ void dx3d::GraphicsEngine::reloadShaders(RenderSystem& device)
 	auto vsSig = device.createVertexShaderSignature({ vs });
 
 	m_pipeline = device.createGraphicsPipelineState({ *vsSig, *ps });
-
 }
 
 RenderSystem& dx3d::GraphicsEngine::getRenderSystem()noexcept
@@ -108,6 +112,7 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 
 	context.setViewportSize(swapChain.getSize());
 
+	moveColors();
 	reloadShaders(getRenderSystem());
 
 	//Shoawing shapes here
