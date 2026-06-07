@@ -1,6 +1,8 @@
 #pragma once
 #include <DX3D/Core/Base.h>
 #include <DX3D/Core/Core.h>
+#include <DX3D/Graphics/GameTimer.h>
+
 
 namespace dx3d
 {
@@ -17,6 +19,8 @@ namespace dx3d
 		void onInternalUpdate();
 
 	private:
+		GameTimer timer;
+
 		std::unique_ptr<Logger> m_loggerPtr{};
 		std::unique_ptr<GraphicsEngine> m_graphicsEngine{};
 		std::unique_ptr<Display> m_display{};

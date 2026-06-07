@@ -4,9 +4,12 @@
 #include <DX3D/Core/Logger.h>
 #include <DX3D/Game/Display.h>
 
+
 dx3d::Game::Game(const GameDesc& desc) : Base({ *std::make_unique<Logger>(desc.logLevel).release() }),
 m_loggerPtr(&m_logger)
 {
+	timer.Start();
+
 	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{ m_logger });
 	m_display = std::make_unique<Display>(DisplayDesc{ {{m_logger},desc.windowSize}, m_graphicsEngine->getRenderSystem() });
 
@@ -20,6 +23,9 @@ dx3d::Game::~Game()
 
 void dx3d::Game::onInternalUpdate()
 {
+	float dt = timer.getMilisecondsElapsed();
+	timer.restart();
+	m_graphicsEngine->setDeltaTime(dt);
 	m_graphicsEngine->render(m_display->getSwapChain());
 }
 

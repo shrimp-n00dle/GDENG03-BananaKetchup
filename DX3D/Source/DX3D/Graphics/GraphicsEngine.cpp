@@ -24,14 +24,14 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	const Vertex vertextList[] =
 	{
 		//Position            //Color
-		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
-		{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
-		{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
+		{ {-0.25f,-0.25f,0.0f}, {0,0,0,1}, delta_time },
+		{ {-0.25f,0.25f,0.0f},  {0,0,0,1}, delta_time },
+		{ {0.25f,0.25f,0.0f},   {0,0,0,1}, delta_time },
 
 		
-		{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
-		{ {0.25f,-0.25f,0.0f},  {0,0,1,1} },
-		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
+		{ {0.25f,0.25f,0.0f},   {0,0,0,1}, delta_time },
+		{ {0.25f,-0.25f,0.0f},  {0,0,0,1}, delta_time },
+		{ {-0.25f,-0.25f,0.0f}, {0,0,0,1}, delta_time }
 	};
 
 	for (int i = 0; i < 6; i++)
@@ -106,13 +106,14 @@ RenderSystem& dx3d::GraphicsEngine::getRenderSystem()noexcept
 
 void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 {
+
+	/*moveColors(dt);*/
 	auto& context = *m_deviceContext;
 	context.clearAndSetBackBuffer(swapChain, { 0.27f, 0.39f,0.55f, 1.0f });
 	context.setGraphicsPipelineState(*m_pipeline);
 
 	context.setViewportSize(swapChain.getSize());
 
-	moveColors();
 	reloadShaders(getRenderSystem());
 
 	//Shoawing shapes here
@@ -141,4 +142,27 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 	device.executeCommandList(context);
 	swapChain.present();
 
+}
+
+void dx3d::GraphicsEngine::moveColors(float dt)
+{
+	increment += dt;
+	colorList.at(0).y = increment;
+	colorList.at(1).y = increment;
+	colorList.at(2).y = increment;
+	colorList.at(3).y = increment;
+	colorList.at(4).y = increment;
+	colorList.at(5).y = increment;
+
+
+}
+
+void dx3d::GraphicsEngine::setDeltaTime(float dt)
+{
+	delta_time = dt;
+}
+
+float dx3d::GraphicsEngine::getDeltaTime()
+{
+	return delta_time;
 }

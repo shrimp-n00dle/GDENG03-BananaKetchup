@@ -4,6 +4,7 @@
 //#include <DX3D/Math/Vec3.h>
 #include <DX3D/Math/Vec4.h>
 #include <DX3D/Math/Vertex.h>
+#include <DX3D/Graphics/GameTimer.h>
 #include <vector>
 #include <DX3D/Graphics/Spawner.h>
 
@@ -24,10 +25,15 @@ namespace dx3d
 
 		void render(SwapChain& swapChain);
 
-		void moveColors();
+		void moveColors(float dt);
+		void setDeltaTime(float dt);
+		float getDeltaTime();
 	public:
 		std::shared_ptr<RenderSystem> m_renderSystem{};
 	private:
+
+		float delta_time = 0.0f;
+		float increment = 0.0f;
 		std::vector<Vec4> colorList;
 		DeviceContextPtr m_deviceContext{};
 		GraphicsPipelineStatePtr m_pipeline{};

@@ -2,12 +2,14 @@ struct VSInput
 {
     float3 position : POSITION0;
     float4 color : COLOR0;
+
 };
 
 struct VSOutput
 {
     float4 position : SV_Position;
     float4 color : COLOR0;
+    float delta_time : register(b0);
 };
 
 VSOutput VSMain(VSInput input)
@@ -24,6 +26,7 @@ float4 PSMain(VSOutput input) : SV_Target
 
 float4 MovingColors(VSOutput input) : SV_Target
 {
-    return float4(1.0,1.0,1.0,1.0);
+    input.color.x += input.delta_time;
+    return input.color;
 
 }
