@@ -1,3 +1,7 @@
+cbuffer Timer : register(b0)
+{
+    float delta_time = 1.0;
+};
 struct VSInput
 {
     float3 position : POSITION0;
@@ -9,7 +13,6 @@ struct VSOutput
 {
     float4 position : SV_Position;
     float4 color : COLOR0;
-    float delta_time : register(b0);
 };
 
 VSOutput VSMain(VSInput input)
@@ -21,12 +24,12 @@ VSOutput VSMain(VSInput input)
 }
 float4 PSMain(VSOutput input) : SV_Target
 {
-    return input.color;
+    return float4(1.0,0.0,0.0,1.0);
 }
 
 float4 MovingColors(VSOutput input) : SV_Target
 {
-    input.color.x += input.delta_time;
+    input.color.x += delta_time;
     return input.color;
 
 }

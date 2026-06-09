@@ -16,6 +16,8 @@ namespace dx3d
 
 		void drawTriangleList(ui32 vertextCount, ui32 startVertexLocation);
 
+		Microsoft::WRL::ComPtr<ID3D11DeviceContext> getContext();
+
 	private:
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_context{};
 		friend class RenderSystem;

@@ -5,6 +5,7 @@
 #include <DX3D/Graphics/VertexBuffer.h>
 //#include <DX3D/Math/Vec3.h>
 #include <fstream>
+#include <DX3D/Math/BufferTimer.h>
 
 using namespace dx3d;
 using namespace catsup;
@@ -24,14 +25,14 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	const Vertex vertextList[] =
 	{
 		//Position            //Color
-		{ {-0.25f,-0.25f,0.0f}, {0,0,0,1}, delta_time },
-		{ {-0.25f,0.25f,0.0f},  {0,0,0,1}, delta_time },
-		{ {0.25f,0.25f,0.0f},   {0,0,0,1}, delta_time },
+		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
+		{ {-0.25f,0.25f,0.0f},  {1,0,0,1} },
+		{ {0.25f,0.25f,0.0f},   {1,0,0,1} },
 
 		
-		{ {0.25f,0.25f,0.0f},   {0,0,0,1}, delta_time },
-		{ {0.25f,-0.25f,0.0f},  {0,0,0,1}, delta_time },
-		{ {-0.25f,-0.25f,0.0f}, {0,0,0,1}, delta_time }
+		{ {0.25f,0.25f,0.0f},   {1,0,0,1} },
+		{ {0.25f,-0.25f,0.0f},  {1,0,0,1} },
+		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
 	};
 
 	for (int i = 0; i < 6; i++)
@@ -39,32 +40,16 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 		colorList.push_back(vertextList[i].color);
 	}
 
-	//Traingle Rainbow
-	//const Vertex vertextList2[] =
-	//{
-	//	//Position            //Color
-	//	{ {-0.9f,-0.25f,0.0f}, {1,0,0,1} },
-	//	{ {-0.60f,0.25f,0.0f},  {0,1,0,1} },
-	//	{ {-0.3f,-0.25f,0.0f},   {0,0,1,1} },
-	//};
+	D3D11_BUFFER_DESC buffDesc{};
+	buffDesc.Usage = D3D11_USAGE_DYNAMIC;
+	buffDesc.ByteWidth = static_cast<UINT>(sizeof(BufferTimer)+ (16 - (sizeof(BufferTimer) & 16)));
+	buffDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	buffDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
-	//Green Rectangle
-	//const Vertex vertextList3[] =
-	//{
-	//	//Position            //Color
-	//	{ {0.4f,-0.25f,0.0f}, {0,1,0,1} },
-	//	{ {0.4f,0.25f,0.0f},  {0,1,0,1} },
-	//	{ {0.8f,0.25f,0.0f},   {0,1,0,1} },
-
-
-	//	{ {0.8f,0.25f,0.0f},   {0,1,0,1} },
-	//	{ {0.8f,-0.25f,0.0f},  {0,1,0,1} },
-	//	{ {0.4f,-0.25f,0.0f}, {0,1,0,1} }
-	//};
+	buffDesc.MiscFlags = 0;
+	buffDesc.StructureByteStride = 0;
 
 	m_vb = device.createVertexBuffer({vertextList, std::size(vertextList), sizeof(Vertex)});
-	//m_vb2 = device.createVertexBuffer({ vertextList2, std::size(vertextList2), sizeof(Vertex) });
-	//m_vb3 = device.createVertexBuffer({ vertextList3, std::size(vertextList3), sizeof(Vertex) });
 
 }
 
@@ -91,7 +76,7 @@ void dx3d::GraphicsEngine::reloadShaders(RenderSystem& device)
 		"VSMain", ShaderType::VertexShader });
 
 	auto ps = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
-	"MovingColors", ShaderType::PixelShader });
+	"PSMain", ShaderType::PixelShader });
 
 	auto vsSig = device.createVertexShaderSignature({ vs });
 
@@ -114,34 +99,25 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 
 	context.setViewportSize(swapChain.getSize());
 
+	//TIme update
+	BufferTimer timer;
+	timer.delta_time = 0.0f;//getDeltaTime();
+	std::cout << getDeltaTime() << std::endl;
+	D3D11_MAPPED_SUBRESOURCE mappedR;
+	context.getContext()->Map(cbuffer.Get(),0,D3D11_MAP_WRITE_DISCARD,0, &mappedR);
+	CopyMemory(mappedR.pData, &timer, sizeof(BufferTimer));
+	context.getContext()->Unmap(cbuffer.Get(),0);
+	context.getContext()->VSSetConstantBuffers(0,1,cbuffer.GetAddressOf());
+
 	reloadShaders(getRenderSystem());
-
-	//Shoawing shapes here
-	//auto& spawner = *m_spawner;
-	//spawner.decoShapes(m_vb,context);
-
-	/*auto& vb = spawner.getList();
-	context.setVertexBuffer(vb);
-	context.drawTriangleList(vb.getVertexListSize(), 0u);*/
 
 	auto& vb = *m_vb;
 	context.setVertexBuffer(vb);
 	context.drawTriangleList(vb.getVertexListSize(),0u);
 
-	////Triangle Rainbow
-	//auto& vb2 = *m_vb2;
-	//context.setVertexBuffer(vb2);
-	//context.drawTriangleList(vb2.getVertexListSize(), 0u);
-
-	////Rectangle Green
-	//auto& vb3 = *m_vb3;
-	//context.setVertexBuffer(vb3);
-	//context.drawTriangleList(vb3.getVertexListSize(), 0u);
-
 	auto& device = *m_renderSystem;
 	device.executeCommandList(context);
 	swapChain.present();
-
 }
 
 void dx3d::GraphicsEngine::moveColors(float dt)

@@ -7,6 +7,8 @@
 #include <DX3D/Graphics/GameTimer.h>
 #include <vector>
 #include <DX3D/Graphics/Spawner.h>
+#include <wrl.h>
+#include <d3d11.h>
 
 using namespace catsup;
 namespace dx3d
@@ -31,6 +33,8 @@ namespace dx3d
 	public:
 		std::shared_ptr<RenderSystem> m_renderSystem{};
 	private:
+
+		Microsoft::WRL::ComPtr<ID3D11Buffer> cbuffer;
 
 		float delta_time = 0.0f;
 		float increment = 0.0f;

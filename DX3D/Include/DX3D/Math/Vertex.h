@@ -9,6 +9,5 @@ namespace dx3d
 	{
 		Vec3 position;
 		Vec4 color;
-		float time;
 	};
 }

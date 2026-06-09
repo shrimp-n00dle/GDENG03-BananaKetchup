@@ -11,6 +11,10 @@ dx3d::ConstantBuffer::ConstantBuffer(const ConstantBufferDesc& desc, const Graph
 	buffDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	buffDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
+	buffDesc.MiscFlags = 0;
+	buffDesc.StructureByteStride = 0;
+
+
 	D3D11_SUBRESOURCE_DATA initData{};
 	initData.pSysMem = desc.buffer;
 
