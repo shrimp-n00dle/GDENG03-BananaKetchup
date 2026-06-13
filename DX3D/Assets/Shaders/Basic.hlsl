@@ -15,11 +15,15 @@ struct VSOutput
     float4 color : COLOR0;
 };
 
+cbuffer ConstantData : register(b0)
+{
+    float scale;
+};
+
 VSOutput VSMain(VSInput input)
 {
     VSOutput output;
-    float3 editPos = input.position + newPos;
-    output.position = float4(editPos, 1);
+    output.position = output.position = float4(input.position * scale, 1);
     output.color = input.color;
     return output;
 }

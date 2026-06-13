@@ -63,7 +63,7 @@ namespace dx3d
 
 	struct VertexShaderSignatureDesc
 	{
-		const ShaderBinaryPtr& vsBinary;
+		const RefPtr<ShaderBinary>& vsBinary;
 
 	};
 

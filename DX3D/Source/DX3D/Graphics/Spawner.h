@@ -8,8 +8,6 @@
 #include <DX3D/Graphics/VertexBuffer.h>
 #include <vector>
 #include <DirectXMath.h>
-#include <DX3D/Graphics/ConstantBuffer.h>
-
 #include <iostream>
 
 using namespace dx3d;
@@ -35,8 +33,6 @@ namespace catsup
 		void addBuffer(VertexBufferPtr m_vb);
 
 	public:
-		ConstantBufferPtr cBuffer;
-
 		//list of vertex buffers
 		std::vector<VertexBufferPtr> bufferList;
 		VertexBufferPtr originalCopy{}, cloneCopy{};

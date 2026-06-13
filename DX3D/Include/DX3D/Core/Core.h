@@ -2,6 +2,13 @@
 #include <stdexcept>
 #include <memory>
 
+#define dx3d_disable_copy_and_move(Class)     \
+protected:\
+    Class(const Class&) = delete;        \
+    Class& operator=(const Class&) = delete; \
+    Class(Class&&) = delete;             \
+    Class& operator=(Class&&) = delete;
+
 //CATSUP 
 namespace catsup
 {
@@ -37,5 +44,6 @@ namespace dx3d
 	using GraphicsPipelineStatePtr = std::shared_ptr<GraphicsPipelineState>;
 	using VertexBufferPtr = std::shared_ptr<VertexBuffer>;
 	using VertexShaderSignaturePtr = std::shared_ptr<VertexShaderSignature>;
-	using ConstantBufferPtr = std::shared_ptr<ConstantBuffer>;
+	template <typename T> using RefPtr = std::shared_ptr<T>;
+	template <typename T> using UniquePtr = std::unique_ptr<T>;
 }

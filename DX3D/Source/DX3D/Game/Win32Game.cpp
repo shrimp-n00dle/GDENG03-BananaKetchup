@@ -4,6 +4,7 @@
 void dx3d::Game::run()
 {
 	MSG msg;
+	m_previousTime = std::chrono::steady_clock::now();
 	while (isRunning)
 	{
 		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
