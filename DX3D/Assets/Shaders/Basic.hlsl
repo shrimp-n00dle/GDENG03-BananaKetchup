@@ -1,7 +1,3 @@
-cbuffer copyData : register(b0)
-{
-    float3 newPos;
-};
 
     struct VSInput
 {
@@ -17,13 +13,13 @@ struct VSOutput
 
 cbuffer ConstantData : register(b0)
 {
-    float scale;
+    row_major float4x4 world;
 };
 
 VSOutput VSMain(VSInput input)
 {
     VSOutput output;
-    output.position = output.position = float4(input.position * scale, 1);
+    output.position = mul(float4(input.position, 1), world);
     output.color = input.color;
     return output;
 }
