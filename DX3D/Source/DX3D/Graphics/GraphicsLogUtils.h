@@ -12,25 +12,23 @@ namespace dx3d
 			auto errorMsg = errorBlob ? static_cast<const char*>(errorBlob->GetBufferPointer()) : nullptr;
 			if (FAILED(hr))
 			{
-					DX3DLogThrow(logger,std::runtime_error, Logger::LogLevel::Error,errorMsg ? errorMsg : 
-						"Shader Compilation failed from GraphicsLogUtils.h");
-				
-
+				DX3DLogThrow(logger, std::runtime_error, Logger::LogLevel::Error, "Shader compilation failed.\nDetails:\n{}",
+					errorMsg ? errorMsg : "");
 			}
 
 			if (errorMsg)
 			{
-				DX3DLog(logger, Logger::LogLevel::Warning, errorMsg);
+				DX3DLog(logger, Logger::LogLevel::Warning, "Shader compiled with warnings.\nDetails:\n{}", errorMsg);
 			}
 		}
 	}
 }
 
-#define DX3DGraphicsLogErrorAndThrow(hr,message)\
+#define DX3DGraphicsLogErrorAndThrow(hr,message,...)\
 	{\
 		auto res = (hr);\
 	if(FAILED(res))\
-		DX3DLogThrowError(message);\
+		DX3DLogThrowError(message, __VA_ARGS__);\
 	}
 
 #define DX3DGraphicsCheckShaderCompile(hr,errorBlob)\

@@ -78,9 +78,9 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain, f32 deltaTime)
 	m_rot += deltaTime * 3.14f;
 	m_scale = std::abs(std::sin(m_rot));
 
-	//DX3DLogInfo("Pos: X:{} Y:{}", m_pos, m_pos);
-	//DX3DLogInfo("Rot: Z:{}", m_rot);
-	//DX3DLogInfo("Scale: {}", m_scale);
+	DX3DLogInfo("Pos: X:{} Y:{}", m_pos, m_pos);
+	DX3DLogInfo("Rot: Z:{}", m_rot);
+	DX3DLogInfo("Scale: {}", m_scale);
 
 	auto worldMat =
 		Mat4x4::scale({ m_scale,m_scale,m_scale }) *
