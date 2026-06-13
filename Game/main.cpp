@@ -1,7 +1,5 @@
 #include <DX3D/All.h>
 
-
-//STOPPED AT 55:14
 int main()
 {
 	try

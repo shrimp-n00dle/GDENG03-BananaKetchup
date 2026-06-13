@@ -4,7 +4,6 @@
 #include <DX3D/Math/Vec3.h>
 #include <DX3D/Math/Vec4.h>
 #include <vector>
-#include <DX3D/Graphics/Spawner.h>
 
 using namespace catsup;
 namespace dx3d
@@ -20,8 +19,6 @@ namespace dx3d
 		RenderSystem& getRenderSystem() noexcept;
 
 		void render(SwapChain& swapChain, f32 deltaTime);
-	public:
-		std::shared_ptr<RenderSystem> m_renderSystem{};
 	private:
 		//MUST BE EXACT TO BASIC.HLSL or it wont work
 		struct Vertex
@@ -35,7 +32,7 @@ namespace dx3d
 		};
 
 	private:
-		RefPtr<RenderSystem> m_graphicsDevice{};
+		RefPtr<RenderSystem> m_renderSystem{};
 		RefPtr<DeviceContext> m_deviceContext{};
 		RefPtr<GraphicsPipelineState> m_pipeline{};
 		RefPtr<VertexBuffer> m_vb{};

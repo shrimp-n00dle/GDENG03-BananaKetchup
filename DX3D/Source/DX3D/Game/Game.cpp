@@ -3,6 +3,7 @@
 #include <DX3D/Graphics/GraphicsEngine.h>
 #include <DX3D/Core/Logger.h>
 #include <DX3D/Game/Display.h>
+#include <iostream>
 
 dx3d::Game::Game(const GameDesc& desc)
 {

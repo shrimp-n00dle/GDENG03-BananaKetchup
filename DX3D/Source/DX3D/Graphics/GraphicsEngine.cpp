@@ -91,7 +91,7 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain, f32 deltaTime)
 	context.setConstantBuffer(cb);
 	context.drawTriangleList(vb.getVertexListSize(), 0u);
 
-	auto& device = *m_graphicsDevice;
+	auto& device = *m_renderSystem;
 	device.executeCommandList(context);
 	swapChain.present();
 }
