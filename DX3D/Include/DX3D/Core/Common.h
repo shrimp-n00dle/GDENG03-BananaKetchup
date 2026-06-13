@@ -94,6 +94,13 @@ namespace dx3d
 		ui32 bufferSize{};
 	};
 
+	struct IndexBufferDesc
+	{
+		const ui32* indexList{};
+		ui32 indexListSize{};
+	};
+
+
 	struct GameDesc
 	{
 		Rect windowSize{ 1280,720 };

@@ -11,6 +11,7 @@ namespace dx3d
 		void clearAndSetBackBuffer(const SwapChain& swapChain, const Vec4& color);
 		void setGraphicsPipelineState(const GraphicsPipelineState& pipeline);
 		void setVertexBuffer(const VertexBuffer& buffer);
+		void setIndexBuffer(const IndexBuffer& buffer);
 		void setViewportSize(const Rect& size);
 
 		//Constant Buffers
@@ -18,6 +19,8 @@ namespace dx3d
 		void updateConstantBuffer(const ConstantBuffer& buffer, const void* data);
 
 		void drawTriangleList(ui32 vertextCount, ui32 startVertexLocation);
+
+		void drawIndexedTriangleList(ui32 indexCount, ui32 startVertexIndex, ui32 startIndexLocation);
 
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext> getContext();
 

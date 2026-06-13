@@ -141,6 +141,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Graphics\DeviceContext.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\GraphicsPipelineState.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\IndexBuffer.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\RenderSystem.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\ShaderBinary.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\SwapChain.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsPipelineState.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsResource.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsUtils.h" />
+    <ClInclude Include="DX3D\Source\DX3D\Graphics\IndexBuffer.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\RenderSystem.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ShaderBinary.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\SwapChain.h" />
