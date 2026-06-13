@@ -14,6 +14,6 @@ dx3d::ConstantBuffer::ConstantBuffer(const ConstantBufferDesc& desc, const Graph
 	D3D11_SUBRESOURCE_DATA initData{};
 	initData.pSysMem = desc.buffer;
 
-	DX3DGraphicsLogThrowOnFail(m_device.CreateBuffer(&buffDesc, (desc.buffer) ? &initData : nullptr, &m_buffer),
+	DX3DGraphicsLogErrorAndThrow(m_device.CreateBuffer(&buffDesc, (desc.buffer) ? &initData : nullptr, &m_buffer),
 		"CreateBuffer failed.");
 }

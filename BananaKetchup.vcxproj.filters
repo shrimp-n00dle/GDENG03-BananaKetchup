@@ -60,9 +60,6 @@
     <ClCompile Include="DX3D\Source\DX3D\Graphics\VertexShaderSignature.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DX3D\Source\DX3D\Graphics\Spawner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DX3D\Source\DX3D\Graphics\ConstantBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -132,12 +129,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DX3D\Source\DX3D\Graphics\VertexShaderSignature.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DX3D\Include\DX3D\Math\Vertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DX3D\Source\DX3D\Graphics\Spawner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ConstantBuffer.h">

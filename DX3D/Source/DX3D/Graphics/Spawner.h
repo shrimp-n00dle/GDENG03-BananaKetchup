@@ -3,7 +3,6 @@
 #include <DX3D/Core/Base.h>
 #include <DX3D/Graphics/GraphicsEngine.h>
 #include <DX3D/Graphics/RenderSystem.h>
-#include <DX3D/Math/Vertex.h>
 #include <DX3D/Graphics/DeviceContext.h>
 #include <DX3D/Graphics/VertexBuffer.h>
 #include <vector>

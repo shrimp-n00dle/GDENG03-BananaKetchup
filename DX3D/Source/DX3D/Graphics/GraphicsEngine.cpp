@@ -39,11 +39,22 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	m_pipeline = device.createGraphicsPipelineState({*vsSig, *ps});
 
 	//Baking shapes here
-	auto& spawner = *m_spawner;
-	bufferList.push_back(m_vb2);
-	bufferList.push_back(m_vb3);
+	//Create the shape
+	const Vertex vertextList[] =
+	{
+		//Position            //Color
+		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
+		{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
+		{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
 
-	m_vb = spawner.bakeShapes(1,device,bufferList, *m_deviceContext);
+
+		{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
+		{ {0.25f,-0.25f,0.0f},  {0,0,1,1} },
+		{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
+	};
+
+	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
+	m_cb = device.createConstantBuffer({ {}, sizeof(ConstantData) });
 }
 
 
@@ -57,20 +68,30 @@ RenderSystem& dx3d::GraphicsEngine::getRenderSystem()noexcept
 	return *m_renderSystem;
 }
 
-void dx3d::GraphicsEngine::render(SwapChain& swapChain)
+void dx3d::GraphicsEngine::render(SwapChain& swapChain, f32 deltaTime)
 {
 	auto& context = *m_deviceContext;
+
+	auto& cb = *m_cb;
+
+	m_sum += deltaTime * 3.0f;
+	m_scale = std::abs(std::sin(m_sum));
+
+	ConstantData data{};
+	data.scale = m_scale;
+
+	context.updateConstantBuffer(cb, &data);
 	context.clearAndSetBackBuffer(swapChain, { 0.27f, 0.39f,0.55f, 1.0f });
 	context.setGraphicsPipelineState(*m_pipeline);
 
 	context.setViewportSize(swapChain.getSize());
 
-	//Shoawing shapes here
-	auto& spawner = *m_spawner;
-	spawner.decoShapes(m_vb,context,bufferList);
+	auto& vb = *m_vb;
+	context.setVertexBuffer(vb);
+	context.setConstantBuffer(cb);
+	context.drawTriangleList(vb.getVertexListSize(), 0u);
 
-	auto& device = *m_renderSystem;
+	auto& device = *m_graphicsDevice;
 	device.executeCommandList(context);
 	swapChain.present();
-
 }

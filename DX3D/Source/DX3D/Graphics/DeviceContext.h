@@ -11,8 +11,11 @@ namespace dx3d
 		void clearAndSetBackBuffer(const SwapChain& swapChain, const Vec4& color);
 		void setGraphicsPipelineState(const GraphicsPipelineState& pipeline);
 		void setVertexBuffer(const VertexBuffer& buffer);
-
 		void setViewportSize(const Rect& size);
+
+		//Constant Buffers
+		void setConstantBuffer(const ConstantBuffer& buffer);
+		void updateConstantBuffer(const ConstantBuffer& buffer, const void* data);
 
 		void drawTriangleList(ui32 vertextCount, ui32 startVertexLocation);
 

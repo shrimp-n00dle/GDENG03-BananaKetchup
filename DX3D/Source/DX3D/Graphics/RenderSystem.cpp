@@ -6,6 +6,7 @@
 #include <DX3D/Graphics/GraphicsPipelineState.h>
 #include <DX3D/Graphics/VertexBuffer.h>
 #include <DX3D/Graphics/VertexShaderSignature.h>
+#include <DX3D/Graphics/ConstantBuffer.h>
 
 using namespace dx3d;
 
@@ -39,34 +40,39 @@ dx3d::RenderSystem::~RenderSystem()
 {
 }
 
-SwapChainPtr dx3d::RenderSystem::createSwapChain(const SwapChainDesc& desc)
+RefPtr<SwapChain> dx3d::RenderSystem::createSwapChain(const SwapChainDesc& desc)
 {
 	return std::make_shared<SwapChain>(desc,getGraphicsResourceDesc());
 }
 
-DeviceContextPtr dx3d::RenderSystem::createDeviceContext()
+RefPtr<DeviceContext> dx3d::RenderSystem::createDeviceContext()
 {
 	return std::make_shared<DeviceContext>(getGraphicsResourceDesc());
 }
 
-ShaderBinaryPtr dx3d::RenderSystem::compileShader(const ShaderCompileDesc& desc)
+RefPtr<ShaderBinary> dx3d::RenderSystem::compileShader(const ShaderCompileDesc& desc)
 {
 	return std::make_shared<ShaderBinary>(desc, getGraphicsResourceDesc());
 }
 
-GraphicsPipelineStatePtr dx3d::RenderSystem::createGraphicsPipelineState(const GraphicsPipelineStateDesc& desc)
+RefPtr<GraphicsPipelineState> dx3d::RenderSystem::createGraphicsPipelineState(const GraphicsPipelineStateDesc& desc)
 {
 	return std::make_shared<GraphicsPipelineState>(desc, getGraphicsResourceDesc());
 }
 
-VertexBufferPtr dx3d::RenderSystem::createVertexBuffer(const VertexBufferDesc& desc)
+RefPtr<VertexBuffer> dx3d::RenderSystem::createVertexBuffer(const VertexBufferDesc& desc)
 {
 	return std::make_shared<VertexBuffer>(desc, getGraphicsResourceDesc());
 }
 
-VertexShaderSignaturePtr dx3d::RenderSystem::createVertexShaderSignature(const VertexShaderSignatureDesc& desc)
+RefPtr<VertexShaderSignature> dx3d::RenderSystem::createVertexShaderSignature(const VertexShaderSignatureDesc& desc)
 {
 	return std::make_shared<VertexShaderSignature>(desc, getGraphicsResourceDesc());
+}
+
+RefPtr<ConstantBuffer> dx3d::RenderSystem::createConstantBuffer(const ConstantBufferDesc& desc)
+{
+	return std::make_shared<ConstantBuffer>(desc, getGraphicsResourceDesc());
 }
 
 void dx3d::RenderSystem::executeCommandList(DeviceContext& context)

@@ -14,21 +14,7 @@ VertexBufferPtr catsup::Spawner::bakeShapes(int index, RenderSystem& device, std
 	DeviceContext& context)
 {
 	VertexBufferPtr vb{};
-		//Create the shape
-		const Vertex vertextList[] =
-		{
-			//Position            //Color
-			{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} },
-			{ {-0.25f,0.25f,0.0f},  {0,1,0,1} },
-			{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
-
-
-			{ {0.25f,0.25f,0.0f},   {0,0,1,1} },
-			{ {0.25f,-0.25f,0.0f},  {0,0,1,1} },
-			{ {-0.25f,-0.25f,0.0f}, {1,0,0,1} }
-		};
-
-		vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
+		
 
 		for (int i = 0; i < indexList.size(); i++)
 		{
