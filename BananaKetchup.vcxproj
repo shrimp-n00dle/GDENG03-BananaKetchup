@@ -132,12 +132,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DX3D\Source\DX3D\Component\CameraComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\CubeComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\TransformComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Game\Component.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Input\InputSystem.cpp" />
     <ClCompile Include="Game\MainGame.cpp" />
-    <ClCompile Include="Game\Objects\MyObject.cpp" />
+    <ClCompile Include="DX3D\Include\DX3D\Math\MathUtils.h" />
     <ClCompile Include="DX3D\Source\DX3D\Core\Base.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Core\Logger.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Game\Display.cpp" />
@@ -157,9 +158,11 @@
     <ClCompile Include="DX3D\Source\DX3D\Graphics\VertexShaderSignature.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Window\Win32Window.cpp" />
     <ClCompile Include="Game\main.cpp" />
+    <ClCompile Include="Game\Objects\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX3D\Include\DX3D\All.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Component\CameraComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\CubeComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\TransformComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Core\Base.h" />
@@ -181,7 +184,7 @@
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec4.h" />
     <ClInclude Include="DX3D\Include\DX3D\Window\Window.h" />
     <ClInclude Include="Game\MainGame.h" />
-    <ClInclude Include="Game\Objects\MyObject.h" />
+    <ClInclude Include="Game\Objects\Player.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ConstantBuffer.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\DeviceContext.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsLogUtils.h" />

@@ -84,9 +84,12 @@ RefPtr<IndexBuffer> dx3d::RenderSystem::createIndexBuffer(const IndexBufferDesc&
 void dx3d::RenderSystem::executeCommandList(DeviceContext& context)
 {
 	Microsoft::WRL::ComPtr<ID3D11CommandList> list{};
-	DX3DGraphicsLogErrorAndThrow(
-		context.m_context->FinishCommandList(false, &list),
-		"FinishCommandList() failed from RenderSystem.cpp");
+	auto hr = context.m_context->FinishCommandList(false, &list);
+	if (FAILED(hr))
+	{
+		DX3DLogError("FinishCommandList failed.");
+		return;
+	}
 	
 	m_d3dContext->ExecuteCommandList(list.Get(), false);
 }

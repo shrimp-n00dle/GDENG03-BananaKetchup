@@ -14,6 +14,7 @@ struct VSOutput
 cbuffer ConstantData : register(b0)
 {
     row_major float4x4 world;
+    row_major float4x4 view;
     row_major float4x4 proj;
 };
 
@@ -21,7 +22,7 @@ VSOutput VSMain(VSInput input)
 {
     VSOutput output;
     output.position = mul(float4(input.position, 1), world);
-    output.position = mul(output.position, proj);
+    output.position = mul(output.position, view);
     output.color = input.color;
     return output;
 }

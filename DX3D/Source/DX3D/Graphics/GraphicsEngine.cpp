@@ -13,6 +13,7 @@
 
 #include <DX3D/Component/TransformComponent.h>
 #include <DX3D/Component/CubeComponent.h>
+#include <DX3D/Component/CameraComponent.h>
 #include <ranges>
 
 using namespace catsup;
@@ -92,12 +93,8 @@ dx3d::GraphicsEngine::~GraphicsEngine()
 
 void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 deltaTime)
 {
-	//orthographic camera setup
+	//camera setup
 	auto size = swapChain.getSize();
-	auto aspect = static_cast<f32>(size.width) / size.height;
-	auto unitsPerScreenHeight = 5.0f;
-	auto viewHeight = unitsPerScreenHeight;
-	auto viewWidth = unitsPerScreenHeight * aspect;
 
 	auto& context = *m_deviceContext;
 	context.clearAndSetBackBuffer(swapChain, { 0.27f, 0.39f,0.55f, 1.0f });
@@ -105,30 +102,41 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	context.setViewportSize(size);
 
 	auto numComponents = 0u;
-	auto components = world.getComponents<CubeComponent>(numComponents);
 	ConstantData data{};
-
-	for (auto i : std::views::iota(0u, numComponents))
 	{
-		auto component = components[i];
-		auto& transform = component->getGameObject().getTransform();
-
-		data =
-			ConstantData
+		auto components = world.getComponents<CameraComponent>(numComponents);
+		for (auto i : std::views::iota(0u, numComponents))
 		{
-			transform.getWorldMatrix(),
-			Mat4x4::orthoLH(viewWidth, viewHeight, -10.0f, 10.0f)
-		};
+			auto component = components[i];
+			data.view = component->getViewMatrix();
+			component->setViewportSize(size);
+			data.proj = component->getProjectionMatrix();
+			break;
+		}
+	}
 
-		auto& cb = *m_cb;
-		context.updateConstantBuffer(cb, &data);
 
-		auto& vb = *m_vb;
-		auto& ib = *m_ib;
-		context.setVertexBuffer(vb);
-		context.setConstantBuffer(cb);
-		context.setIndexBuffer(ib);
-		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+
+	{
+		auto components = world.getComponents<CubeComponent>(numComponents);
+
+		for (auto i : std::views::iota(0u, numComponents))
+		{
+			auto component = components[i];
+			auto& transform = component->getGameObject().getTransform();
+
+			data.world = transform.getAffineWorldMatrix();
+
+			auto& cb = *m_cb;
+			context.updateConstantBuffer(cb, &data);
+
+			auto& vb = *m_vb;
+			auto& ib = *m_ib;
+			context.setVertexBuffer(vb);
+			context.setConstantBuffer(cb);
+			context.setIndexBuffer(ib);
+			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+		}
 	}
 
 	m_renderSystem.executeCommandList(context);

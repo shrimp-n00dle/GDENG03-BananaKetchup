@@ -19,7 +19,7 @@ dx3d::Game::Game(const GameDesc& desc)
 	m_inputSystem = std::make_unique<InputSystem>(InputSystemDesc{ *m_logger });
 	m_renderSystem = std::make_shared<RenderSystem>(RenderSystemDesc{ *m_logger });
 	m_display = std::make_unique<Display>(DisplayDesc{ {*m_logger,desc.windowSize},*m_renderSystem });
-	m_world = std::make_unique<World>(WorldDesc{ {*m_logger} });
+	m_world = std::make_unique<World>(WorldDesc{ BaseDesc{*m_logger}, GameContext{*m_inputSystem} });
 	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{ {*m_logger},*m_renderSystem });
 
 	m_inputSystem->setCursorLockArea(m_display->getClientAreaInScreenSpace());

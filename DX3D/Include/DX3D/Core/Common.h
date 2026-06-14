@@ -95,6 +95,12 @@ namespace dx3d
 		ui32 indexListSize{};
 	};
 
+	struct GameContext
+	{
+		InputSystem& input;
+	};
+
+
 
 	struct GameDesc
 	{
@@ -106,11 +112,13 @@ namespace dx3d
 	struct WorldDesc
 	{
 		BaseDesc base;
+		GameContext gameContext;
 	};
 
 	struct GameObjectDesc
 	{
 		BaseDesc base;
+		GameContext gameContext;
 		World& world;
 	};
 
