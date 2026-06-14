@@ -14,6 +14,7 @@ namespace dx3d
 
 		virtual World& getWorld() noexcept final;
 		virtual Logger& getLogger() noexcept final;
+		virtual InputSystem& getInputSystem() noexcept final;
 		//final - cannot be inheriated/override
 		virtual void run() final;
 
@@ -26,6 +27,7 @@ namespace dx3d
 
 	private:
 		UniquePtr<Logger> m_logger{};
+		UniquePtr<InputSystem> m_inputSystem{};
 		RefPtr<RenderSystem> m_renderSystem{};
 		UniquePtr<Display> m_display{};
 		UniquePtr<World> m_world{};
