@@ -132,6 +132,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DX3D\Source\DX3D\Component\TransformComponent.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Game\Component.cpp" />
     <ClCompile Include="Game\MainGame.cpp" />
     <ClCompile Include="Game\Objects\MyObject.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Core\Base.cpp" />
@@ -156,11 +158,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX3D\Include\DX3D\All.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Component\TransformComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Core\Base.h" />
     <ClInclude Include="DX3D\Include\DX3D\Core\Common.h" />
     <ClInclude Include="DX3D\Include\DX3D\Core\Core.h" />
     <ClInclude Include="DX3D\Include\DX3D\Core\Identifiable.h" />
     <ClInclude Include="DX3D\Include\DX3D\Core\Logger.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Game\Component.h" />
     <ClInclude Include="DX3D\Include\DX3D\Game\Display.h" />
     <ClInclude Include="DX3D\Include\DX3D\Game\Game.h" />
     <ClInclude Include="DX3D\Include\DX3D\Game\GameObject.h" />

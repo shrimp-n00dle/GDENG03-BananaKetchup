@@ -118,4 +118,11 @@ namespace dx3d
 		BaseDesc base;
 		World& world;
 	};
+
+	struct ComponentDesc
+	{
+		BaseDesc base;
+		GameObject& object;
+		World& world;
+	};
 }
