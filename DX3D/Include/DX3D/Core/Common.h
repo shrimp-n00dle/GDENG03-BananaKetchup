@@ -23,11 +23,6 @@ namespace dx3d
 		RenderSystem& renderSystem;
 	};
 
-	struct GraphicsEngineDesc
-	{
-		BaseDesc base;
-	};
-
 	struct SpawnerDesc
 	{
 		BaseDesc base;
@@ -124,5 +119,11 @@ namespace dx3d
 		BaseDesc base;
 		GameObject& object;
 		World& world;
+	};
+
+	struct GraphicsEngineDesc
+	{
+		BaseDesc base;
+		RenderSystem& engine;
 	};
 }

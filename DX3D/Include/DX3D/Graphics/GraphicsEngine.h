@@ -17,9 +17,7 @@ namespace dx3d
 		explicit GraphicsEngine(const GraphicsEngineDesc& desc);
 		virtual ~GraphicsEngine() override;
 
-		RenderSystem& getRenderSystem() noexcept;
-
-		void render(SwapChain& swapChain, f32 deltaTime);
+		void render(const World& world, SwapChain& swapChain, f32 deltaTime);
 	private:
 		//MUST BE EXACT TO BASIC.HLSL or it wont work
 		struct Vertex
@@ -34,14 +32,12 @@ namespace dx3d
 		};
 
 	private:
-		RefPtr<RenderSystem> m_renderSystem{};
+		RenderSystem& m_renderSystem;
 		RefPtr<DeviceContext> m_deviceContext{};
 		RefPtr<GraphicsPipelineState> m_pipeline{};
 		RefPtr<VertexBuffer> m_vb{};
 		RefPtr<ConstantBuffer> m_cb{};
 		RefPtr<IndexBuffer> m_ib{};
-
-		f32 m_rot{}, m_scale{}, m_pos{ 0.0f };
 	};
 }
 

@@ -1,10 +1,11 @@
 #include <DX3D/Game/Game.h>
 #include <DX3D/Window/Window.h>
-#include <DX3D/Graphics/GraphicsEngine.h>
+#include <DX3D/Graphics/RenderSystem.h>
 #include <DX3D/Core/Logger.h>
 #include <DX3D/Game/Display.h>
 #include <DX3D/Game/World.h>
 #include <DX3D/Game/GameObject.h>
+#include <DX3D/Graphics/GraphicsEngine.h>
 #include <iostream>
 
 dx3d::Game::Game(const GameDesc& desc)
@@ -14,9 +15,10 @@ dx3d::Game::Game(const GameDesc& desc)
 	std::clog << "BananaCatsup V 1.0" << "\n";
 	std::clog << "--------------------------------------" << "\n";
 
-	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{ *m_logger });
-	m_display = std::make_unique<Display>(DisplayDesc{ {*m_logger,desc.windowSize},m_graphicsEngine->getRenderSystem() });
+	m_renderSystem = std::make_shared<RenderSystem>(RenderSystemDesc{ *m_logger });
+	m_display = std::make_unique<Display>(DisplayDesc{ {*m_logger,desc.windowSize},*m_renderSystem });
 	m_world = std::make_unique<World>(WorldDesc{ {*m_logger} });
+	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{ {*m_logger},*m_renderSystem });
 
 	DX3DLogInfo("Game initialized.");
 
@@ -47,7 +49,7 @@ void dx3d::Game::onInternalUpdate()
 
 	m_world->update(deltaTime);
 
-	m_graphicsEngine->render(m_display->getSwapChain(), deltaTime);
+	m_graphicsEngine->render(*m_world, m_display->getSwapChain(), deltaTime);
 }
 
 

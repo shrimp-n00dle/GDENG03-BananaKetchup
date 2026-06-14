@@ -26,9 +26,10 @@ namespace dx3d
 
 	private:
 		UniquePtr<Logger> m_logger{};
-		UniquePtr<GraphicsEngine> m_graphicsEngine{};
+		RefPtr<RenderSystem> m_renderSystem{};
 		UniquePtr<Display> m_display{};
 		UniquePtr<World> m_world{};
+		UniquePtr<GraphicsEngine> m_graphicsEngine{};
 		bool isRunning{ true };
 		std::chrono::steady_clock::time_point m_previousTime{};
 	};
