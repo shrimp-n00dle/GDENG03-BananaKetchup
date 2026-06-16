@@ -97,7 +97,8 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	auto size = swapChain.getSize();
 
 	auto& context = *m_deviceContext;
-	context.clearAndSetBackBuffer(swapChain, { 0.27f, 0.39f,0.55f, 1.0f });
+	//Set Bg to black
+	context.clearAndSetBackBuffer(swapChain, { 0.0f,0.0f,0.0f, 0.0f });
 	context.setGraphicsPipelineState(*m_pipeline);
 	context.setViewportSize(size);
 
