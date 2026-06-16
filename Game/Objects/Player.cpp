@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <iostream>
 
 Player::Player(const dx3d::GameObjectDesc& desc) : dx3d::GameObject(desc)
 {
@@ -35,6 +36,26 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::S)) forward = -1.0f;
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::D)) right = 1.0f;
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::A)) right = -1.0f;
+
+	//Seatwork
+	if (getInputSystem().isKeyDown(dx3d::KeyCode::Space))
+	{
+		std::cout << "SPACE BABY!" << std::endl;
+	}
+	if (getInputSystem().isKeyDown(dx3d::KeyCode::Backspace))
+	{
+		std::cout << "BACKSPACE BABY!" << std::endl;
+	}
+	if (getInputSystem().isKeyDown(dx3d::KeyCode::Delete))
+	{
+		std::cout << "DELETE BABY!" << std::endl;
+	}
+	if (getInputSystem().isKeyDown(dx3d::KeyCode::Escape))
+	{
+		std::cout << "ESCAPE BABY!" << std::endl;
+	}
+
+
 	auto forwardDir = getTransform().forward() * forward;
 	auto rightDir = getTransform().right() * right;
 	auto direction = dx3d::Vec3::normalize(forwardDir + rightDir);
