@@ -9,6 +9,26 @@ Player::~Player()
 {
 }
 
+void Player::spawnCube()
+{
+	auto& world = getWorld();
+
+	auto cube = world.createGameObject<dx3d::GameObject>();
+	cube->createOrGetComponent<dx3d::CubeComponent>();
+	auto height = (rand() % 120) + (80.0f);
+	height /= 100.0f;
+
+	auto width = (rand() % 600) + (200.0f);
+	width /= 1000.0f;
+
+	cube->getTransform().setScale({ width, height, width });
+	cube->getTransform().setPosition({ x * 1.4f, (height / 2.0f) - 1.0f, y * 1.4f });
+
+	//Increment
+	x++;
+	y++;
+}
+
 void Player::onCreate()
 {
 	createOrGetComponent<dx3d::CameraComponent>();
@@ -40,19 +60,25 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	//Seatwork
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::Space))
 	{
-		std::cout << "SPACE BABY!" << std::endl;
+		//std::cout << "SPACE BABY!" << std::endl;
+
+	}
+	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Space))
+	{
+		std::cout << "UP!" << std::endl;
+		spawnCube();
 	}
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::Backspace))
 	{
-		std::cout << "BACKSPACE BABY!" << std::endl;
+		//std::cout << "BACKSPACE BABY!" << std::endl;
 	}
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::Delete))
 	{
-		std::cout << "DELETE BABY!" << std::endl;
+		//std::cout << "DELETE BABY!" << std::endl;
 	}
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::Escape))
 	{
-		std::cout << "ESCAPE BABY!" << std::endl;
+		//std::cout << "ESCAPE BABY!" << std::endl;
 	}
 
 
