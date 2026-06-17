@@ -19,33 +19,34 @@ void MainGame::onCreate()
 	srand((unsigned int)time(NULL));
 
 	//SPAWN ONE CUBE FIRST
-	auto cube = world.createGameObject<dx3d::GameObject>();
-	cube->createOrGetComponent<dx3d::CubeComponent>();
-	auto height = (rand() % 120) + (80.0f);
-	height /= 100.0f;
+	//auto cube = world.createGameObject<dx3d::GameObject>();
+	//cube->createOrGetComponent<dx3d::CubeComponent>();
+	//auto height = (rand() % 120) + (80.0f);
+	//height /= 100.0f;
 
-	auto width = (rand() % 600) + (200.0f);
-	width /= 1000.0f;
+	//auto width = (rand() % 600) + (200.0f);
+	//width /= 1000.0f;
 
-	cube->getTransform().setScale({ width, height, width });
-	cube->getTransform().setPosition({ -2 * 1.4f, (height / 2.0f) - 1.0f, -2 * 1.4f });
+	//cube->getTransform().setScale({ width, height, width });
+	//cube->getTransform().setPosition({ -2 * 1.4f, (height / 2.0f) - 1.0f, -2 * 1.4f });
 
-	/*for (auto y = -2; y < 3; y++)
-	{
-		for (auto x = -2; x < 3; x++)
-		{
-			auto cube = world.createGameObject<dx3d::GameObject>();
-			cube->createOrGetComponent<dx3d::CubeComponent>();
-			auto height = (rand() % 120) + (80.0f);
-			height /= 100.0f;
+	//for (auto y = -2; y < 3; y++)
+	//{
+	//	for (auto x = -2; x < 3; x++)
+	//	{
+	//		auto cube = world.createGameObject<dx3d::GameObject>();
+	//		cube->createOrGetComponent<dx3d::CubeComponent>();
+	//		auto height = (rand() % 120) + (80.0f);
+	//		height /= 100.0f;
 
-			auto width = (rand() % 600) + (200.0f);
-			width /= 1000.0f;
+	//		auto width = (rand() % 600) + (200.0f);
+	//		width /= 1000.0f;
 
-			cube->getTransform().setScale({ width, height, width });
-			cube->getTransform().setPosition({ x * 1.4f, (height / 2.0f) - 1.0f, y * 1.4f });
-		}
-	}*/
+	//		cube->getTransform().setScale({ width, height, width });
+	//		cube->getTransform().setPosition({ x * 1.4f, (height / 2.0f) - 1.0f, y * 1.4f });
+	//	}
+	//}
+
 
 	auto player = world.createGameObject<Player>();
 	player->getTransform().setPosition({ 0, 1, -2 });
