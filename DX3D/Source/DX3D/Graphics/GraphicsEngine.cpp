@@ -117,7 +117,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	}
 
 
-
+	/*Rendering and spawning cubes*/
 	{
 		auto components = world.getComponents<CubeComponent>(numComponents);
 
