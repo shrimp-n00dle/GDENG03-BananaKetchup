@@ -25,9 +25,12 @@ namespace dx3d
 	private:
 		void onInternalUpdate();
 
+	public:
+		UniquePtr<InputSystem> m_inputSystem{};
+
 	private:
 		UniquePtr<Logger> m_logger{};
-		UniquePtr<InputSystem> m_inputSystem{};
+
 		RefPtr<RenderSystem> m_renderSystem{};
 		UniquePtr<Display> m_display{};
 		UniquePtr<World> m_world{};

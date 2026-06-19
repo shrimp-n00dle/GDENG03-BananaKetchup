@@ -58,25 +58,20 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::A)) right = -1.0f;
 
 	//Seatwork
-	if (getInputSystem().isKeyDown(dx3d::KeyCode::Space))
-	{
-		//std::cout << "SPACE BABY!" << std::endl;
-
-	}
 	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Space))
 	{
-		std::cout << "UP!" << std::endl;
-		spawnCube();
+		std::cout << "Test";
+		//getInputSystem().spaceBar->execute();
 	}
-	if (getInputSystem().isKeyDown(dx3d::KeyCode::Backspace))
+	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Backspace))
 	{
-		//std::cout << "BACKSPACE BABY!" << std::endl;
+		//getInputSystem().backSpace->execute();
 	}
-	if (getInputSystem().isKeyDown(dx3d::KeyCode::Delete))
+	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Delete))
 	{
 		//std::cout << "DELETE BABY!" << std::endl;
 	}
-	if (getInputSystem().isKeyDown(dx3d::KeyCode::Escape))
+	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Escape))
 	{
 		//std::cout << "ESCAPE BABY!" << std::endl;
 	}

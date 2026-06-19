@@ -33,7 +33,7 @@ namespace dx3d
 	private:
 		Mat4x4 m_projection{};
 
-		f32 m_nearPlane = 0.01f;
+		f32 m_nearPlane = 10.0f;//0.01f;
 		f32 m_farPlane = 100.0f;
 		f32 m_fieldOfView = 1.3f;
 		Rect m_viewportSize{ 1,1 };
