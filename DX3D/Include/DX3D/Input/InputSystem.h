@@ -47,7 +47,7 @@ namespace dx3d
 
 	public:
 	//My Commands
-		Command* spaceBar;
+		Command* spaceBar = new SpawnCommand();
 		//Command* backSpace;
 	};
 
