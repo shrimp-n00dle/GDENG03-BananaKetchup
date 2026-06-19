@@ -26,6 +26,8 @@ namespace dx3d
 		void setCursorLockArea(const Rect& rect);
 
 		void update();
+
+		Command* handleInput();
 	private:
 		short getInternalKeyCode(const KeyCode& key);
 		void centerCursor();
@@ -44,7 +46,7 @@ namespace dx3d
 
 	public:
 	//My Commands
-		Command* spaceBar;
+		SpawnCommand* spaceBar;
 		Command* backSpace;
 	};
 

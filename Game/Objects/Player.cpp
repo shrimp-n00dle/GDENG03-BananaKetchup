@@ -57,24 +57,8 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::D)) right = 1.0f;
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::A)) right = -1.0f;
 
-	//Seatwork
-	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Space))
-	{
-		std::cout << "Test";
-		//getInputSystem().spaceBar->execute();
-	}
-	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Backspace))
-	{
-		//getInputSystem().backSpace->execute();
-	}
-	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Delete))
-	{
-		//std::cout << "DELETE BABY!" << std::endl;
-	}
-	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Escape))
-	{
-		//std::cout << "ESCAPE BABY!" << std::endl;
-	}
+	//Handlw Seatwork Commands
+	getInputSystem().handleInput();
 
 
 	auto forwardDir = getTransform().forward() * forward;

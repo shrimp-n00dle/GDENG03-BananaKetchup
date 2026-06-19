@@ -13,6 +13,7 @@ namespace dx3d
 		virtual void undo() = 0;
 	};
 
+
 	//Space Bar - Spawn Shapes
 	class SpawnCommand : public Command
 	{
@@ -22,7 +23,7 @@ namespace dx3d
 
 		}
 	};
-	
+
 	//Backspace - delete latest cube
 	class RemoveTopShapeCommand : public Command
 	{
@@ -33,3 +34,5 @@ namespace dx3d
 		}
 	};
 }
+
+

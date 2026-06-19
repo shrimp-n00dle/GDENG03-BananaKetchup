@@ -87,6 +87,29 @@ void dx3d::InputSystem::update()
 	if (m_cursorLocked) centerCursor();
 }
 
+dx3d::Command* dx3d::InputSystem::handleInput()
+{	//Seatwork
+	if (isKeyReleased(dx3d::KeyCode::Space))
+	{
+		//std::cout << "Test";
+		//spaceBar->execute();
+		std::cout << "SPACE BABY!" << std::endl;
+	}
+	if (isKeyReleased(dx3d::KeyCode::Backspace))
+	{
+		//getInputSystem().backSpace->execute();
+	}
+	if (isKeyReleased(dx3d::KeyCode::Delete))
+	{
+		std::cout << "DELETE BABY!" << std::endl;
+	}
+	if (isKeyReleased(dx3d::KeyCode::Escape))
+	{
+		std::cout << "ESCAPE BABY!" << std::endl;
+	}
+	return NULL;
+}
+
 short dx3d::InputSystem::getInternalKeyCode(const KeyCode& key)
 {
 	const auto value = static_cast<int>(key);
