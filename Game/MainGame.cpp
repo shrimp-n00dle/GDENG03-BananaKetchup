@@ -12,7 +12,7 @@ void MainGame::onCreate()
 	auto& world = getWorld();
 
 	auto floor = world.createGameObject<dx3d::GameObject>();
-	floor->createOrGetComponent<dx3d::CubeComponent>();
+	floor->createOrGetComponent<dx3d::PlaneComponent>();
 	floor->getTransform().setScale({ 6.8f, 0.1f, 6.8f });
 	floor->getTransform().setPosition({ 0, -1, 0 });
 

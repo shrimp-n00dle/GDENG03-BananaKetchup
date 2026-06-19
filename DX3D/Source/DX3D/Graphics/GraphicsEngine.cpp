@@ -14,6 +14,7 @@
 #include <DX3D/Component/TransformComponent.h>
 #include <DX3D/Component/CubeComponent.h>
 #include <DX3D/Component/CameraComponent.h>
+#include <DX3D/Component/PlaneComponent.h>
 #include <ranges>
 
 using namespace catsup;
@@ -81,8 +82,20 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 		1,0,7
 	};
 
+	//Create Plane
+	const Vertex test[]
+	{
+		{ { -0.5f, 0.0f, 0.5f }, {1,0,0,1} },
+		{ { 0.5f, 0.0f,  0.5f }, {1,0,0,1} },
+		{ { 0.5f, 0.0f, -0.5f }, {1,0,0,1} },
+		{ { -0.5f,0.0f, -0.5f }, {1,0,0,1} }
+
+	};
+
+
 	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
 	m_cb = device.createConstantBuffer({ {}, sizeof(ConstantData) });
+	m_vb2 = device.createVertexBuffer({ test, std::size(test), sizeof(Vertex) });
 	m_ib = device.createIndexBuffer({ indexList, std::size(indexList) });
 }
 
@@ -115,7 +128,25 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 		}
 	}
 
+	//FLOOR
+	{
+		auto floorComponent = world.getComponents<PlaneComponent>(numComponents);
 
+		for (auto i : std::views::iota(0u, numComponents))
+		{
+			auto component = floorComponent[i];
+			auto& transform = component->getGameObject().getTransform();
+
+			data.world = transform.getAffineWorldMatrix();
+
+			auto& cb = *m_cb;
+			context.updateConstantBuffer(cb, &data);
+
+			auto& vb = *m_vb2;
+			context.setVertexBuffer(vb);
+			context.setConstantBuffer(cb);
+		}
+	}
 
 	{
 		auto components = world.getComponents<CubeComponent>(numComponents);

@@ -67,5 +67,6 @@ namespace dx3d
 
 		friend class GameObject;
 		friend class TransformComponent;
+		friend class PlaneComponent;
 	};
 }

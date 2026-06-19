@@ -37,7 +37,9 @@ namespace dx3d
 		RefPtr<DeviceContext> m_deviceContext{};
 		RefPtr<GraphicsPipelineState> m_pipeline{};
 		RefPtr<VertexBuffer> m_vb{};
+		RefPtr<VertexBuffer> m_vb2{};
 		RefPtr<ConstantBuffer> m_cb{};
+		RefPtr<ConstantBuffer> m_cb2{};
 		RefPtr<IndexBuffer> m_ib{};
 	};
 }

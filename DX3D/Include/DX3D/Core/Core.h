@@ -40,6 +40,7 @@ namespace dx3d
 
 	class Component;
 	class TransformComponent;
+	class PlaneComponent;
 
 	using i32 = int;
 	using ui32 = unsigned int;
