@@ -1,6 +1,7 @@
 #include "Player.h"
 #include <iostream>
 
+
 Player::Player(const dx3d::GameObjectDesc& desc) : dx3d::GameObject(desc)
 {
 }
@@ -58,7 +59,11 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::A)) right = -1.0f;
 
 	//Handlw Seatwork Commands
-	getInputSystem().handleInput();
+	dx3d::Command* command = getInputSystem().handleInput();
+	if (command)
+	{
+		command->execute();
+	}
 
 
 	auto forwardDir = getTransform().forward() * forward;

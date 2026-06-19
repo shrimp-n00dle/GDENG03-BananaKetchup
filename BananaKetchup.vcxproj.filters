@@ -209,5 +209,8 @@
     <ClInclude Include="DX3D\Source\DX3D\Command\Command.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DX3D\Source\DX3D\Command\SpawnCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

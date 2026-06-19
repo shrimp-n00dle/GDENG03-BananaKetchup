@@ -1,4 +1,5 @@
 #include <DX3D/All.h>
+#include <DX3D/Command/Command.h>
 
 class Player : public dx3d::GameObject
 {
@@ -18,6 +19,5 @@ protected:
 	virtual void onUpdate(dx3d::f32 deltaTime);
 
 private:
-
 	GameObject* m_cam{};
 };

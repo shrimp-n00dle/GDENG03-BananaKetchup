@@ -92,8 +92,9 @@ dx3d::Command* dx3d::InputSystem::handleInput()
 	if (isKeyReleased(dx3d::KeyCode::Space))
 	{
 		//std::cout << "Test";
-		//spaceBar->execute();
 		std::cout << "SPACE BABY!" << std::endl;
+		return spaceBar;
+		
 	}
 	if (isKeyReleased(dx3d::KeyCode::Backspace))
 	{
