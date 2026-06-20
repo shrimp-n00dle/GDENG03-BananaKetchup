@@ -147,9 +147,11 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 			context.updateConstantBuffer(cb, &data);
 
 			auto& vb = *m_vb2;
+			auto& ib = *m_ib;
 			context.setVertexBuffer(vb);
 			context.setConstantBuffer(cb);
-			context.drawTriangleList(vb.getVertexListSize(), 0u);
+			context.setIndexBuffer(ib);
+			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
 		}
 	}
 
