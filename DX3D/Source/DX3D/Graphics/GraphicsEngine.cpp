@@ -108,6 +108,10 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 {
 	//camera setup
 	auto size = swapChain.getSize();
+	auto unitsPerScreenHeight = 5.0f;
+	auto aspect = static_cast<f32>(size.width) / size.height;
+	auto viewHeight = unitsPerScreenHeight;
+	auto viewWidth = unitsPerScreenHeight * aspect;
 
 	auto& context = *m_deviceContext;
 	context.clearAndSetBackBuffer(swapChain, { 0.27f, 0.39f,0.55f, 1.0f });
@@ -145,6 +149,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 			auto& vb = *m_vb2;
 			context.setVertexBuffer(vb);
 			context.setConstantBuffer(cb);
+			context.drawTriangleList(vb.getVertexListSize(), 0u);
 		}
 	}
 

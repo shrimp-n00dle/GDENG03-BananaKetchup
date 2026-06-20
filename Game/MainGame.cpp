@@ -13,8 +13,14 @@ void MainGame::onCreate()
 
 	auto floor = world.createGameObject<dx3d::GameObject>();
 	floor->createOrGetComponent<dx3d::PlaneComponent>();
-	floor->getTransform().setScale({ 6.8f, 0.1f, 6.8f });
-	floor->getTransform().setPosition({ 0, -1, 0 });
+	auto height = (rand() % 120) + (80.0f);
+	height /= 100.0f;
+
+	auto width = (rand() % 600) + (200.0f);
+	width /= 1000.0f;
+
+	floor->getTransform().setScale({ width, height, width });
+	floor->getTransform().setPosition({ -2 * 1.4f, (height / 2.0f) - 1.0f, -2 * 1.4f });
 
 	srand((unsigned int)time(NULL));
 
@@ -36,7 +42,7 @@ void MainGame::onCreate()
 	}
 
 	auto player = world.createGameObject<Player>();
-	player->getTransform().setPosition({ 0, 1, -2 });
+	player->getTransform().setPosition({ 0, -1, -2 });
 
 	getInputSystem().setCursorLocked(true);
 	getInputSystem().setCursorVisible(false);

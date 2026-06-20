@@ -4,6 +4,9 @@
 #include <DX3D/Math/Rect.h>
 #include <DX3D/Math/Mat4x4.h>
 
+#include <windows.h>
+#include <directxmath.h>
+
 namespace dx3d
 {
 	class CameraComponent final : public Component
@@ -33,9 +36,9 @@ namespace dx3d
 	private:
 		Mat4x4 m_projection{};
 
-		f32 m_nearPlane = 0.01f;
-		f32 m_farPlane = 100.0f;
-		f32 m_fieldOfView = 1.3f;
+		f32 m_nearPlane = 0.1f;//0.01f;
+		f32 m_farPlane = 1000.0f;//100.0f;
+		f32 m_fieldOfView = DirectX::XMConvertToRadians(45.0f);//1.3f;
 		Rect m_viewportSize{ 1,1 };
 
 		bool m_dirty{ true };
