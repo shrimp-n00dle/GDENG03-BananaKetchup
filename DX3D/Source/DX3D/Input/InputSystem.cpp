@@ -93,13 +93,13 @@ dx3d::Command* dx3d::InputSystem::handleInput()
 	{
 		//std::cout << "Test";
 		std::cout << "SPACE BABY!" << std::endl;
-		spaceBar->execute();
 		return spaceBar;
 		
 	}
 	if (isKeyReleased(dx3d::KeyCode::Backspace))
 	{
 		//getInputSystem().backSpace->execute();
+		
 	}
 	if (isKeyReleased(dx3d::KeyCode::Delete))
 	{

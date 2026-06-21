@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "../../Game/Objects/Player.h"
 #include <iostream>
 
 
@@ -10,7 +10,7 @@ Player::~Player()
 {
 }
 
-void Player::spawnCube()
+dx3d::CubeComponent Player::spawnCube()
 {
 	auto& world = getWorld();
 
@@ -62,7 +62,7 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	dx3d::Command* command = getInputSystem().handleInput();
 	if (command)
 	{
-		command->execute();
+		command->execute(player);
 	}
 
 

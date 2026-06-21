@@ -73,7 +73,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>Intermediate\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>DX3D/Source;DX3D/Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Elizabeth\Documents\GitHub\BananaKetchup\DX3D\Include;C:\Users\Elizabeth\Documents\GitHub\BananaKetchup\DX3D\Source;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\Elizabeth\Documents\GitHub\BananaKetchup\DX3D\Include;C:\Users\Elizabeth\Documents\GitHub\BananaKetchup\DX3D\Source;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -184,7 +187,6 @@
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec4.h" />
     <ClInclude Include="DX3D\Include\DX3D\Window\Window.h" />
     <ClInclude Include="DX3D\Source\DX3D\Command\Command.h" />
-    <ClInclude Include="DX3D\Source\DX3D\Command\SpawnCommand.h" />
     <ClInclude Include="Game\MainGame.h" />
     <ClInclude Include="Game\Objects\Player.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ConstantBuffer.h" />
