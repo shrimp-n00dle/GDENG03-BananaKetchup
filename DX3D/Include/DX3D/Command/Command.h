@@ -1,13 +1,15 @@
 #pragma once
 #include <iostream>
 
+class Player;
 namespace dx3d
 {
+	
 	class Command
 	{
 	public:
 		virtual ~Command() {}
-		virtual void execute() = 0;
+		virtual void execute(Player& p) = 0;
 
 		//for undoing commands
 		//virtual void undo() = 0;
@@ -17,11 +19,12 @@ namespace dx3d
 	class SpawnCommand : public Command
 	{
 	public:
-		virtual void execute() {
-			std::cout << "SPACE COMMAND FROM COMMAND.H" << std::endl;
-
+		virtual void execute(Player& p) {
+			std::cout << "stuck";
 		}
 	};
+
+
 }
 
 

@@ -10,6 +10,16 @@ Player::~Player()
 {
 }
 
+Player* Player::getPlayer()
+{
+	return this;
+}
+
+const void Player::test()
+{
+	std::cout << "WORKING" << std::endl;
+}
+
 dx3d::GameObject* Player::spawnCube()
 {
 	auto& world = getWorld();
@@ -64,7 +74,9 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	dx3d::Command* command = getInputSystem().handleInput();
 	if (command)
 	{
-		command->execute();
+		Player* p = getPlayer();
+		Player& p2 = *p;
+		command->execute(p2);
 	}
 
 

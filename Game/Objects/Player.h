@@ -8,7 +8,10 @@ public:
 	explicit Player(const dx3d::GameObjectDesc& desc);
 	virtual ~Player() override;
 
+	Player* getPlayer();
+
 	//Test
+	const void test();
 	GameObject* spawnCube();
 	//Test
 	int x = -2;
@@ -20,4 +23,6 @@ protected:
 
 private:
 	GameObject* m_cam{};
+
 };
+
