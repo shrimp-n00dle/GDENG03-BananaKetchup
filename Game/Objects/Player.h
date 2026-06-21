@@ -24,5 +24,10 @@ protected:
 private:
 	GameObject* m_cam{};
 
+public:
+	//My Commands
+	dx3d::Command* spaceBar = new dx3d::SpawnCommand();
+	//Command* backSpace;
+
 };
 

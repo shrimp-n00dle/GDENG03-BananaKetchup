@@ -88,26 +88,7 @@ void dx3d::InputSystem::update()
 }
 
 dx3d::Command* dx3d::InputSystem::handleInput()
-{	//Seatwork
-	if (isKeyReleased(dx3d::KeyCode::Space))
-	{
-		//std::cout << "Test";
-		std::cout << "SPACE BABY!" << std::endl;
-		return spaceBar;
-		
-	}
-	if (isKeyReleased(dx3d::KeyCode::Backspace))
-	{
-		//getInputSystem().backSpace->execute();
-	}
-	if (isKeyReleased(dx3d::KeyCode::Delete))
-	{
-		std::cout << "DELETE BABY!" << std::endl;
-	}
-	if (isKeyReleased(dx3d::KeyCode::Escape))
-	{
-		std::cout << "ESCAPE BABY!" << std::endl;
-	}
+{	
 	return NULL;
 }
 

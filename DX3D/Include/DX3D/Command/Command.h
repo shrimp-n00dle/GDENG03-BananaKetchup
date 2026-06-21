@@ -1,7 +1,5 @@
 #pragma once
 #include <iostream>
-
-class Player;
 namespace dx3d
 {
 	
@@ -9,7 +7,7 @@ namespace dx3d
 	{
 	public:
 		virtual ~Command() {}
-		virtual void execute(Player& p) = 0;
+		virtual void execute() = 0;
 
 		//for undoing commands
 		//virtual void undo() = 0;
@@ -19,8 +17,9 @@ namespace dx3d
 	class SpawnCommand : public Command
 	{
 	public:
-		virtual void execute(Player& p) {
+		virtual void execute() {
 			std::cout << "stuck";
+			std::cout << "okay" << std::endl;
 		}
 	};
 

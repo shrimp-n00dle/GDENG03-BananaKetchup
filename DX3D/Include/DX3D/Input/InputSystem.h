@@ -44,10 +44,6 @@ namespace dx3d
 		bool m_cursorVisible{ true };
 		bool m_cursorLocked{ false };
 
-	public:
-	//My Commands
-		Command* spaceBar = new SpawnCommand();
-		//Command* backSpace;
 	};
 
 }
