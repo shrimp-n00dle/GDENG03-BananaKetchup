@@ -36,8 +36,11 @@ void MainGame::onCreate()
 	//}
 
 
+
+
+
 	//MODIFIED
-	for (auto y = -2; y < 3; y++)
+	/*for (auto y = -2; y < 3; y++)
 	{
 		for (auto x = -2; x < 3; x++)
 		{
@@ -52,7 +55,7 @@ void MainGame::onCreate()
 			cube->getTransform().setScale({ width, height, width });
 			cube->getTransform().setPosition({ x * 0.5f, (height / 2.0f) - 1.0f, y * 0.5f });
 		}
-	}
+	}*/
 
 
 	auto player = world.createGameObject<Player>();

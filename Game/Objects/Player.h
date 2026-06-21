@@ -27,7 +27,7 @@ private:
 public:
 	//My Commands
 	dx3d::Command* spaceBar = new dx3d::SpawnCommand();
-	//Command* backSpace;
+	dx3d::Command* delButton = new dx3d::EndCommand();
 
 };
 

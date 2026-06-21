@@ -76,13 +76,12 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	{
 		//std::cout << "Test";
 		std::cout << "SPACE BABY!" << std::endl;
-		spawnCube();
-		spaceBar->execute();
+		GameObject* cube = spawnCube();
+		spaceBar->execute(cube);
 
 	}
 	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Backspace))
 	{
-		//getInputSystem().backSpace->execute();
 	}
 	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Delete))
 	{
@@ -90,7 +89,7 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	}
 	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Escape))
 	{
-		std::cout << "ESCAPE BABY!" << std::endl;
+		//delButton->execute();
 	}
 
 
