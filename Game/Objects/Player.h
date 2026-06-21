@@ -9,7 +9,7 @@ public:
 	virtual ~Player() override;
 
 	//Test
-	dx3d::CubeComponent spawnCube();
+	void spawnCube();
 	//Test
 	int x = -2;
 	int y = -2;
@@ -20,5 +20,4 @@ protected:
 
 private:
 	GameObject* m_cam{};
-	Player& player;
 };
