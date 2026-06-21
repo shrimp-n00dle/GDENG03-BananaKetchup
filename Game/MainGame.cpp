@@ -9,8 +9,8 @@ MainGame::MainGame(const dx3d::GameDesc& desc) : dx3d::Game(desc)
 void MainGame::onCreate()
 {
 	Game::onCreate();
-	auto& world = getWorld();
 
+	auto& world = getWorld();
 	auto floor = world.createGameObject<dx3d::GameObject>();
 	floor->createOrGetComponent<dx3d::CubeComponent>();
 	floor->getTransform().setScale({ 6.8f, 0.1f, 6.8f });

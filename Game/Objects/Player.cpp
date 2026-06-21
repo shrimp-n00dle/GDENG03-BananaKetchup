@@ -10,7 +10,7 @@ Player::~Player()
 {
 }
 
-void Player::spawnCube()
+dx3d::GameObject* Player::spawnCube()
 {
 	auto& world = getWorld();
 
@@ -28,6 +28,8 @@ void Player::spawnCube()
 	//Increment
 	x++;
 	y++;
+
+	return cube;
 }
 
 void Player::onCreate()

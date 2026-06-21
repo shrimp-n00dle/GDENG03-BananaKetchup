@@ -9,7 +9,7 @@ public:
 	virtual ~Player() override;
 
 	//Test
-	void spawnCube();
+	GameObject* spawnCube();
 	//Test
 	int x = -2;
 	int y = -2;

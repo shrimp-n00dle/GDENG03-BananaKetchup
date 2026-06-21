@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DX3D\Source\DX3D\Command\CommandActions.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\CameraComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\CubeComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\TransformComponent.cpp" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX3D\Include\DX3D\All.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Command\CommandActions.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\CameraComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\CubeComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\TransformComponent.h" />
@@ -183,8 +185,8 @@
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec3.h" />
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec4.h" />
     <ClInclude Include="DX3D\Include\DX3D\Window\Window.h" />
-    <ClInclude Include="DX3D\Source\DX3D\Command\Command.h" />
-    <ClInclude Include="DX3D\Source\DX3D\Command\SpawnCommand.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Command\Command.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Command\SpawnCommand.h" />
     <ClInclude Include="Game\MainGame.h" />
     <ClInclude Include="Game\Objects\Player.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ConstantBuffer.h" />
