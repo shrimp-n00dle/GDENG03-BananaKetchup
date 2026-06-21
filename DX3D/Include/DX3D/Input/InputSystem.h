@@ -3,7 +3,6 @@
 #include <DX3D/Core/Base.h>
 #include <DX3D/Math/Vec2.h>
 #include <DX3D/Math/Rect.h>
-#include <DX3D/Command/SpawnCommand.h>
 #include <DX3D/Command/Command.h>
 #include <array>
 

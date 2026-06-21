@@ -12,6 +12,16 @@ namespace dx3d
 		//for undoing commands
 		//virtual void undo() = 0;
 	};
+
+	//Space Bar - Spawn Shapes
+	class SpawnCommand : public Command
+	{
+	public:
+		virtual void execute() {
+			std::cout << "SPACE COMMAND FROM COMMAND.H" << std::endl;
+
+		}
+	};
 }
 
 
