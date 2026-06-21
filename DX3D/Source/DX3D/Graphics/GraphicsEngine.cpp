@@ -17,6 +17,8 @@
 #include <DX3D/Component/PlaneComponent.h>
 #include <ranges>
 
+#include <iostream>
+
 using namespace catsup;
 
 dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.base), m_renderSystem(desc.engine)
@@ -124,8 +126,10 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 		auto components = world.getComponents<CameraComponent>(numComponents);
 		for (auto i : std::views::iota(0u, numComponents))
 		{
+			
 			auto component = components[i];
-			data.view = component->getViewMatrix();
+			auto& transform = component->getGameObject().getTransform();
+			data.view = component->getViewMatrix(); //*transform.getAffineWorldMatrix();
 			component->setViewportSize(size);
 			data.proj = component->getProjectionMatrix();
 			break;
@@ -133,7 +137,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	}
 
 	//FLOOR
-	{
+	/*{
 		auto floorComponent = world.getComponents<PlaneComponent>(numComponents);
 
 		for (auto i : std::views::iota(0u, numComponents))
@@ -153,7 +157,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 			context.setIndexBuffer(ib);
 			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
 		}
-	}
+	}*/
 
 	{
 		auto components = world.getComponents<CubeComponent>(numComponents);

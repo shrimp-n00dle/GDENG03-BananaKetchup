@@ -11,7 +11,7 @@ void MainGame::onCreate()
 	Game::onCreate();
 	auto& world = getWorld();
 
-	auto floor = world.createGameObject<dx3d::GameObject>();
+	/*auto floor = world.createGameObject<dx3d::GameObject>();
 	floor->createOrGetComponent<dx3d::PlaneComponent>();
 	auto height = (rand() % 120) + (80.0f);
 	height /= 100.0f;
@@ -20,7 +20,7 @@ void MainGame::onCreate()
 	width /= 1000.0f;
 
 	floor->getTransform().setScale({ width, height, width });
-	floor->getTransform().setPosition({ -2 * 1.4f, (height / 2.0f) - 1.0f, -2 * 1.4f });
+	floor->getTransform().setPosition({ -2 * 1.4f, (height / 2.0f) - 1.0f, -2 * 1.4f });*/
 
 	srand((unsigned int)time(NULL));
 
@@ -30,11 +30,11 @@ void MainGame::onCreate()
 		{
 			auto cube = world.createGameObject<dx3d::GameObject>();
 			cube->createOrGetComponent<dx3d::CubeComponent>();
-			auto height = (rand() % 120) + (80.0f);
+			auto height = (rand() % 50) + (10.0f);//120) + (80.0f);
 			height /= 100.0f;
 
-			auto width = (rand() % 600) + (200.0f);
-			width /= 1000.0f;
+			auto width = (rand() % 50) + (10.0f);//600) + (200.0f);
+			width /= 500.0f;
 
 			cube->getTransform().setScale({ width, height, width });
 			cube->getTransform().setPosition({ x * 1.4f, (height / 2.0f) - 1.0f, y * 1.4f });
