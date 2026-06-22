@@ -4,6 +4,7 @@
 #include <DX3D/Graphics/GraphicsEngine.h>
 
 
+
 namespace dx3d
 {
 	
@@ -28,26 +29,11 @@ namespace dx3d
 		virtual void execute(GraphicsEngine& g);
 	};
 
-	//class DeleteCommand : public Command
-	//{
-	//public:
-	//	virtual void execute(const GraphicsEngine& g)
-	//	{
-	//		//delete object
-	//		std::cout << "DELETE?";
-
-	//		//remove object from list
-	//	}
-	//};
-
-	//class EndCommand : public Command
-	//{
-	//public:
-	//	virtual void execute(UniquePtr<GraphicsEngine> g)
-	//	{
-	//		std::cout << "EXIT?";
-	//	}
-	//};
+	class DeleteCommand : public Command
+	{
+	public:
+		virtual void execute(GraphicsEngine& g);
+	};
 
 
 }

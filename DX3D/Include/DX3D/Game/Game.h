@@ -31,6 +31,9 @@ namespace dx3d
 
 	public:
 		Command* spaceBar = new SpawnCommand();
+		Command* backSpace = new DeleteCommand();
+	
+
 
 	private:
 		UniquePtr<Logger> m_logger{};

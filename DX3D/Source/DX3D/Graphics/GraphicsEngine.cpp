@@ -80,26 +80,45 @@ void dx3d::GraphicsEngine::spawnTest(World& world)
 {
 	if (bSpawn)
 	{
-		std::cout << "SPAWNED ONE!" << std::endl;
-		//auto cube = world.createGameObject<dx3d::GameObject>();
-		//cube->createOrGetComponent<dx3d::CubeComponent>();
-		//auto height = (rand() % 120) + (80.0f);
-		//height /= 100.0f;
 
-		//auto width = (rand() % 600) + (200.0f);
-		//width /= 1000.0f;
+		for (auto y = -2; y < 3; y++)
+	{
+		for (auto x = -2; x < 3; x++)
+		{
+			auto cube = world.createGameObject<dx3d::GameObject>();
+			cube->createOrGetComponent<dx3d::CubeComponent>();
+			auto height = (rand() % 60) + (40.0f);
+			height /= 50.0f;
 
-		//cube->getTransform().setScale({ width, height, width });
-		//cube->getTransform().setPosition({ -3 * 1.4f, (height / 2.0f) - 1.0f, -2 * 1.4f });
+			auto width = (rand() % 300) + (100.0f);
+			width /= 500.0f;
+
+			cube->getTransform().setScale({ width, height, width });
+			cube->getTransform().setPosition({ x * 0.5f, (height / 2.0f) - 1.0f, y * 0.5f });
+		}
+	}
+		/*std::cout << "SPAWNED ONE!" << std::endl;
+		auto cube = world.createGameObject<dx3d::GameObject>();
+		cube->createOrGetComponent<dx3d::CubeComponent>();
+		auto height = (rand() % 120) + (80.0f);
+		height /= 100.0f;
+
+		auto width = (rand() % 600) + (200.0f);
+		width /= 1000.0f;
+
+		cube->getTransform().setScale({ width, height, width });
+		cube->getTransform().setPosition({ -3 * 1.4f, (height / 2.0f) - 1.0f, -2 * 1.4f });*/
+
 		bSpawn = false;
 	}
+
+	
 
 
 }
 
 void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 deltaTime)
 {
-	
 	//camera setup
 	auto size = swapChain.getSize();
 
@@ -129,7 +148,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 		auto components = world.getComponents<CubeComponent>(numComponents);
 		
 
-		for (auto i : std::views::iota(0u, numComponents))
+		for (auto i : std::views::iota(0u, numComponents - incCube))
 		{
 			auto component = components[i];
 			auto& transform = component->getGameObject().getTransform();
@@ -152,9 +171,14 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	swapChain.present();
 }
 
-void dx3d::GraphicsEngine::engineTest()
+void dx3d::GraphicsEngine::callSpawn()
 {
-	std::cout << "EngineTest";
 	bSpawn = true;
+}
+
+void dx3d::GraphicsEngine::removeRecent()
+{
+	incCube++;
+	std::cout << "REMOVED ONE";
 }
 

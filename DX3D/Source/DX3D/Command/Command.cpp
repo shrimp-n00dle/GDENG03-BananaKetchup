@@ -2,5 +2,10 @@
 
 void dx3d::SpawnCommand::execute(GraphicsEngine& g)
 {
-	g.engineTest();
+	g.callSpawn();
+}
+
+void dx3d::DeleteCommand::execute(GraphicsEngine& g)
+{
+	g.removeRecent();
 }

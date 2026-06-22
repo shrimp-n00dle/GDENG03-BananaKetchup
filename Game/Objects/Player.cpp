@@ -72,6 +72,8 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 
 	
 
+	
+
 
 	auto forwardDir = getTransform().forward() * forward;
 	auto rightDir = getTransform().right() * right;

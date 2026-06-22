@@ -24,6 +24,8 @@
 #include <DX3D/Command/Command.h>
 #include <vector>
 
+#include <DX3D/Window/Window.h>
+
 using namespace catsup;
 namespace dx3d
 {
@@ -53,17 +55,23 @@ namespace dx3d
 		};
 
 	public:
+		//For seatwork
 		bool bSpawn = false;
-		int test = 0;
-		void engineTest();
+		void callSpawn();
 
-	private:
+		int incCube = 0;
+		void removeRecent();
+
+
+	public:
 		RenderSystem& m_renderSystem;
 		RefPtr<DeviceContext> m_deviceContext{};
 		RefPtr<GraphicsPipelineState> m_pipeline{};
 		RefPtr<VertexBuffer> m_vb{};
 		RefPtr<ConstantBuffer> m_cb{};
 		RefPtr<IndexBuffer> m_ib{};
+
+		friend class Window;
 	};
 }
 
