@@ -182,3 +182,8 @@ void dx3d::GraphicsEngine::removeRecent()
 	std::cout << "REMOVED ONE";
 }
 
+void dx3d::GraphicsEngine::closeProgram()
+{
+	PostQuitMessage(0);
+}
+

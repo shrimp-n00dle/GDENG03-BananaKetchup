@@ -62,6 +62,8 @@ namespace dx3d
 		int incCube = 0;
 		void removeRecent();
 
+		void closeProgram();
+
 
 	public:
 		RenderSystem& m_renderSystem;
