@@ -1,20 +1,5 @@
 #include <DX3D/Graphics/GraphicsEngine.h>
-#include <DX3D/Graphics/RenderSystem.h>
-#include <DX3D/Graphics/DeviceContext.h>
-#include <DX3D/Graphics/SwapChain.h>
-#include <DX3D/Graphics/VertexBuffer.h>
-#include <DX3D/Graphics/IndexBuffer.h>
-#include <DX3D/Math/Vec3.h>
-#include <fstream>
 
-#include <DX3D/Game/World.h>
-#include <DX3D/Game/Component.h>
-#include <DX3D/Game/GameObject.h>
-
-#include <DX3D/Component/TransformComponent.h>
-#include <DX3D/Component/CubeComponent.h>
-#include <DX3D/Component/CameraComponent.h>
-#include <ranges>
 
 using namespace catsup;
 
@@ -114,6 +99,7 @@ void dx3d::GraphicsEngine::spawnTest(World& world)
 
 void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 deltaTime)
 {
+	
 	//camera setup
 	auto size = swapChain.getSize();
 
@@ -165,3 +151,10 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	m_renderSystem.executeCommandList(context);
 	swapChain.present();
 }
+
+void dx3d::GraphicsEngine::engineTest()
+{
+	std::cout << "EngineTest";
+	bSpawn = true;
+}
+

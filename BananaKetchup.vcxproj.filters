@@ -96,6 +96,15 @@
     <ClCompile Include="Game\Objects\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DX3D\Source\DX3D\Clones\CubeClone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DX3D\Source\DX3D\Command\CommandActions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DX3D\Source\DX3D\Command\Command.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX3D\Include\DX3D\Core\Base.h">
@@ -206,10 +215,13 @@
     <ClInclude Include="DX3D\Include\DX3D\Component\CameraComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DX3D\Source\DX3D\Command\Command.h">
+    <ClInclude Include="DX3D\Include\DX3D\Command\CommandActions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DX3D\Source\DX3D\Command\SpawnCommand.h">
+    <ClInclude Include="DX3D\Include\DX3D\Command\Command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DX3D\Source\DX3D\Clones\CubeClone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -61,7 +61,7 @@ void dx3d::Game::onInternalUpdate()
 	{
 		//std::cout << "Test";
 		std::cout << "SPACE BABY!" << std::endl;
-		spaceBar->execute(std::move(m_graphicsEngine));
+		spaceBar->execute(*m_graphicsEngine.get());
 
 	}
 	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Backspace))
@@ -75,7 +75,6 @@ void dx3d::Game::onInternalUpdate()
 	{
 		//delButton->execute();
 	}
-	//m_inputSystem->is
 
 	m_inputSystem->update();
 
@@ -84,7 +83,6 @@ void dx3d::Game::onInternalUpdate()
 
 	m_world->update(deltaTime);
 
-	m_graphicsEngine->bSpawn = true;
 	m_graphicsEngine->spawnTest(*m_world);
 
 	m_graphicsEngine->render(*m_world, m_display->getSwapChain(), deltaTime);

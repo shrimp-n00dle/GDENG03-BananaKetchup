@@ -1,8 +1,9 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include <DX3D/Game/GameObject.h>
 #include <DX3D/Graphics/GraphicsEngine.h>
+
+
 namespace dx3d
 {
 	
@@ -10,10 +11,9 @@ namespace dx3d
 	{
 	public:
 		virtual ~Command() {}
-		virtual void execute(UniquePtr<GraphicsEngine> g) = 0;
+		virtual void execute(GraphicsEngine& g) = 0;
 
 		//std::vector<CubeClone*> cubeList;
-
 		//for undoing commands
 		//virtual void undo() = 0;
 
@@ -25,33 +25,29 @@ namespace dx3d
 
 	public:
 		
-		virtual void execute(UniquePtr<GraphicsEngine> g) {
-
-			//g->bSpawn = true;
-			std::cout << "SPAWN";
-		}
+		virtual void execute(GraphicsEngine& g);
 	};
 
-	class DeleteCommand : public Command
-	{
-	public:
-		virtual void execute(UniquePtr<GraphicsEngine> g)
-		{
-			//delete object
-			std::cout << "DELETE?";
+	//class DeleteCommand : public Command
+	//{
+	//public:
+	//	virtual void execute(const GraphicsEngine& g)
+	//	{
+	//		//delete object
+	//		std::cout << "DELETE?";
 
-			//remove object from list
-		}
-	};
+	//		//remove object from list
+	//	}
+	//};
 
-	class EndCommand : public Command
-	{
-	public:
-		virtual void execute(UniquePtr<GraphicsEngine> g)
-		{
-			std::cout << "EXIT?";
-		}
-	};
+	//class EndCommand : public Command
+	//{
+	//public:
+	//	virtual void execute(UniquePtr<GraphicsEngine> g)
+	//	{
+	//		std::cout << "EXIT?";
+	//	}
+	//};
 
 
 }

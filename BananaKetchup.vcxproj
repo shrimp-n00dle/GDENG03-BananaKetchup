@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DX3D\Source\DX3D\Clones\CubeClone.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Command\Command.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Command\CommandActions.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\CameraComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\CubeComponent.cpp" />

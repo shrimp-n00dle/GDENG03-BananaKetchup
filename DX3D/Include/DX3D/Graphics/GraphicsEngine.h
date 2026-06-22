@@ -5,6 +5,22 @@
 #include <DX3D/Math/Vec4.h>
 #include <DX3D/Math/Mat4x4.h>
 
+#include <DX3D/Graphics/RenderSystem.h>
+#include <DX3D/Graphics/DeviceContext.h>
+#include <DX3D/Graphics/SwapChain.h>
+#include <DX3D/Graphics/VertexBuffer.h>
+#include <DX3D/Graphics/IndexBuffer.h>
+#include <fstream>
+
+#include <DX3D/Game/World.h>
+#include <DX3D/Game/Component.h>
+#include <DX3D/Game/GameObject.h>
+
+#include <DX3D/Component/TransformComponent.h>
+#include <DX3D/Component/CubeComponent.h>
+#include <DX3D/Component/CameraComponent.h>
+#include <ranges>
+
 #include <DX3D/Command/Command.h>
 #include <vector>
 
@@ -38,7 +54,8 @@ namespace dx3d
 
 	public:
 		bool bSpawn = false;
-
+		int test = 0;
+		void engineTest();
 
 	private:
 		RenderSystem& m_renderSystem;
