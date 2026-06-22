@@ -16,7 +16,10 @@ namespace dx3d
 
 		//std::vector<CubeClone*> cubeList;
 		//for undoing commands
-		//virtual void undo() = 0;
+		virtual void undo(GraphicsEngine& g) = 0;
+
+		//for redoing commands
+		//virtual void redo() = 0;
 
 	};
 
@@ -25,8 +28,8 @@ namespace dx3d
 	{
 
 	public:
-		
 		virtual void execute(GraphicsEngine& g);
+		virtual void undo(GraphicsEngine& g);
 	};
 
 	//Backspace - remove the latest shape added
@@ -34,6 +37,8 @@ namespace dx3d
 	{
 	public:
 		virtual void execute(GraphicsEngine& g);
+		virtual void undo(GraphicsEngine& g);
+
 	};
 
 	//Escape - closes program
@@ -41,6 +46,7 @@ namespace dx3d
 	{
 	public:
 		virtual void execute(GraphicsEngine& g);
+		virtual void undo(GraphicsEngine& g);
 	};
 
 

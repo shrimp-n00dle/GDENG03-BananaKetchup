@@ -1,8 +1,11 @@
 #include <DX3D/Command/Command.h>
-
 void dx3d::SpawnCommand::execute(GraphicsEngine& g)
 {
 	g.callSpawn();
+}
+void dx3d::SpawnCommand::undo(GraphicsEngine& g)
+{
+	g.removeRecent();
 }
 
 void dx3d::DeleteCommand::execute(GraphicsEngine& g)
@@ -10,7 +13,16 @@ void dx3d::DeleteCommand::execute(GraphicsEngine& g)
 	g.removeRecent();
 }
 
+void dx3d::DeleteCommand::undo(GraphicsEngine& g)
+{
+	
+}
+
 void dx3d::EndCommand::execute(GraphicsEngine& g)
 {
 	g.closeProgram();
+}
+void dx3d::EndCommand::undo(GraphicsEngine& g)
+{
+	
 }
