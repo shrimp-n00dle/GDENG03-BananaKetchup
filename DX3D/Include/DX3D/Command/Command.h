@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <DX3D/Graphics/GraphicsEngine.h>
+#include <string.h>
 
 
 
@@ -11,7 +12,8 @@ namespace dx3d
 	class Command
 	{
 	public:
-		std::vector<int> test;
+		std::vector<std::string> queueList;
+
 		virtual ~Command() {}
 		virtual void execute(GraphicsEngine& g) = 0;
 
