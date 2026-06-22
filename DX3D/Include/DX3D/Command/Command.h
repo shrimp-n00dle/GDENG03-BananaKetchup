@@ -11,6 +11,7 @@ namespace dx3d
 	class Command
 	{
 	public:
+		std::vector<int> test;
 		virtual ~Command() {}
 		virtual void execute(GraphicsEngine& g) = 0;
 
@@ -20,6 +21,8 @@ namespace dx3d
 
 		//for redoing commands
 		//virtual void redo() = 0;
+
+		virtual void promptList();
 
 	};
 
