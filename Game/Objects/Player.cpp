@@ -75,9 +75,9 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Space))
 	{
 		//std::cout << "Test";
-		std::cout << "SPACE BABY!" << std::endl;
-		GameObject* cube = spawnCube();
-		spaceBar->execute(cube);
+		//std::cout << "SPACE BABY!" << std::endl;
+		//GameObject* cube = spawnCube();
+		spaceBar->execute();
 
 	}
 	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Backspace))

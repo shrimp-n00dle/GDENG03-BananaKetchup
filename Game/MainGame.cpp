@@ -1,5 +1,6 @@
 #include "MainGame.h"
 #include "Objects/Player.h"
+#include <DX3D/Clones/CubeClone.h>
 
 
 MainGame::MainGame(const dx3d::GameDesc& desc) : dx3d::Game(desc)

@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <DX3D/Game/GameObject.h>
+#include <DX3D/Clones/CubeClone.h>
+#include <DX3D/Game/Game.h>
 namespace dx3d
 {
 	
@@ -9,9 +11,9 @@ namespace dx3d
 	{
 	public:
 		virtual ~Command() {}
-		virtual void execute(GameObject* cube) = 0;
+		virtual void execute() = 0;
 
-		std::vector<GameObject*> cubeList;
+		//std::vector<CubeClone*> cubeList;
 
 		//for undoing commands
 		//virtual void undo() = 0;
@@ -21,16 +23,19 @@ namespace dx3d
 	//Space Bar - Spawn Shapes
 	class SpawnCommand : public Command
 	{
+
 	public:
-		virtual void execute(GameObject* cube) {
-			cubeList.push_back(cube);
+		
+		virtual void execute() {
+
+			std::cout << "SPAWN";
 		}
 	};
 
 	class DeleteCommand : public Command
 	{
 	public:
-		virtual void execute(GameObject* cube)
+		virtual void execute()
 		{
 			//delete object
 			std::cout << "DELETE?";
@@ -42,7 +47,7 @@ namespace dx3d
 	class EndCommand : public Command
 	{
 	public:
-		virtual void execute(GameObject* cube)
+		virtual void execute()
 		{
 			std::cout << "EXIT?";
 		}

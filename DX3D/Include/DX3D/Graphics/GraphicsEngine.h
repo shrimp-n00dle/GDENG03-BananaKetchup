@@ -17,6 +17,8 @@ namespace dx3d
 		explicit GraphicsEngine(const GraphicsEngineDesc& desc);
 		virtual ~GraphicsEngine() override;
 
+		void spawnTest(World& world);
+
 		void render(const World& world, SwapChain& swapChain, f32 deltaTime);
 	private:
 		//MUST BE EXACT TO BASIC.HLSL or it wont work

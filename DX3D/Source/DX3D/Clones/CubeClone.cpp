@@ -2,6 +2,7 @@
 
 CubeClone::CubeClone(const dx3d::GameObjectDesc& desc) : dx3d::GameObject(desc)
 {
+	std::cout << "CUBE CREATED" << std::endl;
 }
 
 CubeClone::~CubeClone()
@@ -23,7 +24,7 @@ void CubeClone::onCreate()
 	width /= 1000.0f;
 
 	cube->getTransform().setScale({ width, height, width });
-	cube->getTransform().setPosition({ x * 0.5f, (height / 2.0f) - 1.0f, y * 0.5f });
+	cube->getTransform().setPosition({ -3 * 0.5f, (height / 2.0f) - 1.0f, -2 * 0.5f });
 }
 
 void CubeClone::onUpdate(dx3d::f32 deltaTime)

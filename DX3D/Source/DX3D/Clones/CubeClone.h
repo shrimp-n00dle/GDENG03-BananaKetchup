@@ -6,6 +6,7 @@
 
 class CubeClone : public dx3d::GameObject
 {
+	dx3d_typeid(CubeClone)
 public:
 	explicit CubeClone(const dx3d::GameObjectDesc& desc);
 	virtual ~CubeClone() override;
