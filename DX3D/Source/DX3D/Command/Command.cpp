@@ -7,6 +7,10 @@ void dx3d::SpawnCommand::execute(GraphicsEngine& g)
 
 void dx3d::DeleteCommand::execute(GraphicsEngine& g)
 {
-	//g.removeRecent();
+	g.removeRecent();
+}
+
+void dx3d::EndCommand::execute(GraphicsEngine& g)
+{
 	g.closeProgram();
 }

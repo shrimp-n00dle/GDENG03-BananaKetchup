@@ -55,22 +55,12 @@ void dx3d::Game::onInternalUpdate()
 	m_previousTime = currentTime;
 	auto deltaTime = delta.count();
 
-	//Seatwork
-	if (m_inputSystem->isKeyReleased(dx3d::KeyCode::Space))
-	{
-		spaceBar->execute(*m_graphicsEngine.get());
+	//Rendering Shapes Input Handler
 
-	}
-	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Backspace))
+	Command* command = m_inputSystem->handleInput();
+	if (command)
 	{
-		backSpace->execute(*m_graphicsEngine.get());
-	}
-	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Delete))
-	{
-		
-	}
-	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Escape))
-	{
+		command->execute(*m_graphicsEngine.get());
 	}
 
 	m_inputSystem->update();

@@ -88,7 +88,24 @@ void dx3d::InputSystem::update()
 }
 
 dx3d::Command* dx3d::InputSystem::handleInput()
-{	
+{
+	if (isKeyReleased(dx3d::KeyCode::Space))
+	{
+		return spaceBar;
+
+	}
+	if (isKeyReleased(dx3d::KeyCode::Backspace))
+	{
+		return backSpace;
+	}
+	if (isKeyReleased(dx3d::KeyCode::Delete))
+	{
+		return NULL;
+	}
+	if (isKeyReleased(dx3d::KeyCode::Escape))
+	{
+		return esc;
+	}
 	return NULL;
 }
 

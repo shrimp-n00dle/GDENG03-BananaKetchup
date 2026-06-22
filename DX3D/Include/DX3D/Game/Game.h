@@ -30,8 +30,7 @@ namespace dx3d
 		UniquePtr<InputSystem> m_inputSystem{};
 
 	public:
-		Command* spaceBar = new SpawnCommand();
-		Command* backSpace = new DeleteCommand();
+	
 	
 
 

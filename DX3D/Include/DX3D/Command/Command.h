@@ -29,7 +29,15 @@ namespace dx3d
 		virtual void execute(GraphicsEngine& g);
 	};
 
+	//Backspace - remove the latest shape added
 	class DeleteCommand : public Command
+	{
+	public:
+		virtual void execute(GraphicsEngine& g);
+	};
+
+	//Escape - closes program
+	class EndCommand : public Command
 	{
 	public:
 		virtual void execute(GraphicsEngine& g);
