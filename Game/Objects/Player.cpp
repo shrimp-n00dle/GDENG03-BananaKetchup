@@ -70,27 +70,7 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::D)) right = 1.0f;
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::A)) right = -1.0f;
 
-	//Handlw Seatwork Commands
-	//Seatwork
-	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Space))
-	{
-		//std::cout << "Test";
-		//std::cout << "SPACE BABY!" << std::endl;
-		//GameObject* cube = spawnCube();
-		spaceBar->execute();
-
-	}
-	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Backspace))
-	{
-	}
-	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Delete))
-	{
-		std::cout << "DELETE BABY!" << std::endl;
-	}
-	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Escape))
-	{
-		//delButton->execute();
-	}
+	
 
 
 	auto forwardDir = getTransform().forward() * forward;

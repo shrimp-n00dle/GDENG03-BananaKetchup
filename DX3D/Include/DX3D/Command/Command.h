@@ -2,8 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <DX3D/Game/GameObject.h>
-#include <DX3D/Clones/CubeClone.h>
-#include <DX3D/Game/Game.h>
+#include <DX3D/Graphics/GraphicsEngine.h>
 namespace dx3d
 {
 	
@@ -11,7 +10,7 @@ namespace dx3d
 	{
 	public:
 		virtual ~Command() {}
-		virtual void execute() = 0;
+		virtual void execute(UniquePtr<GraphicsEngine> g) = 0;
 
 		//std::vector<CubeClone*> cubeList;
 
@@ -26,8 +25,9 @@ namespace dx3d
 
 	public:
 		
-		virtual void execute() {
+		virtual void execute(UniquePtr<GraphicsEngine> g) {
 
+			//g->bSpawn = true;
 			std::cout << "SPAWN";
 		}
 	};
@@ -35,7 +35,7 @@ namespace dx3d
 	class DeleteCommand : public Command
 	{
 	public:
-		virtual void execute()
+		virtual void execute(UniquePtr<GraphicsEngine> g)
 		{
 			//delete object
 			std::cout << "DELETE?";
@@ -47,7 +47,7 @@ namespace dx3d
 	class EndCommand : public Command
 	{
 	public:
-		virtual void execute()
+		virtual void execute(UniquePtr<GraphicsEngine> g)
 		{
 			std::cout << "EXIT?";
 		}

@@ -1,6 +1,7 @@
 #pragma once
 #include <DX3D/Core/Base.h>
 #include <DX3D/Core/Core.h>
+#include <DX3D/Command/Command.h>
 #include <chrono>
 
 namespace dx3d
@@ -27,6 +28,9 @@ namespace dx3d
 
 	public:
 		UniquePtr<InputSystem> m_inputSystem{};
+
+	public:
+		Command* spaceBar = new SpawnCommand();
 
 	private:
 		UniquePtr<Logger> m_logger{};

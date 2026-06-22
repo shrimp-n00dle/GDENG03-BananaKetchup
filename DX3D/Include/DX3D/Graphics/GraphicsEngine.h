@@ -4,6 +4,8 @@
 #include <DX3D/Math/Vec3.h>
 #include <DX3D/Math/Vec4.h>
 #include <DX3D/Math/Mat4x4.h>
+
+#include <DX3D/Command/Command.h>
 #include <vector>
 
 using namespace catsup;
@@ -33,6 +35,10 @@ namespace dx3d
 			Mat4x4 view{};
 			Mat4x4 proj{};
 		};
+
+	public:
+		bool bSpawn = false;
+
 
 	private:
 		RenderSystem& m_renderSystem;

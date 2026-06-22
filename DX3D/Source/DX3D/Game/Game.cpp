@@ -55,12 +55,36 @@ void dx3d::Game::onInternalUpdate()
 	m_previousTime = currentTime;
 	auto deltaTime = delta.count();
 
+	//Handlw Seatwork Commands
+	//Seatwork
+	if (m_inputSystem->isKeyReleased(dx3d::KeyCode::Space))
+	{
+		//std::cout << "Test";
+		std::cout << "SPACE BABY!" << std::endl;
+		spaceBar->execute(std::move(m_graphicsEngine));
+
+	}
+	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Backspace))
+	{
+	}
+	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Delete))
+	{
+		std::cout << "DELETE BABY!" << std::endl;
+	}
+	if (getInputSystem().isKeyReleased(dx3d::KeyCode::Escape))
+	{
+		//delButton->execute();
+	}
+	//m_inputSystem->is
+
 	m_inputSystem->update();
 
+	
 	onUpdate(deltaTime);
 
 	m_world->update(deltaTime);
 
+	m_graphicsEngine->bSpawn = true;
 	m_graphicsEngine->spawnTest(*m_world);
 
 	m_graphicsEngine->render(*m_world, m_display->getSwapChain(), deltaTime);
