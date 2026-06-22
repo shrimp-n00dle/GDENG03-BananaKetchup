@@ -26,6 +26,8 @@
 
 #include <DX3D/Window/Window.h>
 
+#include <random>
+
 using namespace catsup;
 namespace dx3d
 {

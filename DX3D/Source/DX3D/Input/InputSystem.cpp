@@ -92,7 +92,6 @@ dx3d::Command* dx3d::InputSystem::handleInput()
 	if (isKeyReleased(dx3d::KeyCode::Space))
 	{
 		return spaceBar;
-
 	}
 	if (isKeyReleased(dx3d::KeyCode::Backspace))
 	{

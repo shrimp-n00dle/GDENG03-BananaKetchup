@@ -80,11 +80,11 @@ void dx3d::GraphicsEngine::spawnTest(World& world)
 {
 	if (bSpawn)
 	{
+		srand(time(NULL));
+		int coord = rand() % 3 - 2;
 
-		for (auto y = -2; y < 3; y++)
-	{
-		for (auto x = -2; x < 3; x++)
-		{
+
+	
 			auto cube = world.createGameObject<dx3d::GameObject>();
 			cube->createOrGetComponent<dx3d::CubeComponent>();
 			auto height = (rand() % 60) + (40.0f);
@@ -94,27 +94,11 @@ void dx3d::GraphicsEngine::spawnTest(World& world)
 			width /= 500.0f;
 
 			cube->getTransform().setScale({ width, height, width });
-			cube->getTransform().setPosition({ x * 0.5f, (height / 2.0f) - 1.0f, y * 0.5f });
-		}
+			cube->getTransform().setPosition({ coord * 0.5f, (height / 2.0f) - 1.0f, coord * 0.5f });
+
+			bSpawn = false;
 	}
-		/*std::cout << "SPAWNED ONE!" << std::endl;
-		auto cube = world.createGameObject<dx3d::GameObject>();
-		cube->createOrGetComponent<dx3d::CubeComponent>();
-		auto height = (rand() % 120) + (80.0f);
-		height /= 100.0f;
-
-		auto width = (rand() % 600) + (200.0f);
-		width /= 1000.0f;
-
-		cube->getTransform().setScale({ width, height, width });
-		cube->getTransform().setPosition({ -3 * 1.4f, (height / 2.0f) - 1.0f, -2 * 1.4f });*/
-
-		bSpawn = false;
-	}
-
-	
-
-
+		
 }
 
 void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 deltaTime)
@@ -179,7 +163,6 @@ void dx3d::GraphicsEngine::callSpawn()
 void dx3d::GraphicsEngine::removeRecent()
 {
 	incCube++;
-	std::cout << "REMOVED ONE";
 }
 
 void dx3d::GraphicsEngine::closeProgram()
