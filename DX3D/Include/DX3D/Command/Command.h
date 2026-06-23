@@ -12,6 +12,7 @@ namespace dx3d
 	class Command
 	{
 	public:
+		//Command Queue
 		std::vector<std::string> queueList;
 
 		virtual ~Command() {}
