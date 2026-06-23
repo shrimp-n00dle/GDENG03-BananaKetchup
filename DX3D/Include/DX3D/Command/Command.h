@@ -39,6 +39,15 @@ namespace dx3d
 	};
 
 	//Backspace - remove the latest shape added
+	class RemoveCommand : public Command
+	{
+	public:
+		virtual void execute(GraphicsEngine& g);
+		virtual void undo(GraphicsEngine& g);
+
+	};
+
+	//Delete - remove all shapes
 	class DeleteCommand : public Command
 	{
 	public:

@@ -59,13 +59,16 @@ namespace dx3d
 	public:
 		//For seatwork
 		bool bSpawn = false;
+		bool bDeleteAll = false;
 		void callSpawn();
 
 		int incCube = 0;
 		void removeRecent();
 
 		void closeProgram();
-
+		void removeAllShapes();
+		void removeAllFromRender();
+		unsigned int numComponents;
 
 	public:
 		RenderSystem& m_renderSystem;

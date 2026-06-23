@@ -29,7 +29,8 @@ namespace dx3d
 
 		Command* handleInput();
 		Command* spaceBar = new SpawnCommand();
-		Command* backSpace = new DeleteCommand();
+		Command* backSpace = new RemoveCommand();
+		Command* deleteBtn = new DeleteCommand();
 		Command* esc = new EndCommand();
 	private:
 		short getInternalKeyCode(const KeyCode& key);

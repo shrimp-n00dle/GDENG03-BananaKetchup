@@ -99,7 +99,7 @@ dx3d::Command* dx3d::InputSystem::handleInput()
 	}
 	if (isKeyReleased(dx3d::KeyCode::Delete))
 	{
-		return NULL;
+		return deleteBtn;
 	}
 	if (isKeyReleased(dx3d::KeyCode::Escape))
 	{

@@ -112,7 +112,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	context.setGraphicsPipelineState(*m_pipeline);
 	context.setViewportSize(size);
 
-	auto numComponents = 0u;
+	numComponents = 0u;
 	ConstantData data{};
 	{
 		auto components = world.getComponents<CameraComponent>(numComponents);
@@ -129,7 +129,9 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 
 	/*Rendering and spawning cubes*/
 	{
+
 		auto components = world.getComponents<CubeComponent>(numComponents);
+		removeAllFromRender();
 		
 
 		for (auto i : std::views::iota(0u, numComponents - incCube))
@@ -149,6 +151,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 			context.setIndexBuffer(ib);
 			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
 		}
+		bDeleteAll = false;
 	}
 
 	m_renderSystem.executeCommandList(context);
@@ -169,4 +172,19 @@ void dx3d::GraphicsEngine::closeProgram()
 {
 	PostQuitMessage(0);
 }
+
+void dx3d::GraphicsEngine::removeAllShapes()
+{
+	bDeleteAll = true;
+}
+
+void dx3d::GraphicsEngine::removeAllFromRender()
+{
+	if (bDeleteAll)
+	{
+		incCube = numComponents;
+	}
+
+}
+
 

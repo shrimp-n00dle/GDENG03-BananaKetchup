@@ -4,7 +4,6 @@ void dx3d::Command::promptList()
 {
 	std::system("cls");
 	std::cout << "COMMAND QUEUE" << std::endl;
-	std::cout << "SIZE IS " << queueList.size() << std::endl;
 
 	//print out queues here
 	for (int i = 0; i < queueList.size(); i++)
@@ -17,7 +16,6 @@ void dx3d::Command::promptList()
 void dx3d::SpawnCommand::execute(GraphicsEngine& g)
 {
 	g.callSpawn();
-	
 
 	//Command Queue
 	queueList.push_back("[SPACEBAR] Cube summoned.");
@@ -32,12 +30,27 @@ void dx3d::SpawnCommand::undo(GraphicsEngine& g)
 	promptList();
 }
 
-void dx3d::DeleteCommand::execute(GraphicsEngine& g)
+void dx3d::RemoveCommand::execute(GraphicsEngine& g)
 {
 	g.removeRecent();
 
 	//Command Queue
 	queueList.push_back("[BACKSPACE] Cube removed.");
+	promptList();
+}
+
+void dx3d::RemoveCommand::undo(GraphicsEngine& g)
+{
+
+	promptList();
+}
+
+void dx3d::DeleteCommand::execute(GraphicsEngine& g)
+{
+	g.removeAllShapes();
+
+	//Command Queue
+	queueList.push_back("[DELETE] All cubes gone!");
 	promptList();
 }
 
