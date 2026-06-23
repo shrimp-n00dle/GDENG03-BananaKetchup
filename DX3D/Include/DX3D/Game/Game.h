@@ -1,6 +1,7 @@
 #pragma once
 #include <DX3D/Core/Base.h>
 #include <DX3D/Core/Core.h>
+#include <DX3D/Command/Command.h>
 #include <chrono>
 
 namespace dx3d
@@ -25,9 +26,17 @@ namespace dx3d
 	private:
 		void onInternalUpdate();
 
+	public:
+		UniquePtr<InputSystem> m_inputSystem{};
+
+	public:
+	
+	
+
+
 	private:
 		UniquePtr<Logger> m_logger{};
-		UniquePtr<InputSystem> m_inputSystem{};
+
 		RefPtr<RenderSystem> m_renderSystem{};
 		UniquePtr<Display> m_display{};
 		UniquePtr<World> m_world{};

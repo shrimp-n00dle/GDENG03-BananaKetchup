@@ -55,11 +55,22 @@ void dx3d::Game::onInternalUpdate()
 	m_previousTime = currentTime;
 	auto deltaTime = delta.count();
 
+	//Rendering Shapes Input Handler
+
+	Command* command = m_inputSystem->handleInput();
+	if (command)
+	{
+		command->execute(*m_graphicsEngine.get());
+	}
+
 	m_inputSystem->update();
 
+	
 	onUpdate(deltaTime);
 
 	m_world->update(deltaTime);
+
+	m_graphicsEngine->spawnTest(*m_world);
 
 	m_graphicsEngine->render(*m_world, m_display->getSwapChain(), deltaTime);
 }

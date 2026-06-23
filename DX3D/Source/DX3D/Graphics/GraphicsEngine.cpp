@@ -1,23 +1,5 @@
 #include <DX3D/Graphics/GraphicsEngine.h>
-#include <DX3D/Graphics/RenderSystem.h>
-#include <DX3D/Graphics/DeviceContext.h>
-#include <DX3D/Graphics/SwapChain.h>
-#include <DX3D/Graphics/VertexBuffer.h>
-#include <DX3D/Graphics/IndexBuffer.h>
-#include <DX3D/Math/Vec3.h>
-#include <fstream>
 
-#include <DX3D/Game/World.h>
-#include <DX3D/Game/Component.h>
-#include <DX3D/Game/GameObject.h>
-
-#include <DX3D/Component/TransformComponent.h>
-#include <DX3D/Component/CubeComponent.h>
-#include <DX3D/Component/CameraComponent.h>
-#include <DX3D/Component/PlaneComponent.h>
-#include <ranges>
-
-#include <iostream>
 
 using namespace catsup;
 
@@ -84,20 +66,8 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 		1,0,7
 	};
 
-	//Create Plane
-	const Vertex test[]
-	{
-		{ { -0.5f, 0.0f, 0.5f }, {1,0,0,1} },
-		{ { 0.5f, 0.0f,  0.5f }, {1,0,0,1} },
-		{ { 0.5f, 0.0f, -0.5f }, {1,0,0,1} },
-		{ { -0.5f,0.0f, -0.5f }, {1,0,0,1} }
-
-	};
-
-
 	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
 	m_cb = device.createConstantBuffer({ {}, sizeof(ConstantData) });
-	m_vb2 = device.createVertexBuffer({ test, std::size(test), sizeof(Vertex) });
 	m_ib = device.createIndexBuffer({ indexList, std::size(indexList) });
 }
 
@@ -106,17 +76,39 @@ dx3d::GraphicsEngine::~GraphicsEngine()
 {
 }
 
+void dx3d::GraphicsEngine::spawnTest(World& world)
+{
+	if (bSpawn)
+	{
+		srand(time(NULL));
+		int coord = rand() % 3 - 2;
+
+
+	
+			auto cube = world.createGameObject<dx3d::GameObject>();
+			cube->createOrGetComponent<dx3d::CubeComponent>();
+			auto height = (rand() % 60) + (40.0f);
+			height /= 50.0f;
+
+			auto width = (rand() % 300) + (100.0f);
+			width /= 500.0f;
+
+			cube->getTransform().setScale({ width, height, width });
+			cube->getTransform().setPosition({ coord * 0.5f, (height / 2.0f) - 1.0f, coord * 0.5f });
+
+			bSpawn = false;
+	}
+		
+}
+
 void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 deltaTime)
 {
 	//camera setup
 	auto size = swapChain.getSize();
-	auto unitsPerScreenHeight = 5.0f;
-	auto aspect = static_cast<f32>(size.width) / size.height;
-	auto viewHeight = unitsPerScreenHeight;
-	auto viewWidth = unitsPerScreenHeight * aspect;
 
 	auto& context = *m_deviceContext;
-	context.clearAndSetBackBuffer(swapChain, { 0.27f, 0.39f,0.55f, 1.0f });
+	//Set Bg to black
+	context.clearAndSetBackBuffer(swapChain, { 0.0f,0.0f,0.0f, 0.0f });
 	context.setGraphicsPipelineState(*m_pipeline);
 	context.setViewportSize(size);
 
@@ -126,43 +118,21 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 		auto components = world.getComponents<CameraComponent>(numComponents);
 		for (auto i : std::views::iota(0u, numComponents))
 		{
-			
 			auto component = components[i];
-			auto& transform = component->getGameObject().getTransform();
-			data.view = component->getViewMatrix(); //*transform.getAffineWorldMatrix();
+			data.view = component->getViewMatrix();
 			component->setViewportSize(size);
 			data.proj = component->getProjectionMatrix();
 			break;
 		}
 	}
 
-	//FLOOR
-	/*{
-		auto floorComponent = world.getComponents<PlaneComponent>(numComponents);
 
-		for (auto i : std::views::iota(0u, numComponents))
-		{
-			auto component = floorComponent[i];
-			auto& transform = component->getGameObject().getTransform();
-
-			data.world = transform.getAffineWorldMatrix();
-
-			auto& cb = *m_cb;
-			context.updateConstantBuffer(cb, &data);
-
-			auto& vb = *m_vb2;
-			auto& ib = *m_ib;
-			context.setVertexBuffer(vb);
-			context.setConstantBuffer(cb);
-			context.setIndexBuffer(ib);
-			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
-		}
-	}*/
-
+	/*Rendering and spawning cubes*/
 	{
 		auto components = world.getComponents<CubeComponent>(numComponents);
+		
 
-		for (auto i : std::views::iota(0u, numComponents))
+		for (auto i : std::views::iota(0u, numComponents - incCube))
 		{
 			auto component = components[i];
 			auto& transform = component->getGameObject().getTransform();
@@ -184,3 +154,19 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	m_renderSystem.executeCommandList(context);
 	swapChain.present();
 }
+
+void dx3d::GraphicsEngine::callSpawn()
+{
+	bSpawn = true;
+}
+
+void dx3d::GraphicsEngine::removeRecent()
+{
+	incCube++;
+}
+
+void dx3d::GraphicsEngine::closeProgram()
+{
+	PostQuitMessage(0);
+}
+

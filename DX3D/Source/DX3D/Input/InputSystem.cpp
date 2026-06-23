@@ -87,6 +87,27 @@ void dx3d::InputSystem::update()
 	if (m_cursorLocked) centerCursor();
 }
 
+dx3d::Command* dx3d::InputSystem::handleInput()
+{
+	if (isKeyReleased(dx3d::KeyCode::Space))
+	{
+		return spaceBar;
+	}
+	if (isKeyReleased(dx3d::KeyCode::Backspace))
+	{
+		return backSpace;
+	}
+	if (isKeyReleased(dx3d::KeyCode::Delete))
+	{
+		return NULL;
+	}
+	if (isKeyReleased(dx3d::KeyCode::Escape))
+	{
+		return esc;
+	}
+	return NULL;
+}
+
 short dx3d::InputSystem::getInternalKeyCode(const KeyCode& key)
 {
 	const auto value = static_cast<int>(key);
@@ -97,9 +118,12 @@ short dx3d::InputSystem::getInternalKeyCode(const KeyCode& key)
 
 	switch (key)
 	{
-	case KeyCode::Shift: return VK_SHIFT;
+	case KeyCode::Backspace: return VK_BACK;
 	case KeyCode::Escape: return VK_ESCAPE;
 	case KeyCode::Space: return VK_SPACE;
+	case KeyCode::Delete: return VK_DELETE;
+
+	case KeyCode::Shift: return VK_SHIFT;
 	case KeyCode::Enter: return VK_RETURN;
 	case KeyCode::MouseLeft: return VK_LBUTTON;
 	case KeyCode::MouseMiddle: return VK_MBUTTON;

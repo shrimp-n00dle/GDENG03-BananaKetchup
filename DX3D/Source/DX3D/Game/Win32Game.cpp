@@ -22,3 +22,4 @@ void dx3d::Game::run()
 		onInternalUpdate();
 	}
 }
+

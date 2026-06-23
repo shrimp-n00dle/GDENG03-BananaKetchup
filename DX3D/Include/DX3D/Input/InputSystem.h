@@ -3,6 +3,7 @@
 #include <DX3D/Core/Base.h>
 #include <DX3D/Math/Vec2.h>
 #include <DX3D/Math/Rect.h>
+#include <DX3D/Command/Command.h>
 #include <array>
 
 namespace dx3d
@@ -25,6 +26,11 @@ namespace dx3d
 		void setCursorLockArea(const Rect& rect);
 
 		void update();
+
+		Command* handleInput();
+		Command* spaceBar = new SpawnCommand();
+		Command* backSpace = new DeleteCommand();
+		Command* esc = new EndCommand();
 	private:
 		short getInternalKeyCode(const KeyCode& key);
 		void centerCursor();
@@ -40,6 +46,7 @@ namespace dx3d
 
 		bool m_cursorVisible{ true };
 		bool m_cursorLocked{ false };
+
 	};
 
 }
