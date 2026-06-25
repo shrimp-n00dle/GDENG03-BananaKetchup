@@ -76,10 +76,39 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 	};
 
+	//Create Pyramid
+	Vertex pyramids[] =
+	{
+		{ { -0.5f, -0.5f, -0.5f }, {1,0,0,1}}, 
+		{ {  0.5f, -0.5f, -0.5f }, {0,1,0,1}},
+		{ {  0.5f, -0.5f,  0.5f }, {0,0,1,1}}, 
+		{ { -0.5f, -0.5f,  0.5f }, {1,0,1,1}}, 
+		{ {  0.0f,  0.5f,  0.0f }, {1,0,1,1}} 
+	};
+
+	const ui32 pyramids_i[] =
+	{
+		0, 2, 1,
+
+		0, 3, 2,
+
+		3, 4, 2,
+
+		1, 4, 0,
+
+		0, 4, 3,
+
+		2, 4, 1
+	};
+
+	m_vb_pyramid = device.createVertexBuffer({ pyramids, std::size(pyramids), sizeof(Vertex) });
+	m_ib_pyramid = device.createIndexBuffer({ pyramids_i, std::size(pyramids_i) });
+
 	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
 	m_cb = device.createConstantBuffer({ {}, sizeof(ConstantData) });
 	m_vb2 = device.createVertexBuffer({ test, std::size(test), sizeof(Vertex) });
 	m_ib = device.createIndexBuffer({ indexList, std::size(indexList) });
+
 }
 
 
@@ -158,6 +187,32 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 		context.setIndexBuffer(ib);
 		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
 	}
+}
+
+//Rendering Pyramids
+{
+
+	auto components = world.getComponents<PyramidComponent>(numComponents);
+
+
+	for (auto i : std::views::iota(0u, numComponents - incCube))
+	{
+		auto component = components[i];
+		auto& transform = component->getGameObject().getTransform();
+
+		data.world = transform.getAffineWorldMatrix();
+
+		auto& cb = *m_cb;
+		context.updateConstantBuffer(cb, &data);
+
+		auto& vb = *m_vb_pyramid;
+		auto& ib = *m_ib_pyramid;
+		context.setVertexBuffer(vb);
+		context.setConstantBuffer(cb);
+		context.setIndexBuffer(ib);
+		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+	}
+	bDeleteAll = false;
 }
 
 

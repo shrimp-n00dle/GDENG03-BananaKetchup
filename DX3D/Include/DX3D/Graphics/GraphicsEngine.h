@@ -20,6 +20,8 @@
 #include <DX3D/Component/CubeComponent.h>
 #include <DX3D/Component/CameraComponent.h>
 #include <DX3D/Component/PlaneComponent.h>
+#include <DX3D/Component/PyramidComponent.h>
+
 #include <ranges>
 
 #include <DX3D/Command/Command.h>
@@ -86,6 +88,11 @@ namespace dx3d
 		RefPtr<ConstantBuffer> m_cb2{};
 
 		//Sphere
+
+		//Pyramid
+		RefPtr<VertexBuffer> m_vb_pyramid{};
+		RefPtr<ConstantBuffer> m_cb_pyramid{};
+		RefPtr<IndexBuffer> m_ib_pyramid{};
 
 
 		friend class Window;

@@ -36,11 +36,47 @@ void MainGame::onCreate()
 	//	}
 	//}
 
+	//MODIFIED Spheres
+	for (auto y = -2; y < 3; y++)
+	{
+		for (auto x = -2; x < 3; x++)
+		{
+			auto sphere = world.createGameObject<dx3d::GameObject>();
+			sphere->createOrGetComponent<dx3d::SphereComponent>();
+			auto height = (rand() % 120) + (80.0f);
+			height /= 100.0f;
+
+			auto width = (rand() % 600) + (200.0f);
+			width /= 1000.0f;
+
+			sphere->getTransform().setScale({ width, height, width });
+			sphere->getTransform().setPosition({ x * 0.5f, (height / 2.0f) - 1.0f, y * 0.5f });
+		}
+	}
+
+	//MODIFIED Pyramids
+	for (auto y = -2; y < 3; y++)
+	{
+		for (auto x = -2; x < 3; x++)
+		{
+			auto sphere = world.createGameObject<dx3d::GameObject>();
+			sphere->createOrGetComponent<dx3d::PyramidComponent>();
+			auto height = (rand() % 120) + (80.0f);
+			height /= 100.0f;
+
+			auto width = (rand() % 600) + (200.0f);
+			width /= 1000.0f;
+
+			sphere->getTransform().setScale({ width, height, width });
+			sphere->getTransform().setPosition({ x * 0.5f, (height / 2.0f) - 1.0f, y * 0.5f });
+		}
+	}
 
 
 
 
-	//MODIFIED
+
+	//MODIFIED Planes
 	for (auto y = -2; y < 3; y++)
 	{
 		for (auto x = -2; x < 3; x++)
