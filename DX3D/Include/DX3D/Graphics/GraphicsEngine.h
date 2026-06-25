@@ -19,6 +19,7 @@
 #include <DX3D/Component/TransformComponent.h>
 #include <DX3D/Component/CubeComponent.h>
 #include <DX3D/Component/CameraComponent.h>
+#include <DX3D/Component/PlaneComponent.h>
 #include <ranges>
 
 #include <DX3D/Command/Command.h>
