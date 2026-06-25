@@ -71,6 +71,10 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 		1,0,7
 	};
 
+	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
+	m_cb = device.createConstantBuffer({ {}, sizeof(ConstantData) });
+	m_ib = device.createIndexBuffer({ indexList, std::size(indexList) });
+
 	//Create Plane
 	const Vertex test[]
 	{
@@ -80,6 +84,8 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 		{ { -0.5f,0.0f, -0.5f }, {1,0,0,1} }
 
 	};
+	m_vb2 = device.createVertexBuffer({ test, std::size(test), sizeof(Vertex) });
+
 
 	//Create Pyramid
 	Vertex pyramids[] =
@@ -106,13 +112,116 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 		2, 4, 1
 	};
 
+	//Pyramid Stuff
 	m_vb_pyramid = device.createVertexBuffer({ pyramids, std::size(pyramids), sizeof(Vertex) });
 	m_ib_pyramid = device.createIndexBuffer({ pyramids_i, std::size(pyramids_i) });
 
-	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
-	m_cb = device.createConstantBuffer({ {}, sizeof(ConstantData) });
-	m_vb2 = device.createVertexBuffer({ test, std::size(test), sizeof(Vertex) });
-	m_ib = device.createIndexBuffer({ indexList, std::size(indexList) });
+
+	//Create Sphere
+
+	std::vector<Sphere_var>  sphere_list;
+	std::vector<ui32> sphere_indices;
+
+	float radius = 1.0f;
+	int numSlices = 20; 
+	int numStacks = 20; 
+
+	for (int i = 0; i <= numStacks; ++i) {
+		float phi = i * DirectX::XM_PI / numStacks;
+
+		for (int j = 0; j <= numSlices; ++j) {
+			float theta = j * 2.0f * DirectX::XM_PI / numSlices;
+
+			Sphere_var sphere;
+			sphere.position = { (radius * sinf(phi) * cosf(theta)),
+								 (radius * cosf(phi)),
+								(radius * sinf(phi) * sinf(theta) )};
+				
+
+			sphere.normals = { (sphere.position.x / radius),
+								(sphere.position.y / radius),
+								(sphere.position.z / radius) };
+
+
+			sphere.textCoord = { ((float)j / numSlices),
+								((float)i / numStacks) };
+
+			sphere_list.push_back(sphere);
+		}
+	}
+
+	//Sphere Indices
+	for (int i = 0; i < numStacks; ++i) {
+		for (int j = 0; j < numSlices; ++j) {
+			int current = i * (numSlices + 1) + j;
+			int next = current + numSlices + 1;
+
+			// Triangle 1
+			sphere_indices.push_back(current);
+			sphere_indices.push_back(next);
+			sphere_indices.push_back(current + 1);
+
+			// Triangle 2
+			sphere_indices.push_back(current + 1);
+			sphere_indices.push_back(next);
+			sphere_indices.push_back(next + 1);
+		}
+	}
+
+	Sphere_var sphere_vertices[]
+	{
+		sphere_list[0],
+		sphere_list[1],
+		sphere_list[2],
+		sphere_list[3],
+		sphere_list[4],
+		sphere_list[5],
+		sphere_list[6],
+		sphere_list[7],
+		sphere_list[8],
+		sphere_list[9],
+		sphere_list[10],
+		sphere_list[11],
+		sphere_list[12],
+		sphere_list[13],
+		sphere_list[14],
+		sphere_list[15],
+		sphere_list[16],
+		sphere_list[17],
+		sphere_list[18],
+		sphere_list[19],
+	};
+	const ui32 spheres_i[] =
+	{
+		sphere_indices[0],
+		sphere_indices[1],
+		sphere_indices[2],
+		sphere_indices[3],
+		sphere_indices[4],
+		sphere_indices[5],
+		sphere_indices[6],
+		sphere_indices[7],
+		sphere_indices[8],
+		sphere_indices[9],
+		sphere_indices[10],
+		sphere_indices[11],
+		sphere_indices[12],
+		sphere_indices[13],
+		sphere_indices[14],
+		sphere_indices[15],
+		sphere_indices[16],
+		sphere_indices[17],
+		sphere_indices[18],
+		sphere_indices[19],
+	};
+
+	//Sphere Stuff
+	 m_vb_sphere = device.createVertexBuffer({ sphere_vertices, std::size(sphere_vertices), sizeof(Sphere_var) });
+	 m_ib_sphere = device.createIndexBuffer({ spheres_i, std::size(spheres_i) });
+
+
+
+
 
 }
 
@@ -195,14 +304,37 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 }
 
 //Rendering Pyramids
+//{
+//
+//	auto components = world.getComponents<PyramidComponent>(numComponents);
+//
+//
+//	for (auto i : std::views::iota(0u, numComponents - incCube))
+//	{
+//		auto component = components[i];
+//		auto& transform = component->getGameObject().getTransform();
+//
+//		data.world = transform.getAffineWorldMatrix();
+//
+//		auto& cb = *m_cb;
+//		context.updateConstantBuffer(cb, &data);
+//
+//		auto& vb = *m_vb_pyramid;
+//		auto& ib = *m_ib_pyramid;
+//		context.setVertexBuffer(vb);
+//		context.setConstantBuffer(cb);
+//		context.setIndexBuffer(ib);
+//		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+//	}
+//}
+
+//Rendering SPheres
 {
+	auto floorComponent = world.getComponents<SphereComponent>(numComponents);
 
-	auto components = world.getComponents<PyramidComponent>(numComponents);
-
-
-	for (auto i : std::views::iota(0u, numComponents - incCube))
+	for (auto i : std::views::iota(0u, numComponents))
 	{
-		auto component = components[i];
+		auto component = floorComponent[i];
 		auto& transform = component->getGameObject().getTransform();
 
 		data.world = transform.getAffineWorldMatrix();
@@ -210,16 +342,14 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 		auto& cb = *m_cb;
 		context.updateConstantBuffer(cb, &data);
 
-		auto& vb = *m_vb_pyramid;
-		auto& ib = *m_ib_pyramid;
+		auto& vb = *m_vb_sphere;
+		auto& ib = *m_ib_sphere;
 		context.setVertexBuffer(vb);
 		context.setConstantBuffer(cb);
 		context.setIndexBuffer(ib);
 		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
 	}
-	bDeleteAll = false;
 }
-
 
 	/*Rendering and spawning cubes*/
 	{

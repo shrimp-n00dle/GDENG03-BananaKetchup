@@ -2,6 +2,7 @@
 #include <DX3D/Core/Core.h>
 #include <DX3D/Core/Base.h>
 #include <DX3D/Math/Vec3.h>
+#include <DX3D/Math/Vec2.h>
 #include <DX3D/Math/Vec4.h>
 #include <DX3D/Math/Mat4x4.h>
 
@@ -21,6 +22,7 @@
 #include <DX3D/Component/CameraComponent.h>
 #include <DX3D/Component/PlaneComponent.h>
 #include <DX3D/Component/PyramidComponent.h>
+#include <DX3D/Component/SphereComponent.h>
 
 #include <ranges>
 
@@ -59,6 +61,13 @@ namespace dx3d
 			Mat4x4 proj{};
 		};
 
+		struct Sphere_var
+		{
+			Vec3 position;
+			Vec3 normals;
+			Vec2 textCoord;
+		};
+
 	public:
 		//For seatwork
 		bool bSpawn = false;
@@ -88,10 +97,13 @@ namespace dx3d
 		RefPtr<ConstantBuffer> m_cb2{};
 
 		//Sphere
+		RefPtr<VertexBuffer> m_vb_sphere{};
+		//RefPtr<ConstantBuffer> m_cb_sphere{};
+		RefPtr<IndexBuffer> m_ib_sphere{};
 
 		//Pyramid
 		RefPtr<VertexBuffer> m_vb_pyramid{};
-		RefPtr<ConstantBuffer> m_cb_pyramid{};
+		//RefPtr<ConstantBuffer> m_cb_pyramid{};
 		RefPtr<IndexBuffer> m_ib_pyramid{};
 
 
