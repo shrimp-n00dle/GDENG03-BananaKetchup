@@ -13,6 +13,9 @@ namespace dx3d
 		Microsoft::WRL::ComPtr<ID3D11PixelShader> m_ps{};
 		Microsoft::WRL::ComPtr<ID3D11InputLayout> m_layout{};
 
+		//Shaders for Sphere
+		Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vs_sphere{};
+
 		friend class DeviceContext;
 	};
 }

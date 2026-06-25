@@ -26,9 +26,14 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	auto ps = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
 	"PSMain", ShaderType::PixelShader });
 
-	auto vsSig = device.createVertexShaderSignature({vs});
+	//For spheres
+	auto vs_sphere = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
+	"VSMain_Sphere", ShaderType::VertexShader });
 
-	m_pipeline = device.createGraphicsPipelineState({*vsSig, *ps});
+	auto vsSig = device.createVertexShaderSignature({vs});
+	auto vsSig_Sphere = device.createVertexShaderSignature({ vs_sphere });
+
+	m_pipeline = device.createGraphicsPipelineState({*vsSig, *ps, *vsSig_Sphere});
 
 	//Create the shape
 	const Vertex vertextList[] =

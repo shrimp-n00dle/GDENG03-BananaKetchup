@@ -74,6 +74,9 @@ namespace dx3d
 		const VertexShaderSignature& vs;
 		const ShaderBinary& ps;
 
+		const VertexShaderSignature& vs_sphere;
+
+
 	};
 
 	struct VertexBufferDesc

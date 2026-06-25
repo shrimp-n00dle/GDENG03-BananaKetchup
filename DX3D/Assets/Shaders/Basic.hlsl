@@ -34,22 +34,26 @@ cbuffer ConstantData : register(b0)
     row_major float4x4 proj;
 };
 
-VSOutput VSMain(VSInput input, VS_I_Sphere input2)
+VSOutput VSMain(VSInput input)
 {
     VSOutput output;
     output.position = mul(float4(input.position, 1), world);
     output.position = mul(output.position, view);
     output.color = input.color;
-    
-    VS_I_Sphere output_sphere;
-    output_sphere.position = mul(float4(input2.position, 1), world);
-    output_sphere.position = mul(input2.position, view);
-    output_sphere.normals = input2.normals;
-    output_sphere.textCoord = input2.textCoord;
-    
-    
     return output;
 }
+
+VS_O_Sphere VSMain_Sphere(VS_I_Sphere input)
+{
+    VS_O_Sphere output;
+    output.position = mul(float4(input.position, 1), world);
+    output.position = mul(output.position, view);
+    output.normals = input.normals;
+    output.textCoord = input.textCoord;
+    return output;
+
+}
+
 float4 PSMain(VSOutput input) : SV_Target
 {
     return input.color;
