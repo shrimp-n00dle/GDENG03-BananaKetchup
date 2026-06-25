@@ -75,6 +75,7 @@ namespace dx3d
 		const ShaderBinary& ps;
 
 		const VertexShaderSignature& vs_sphere;
+		const ShaderBinary& ps_sphere;
 
 
 	};

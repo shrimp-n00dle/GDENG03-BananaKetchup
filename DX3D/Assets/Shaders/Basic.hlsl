@@ -17,13 +17,15 @@ struct VS_I_Sphere
     float3 position : POSITION0;
     float3 normals : NORMAL0;
     float2 textCoord : TEXCOORD0;
+    float4 color : COLOR0;
 };
 
 struct VS_O_Sphere
 {
-    float3 position : POSITION0;
+    float4 position : POSITION0;
     float3 normals : NORMAL0;
     float2 textCoord : TEXCOORD0;
+    float4 color : COLOR0;
 };
 
 
@@ -43,6 +45,11 @@ VSOutput VSMain(VSInput input)
     return output;
 }
 
+float4 PSMain(VSOutput input) : SV_Target
+{
+    return input.color;
+}
+
 VS_O_Sphere VSMain_Sphere(VS_I_Sphere input)
 {
     VS_O_Sphere output;
@@ -50,11 +57,13 @@ VS_O_Sphere VSMain_Sphere(VS_I_Sphere input)
     output.position = mul(output.position, view);
     output.normals = input.normals;
     output.textCoord = input.textCoord;
+    output.color = input.color;
     return output;
 
 }
 
-float4 PSMain(VSOutput input) : SV_Target
+float4 PSMain_Sphere(VS_I_Sphere input) : SV_Target
 {
     return input.color;
 }
+

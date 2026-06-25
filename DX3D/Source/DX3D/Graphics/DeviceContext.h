@@ -10,6 +10,7 @@ namespace dx3d
 		explicit DeviceContext(const GraphicsResourceDesc& gDesc);
 		void clearAndSetBackBuffer(const SwapChain& swapChain, const Vec4& color);
 		void setGraphicsPipelineState(const GraphicsPipelineState& pipeline);
+		void setGraphicsPipelineStateSphere(const GraphicsPipelineState& pipeline);
 		void setVertexBuffer(const VertexBuffer& buffer);
 		void setIndexBuffer(const IndexBuffer& buffer);
 		void setViewportSize(const Rect& size);

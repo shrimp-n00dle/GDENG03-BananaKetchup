@@ -29,11 +29,14 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	//For spheres
 	auto vs_sphere = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
 	"VSMain_Sphere", ShaderType::VertexShader });
+	auto ps_sphere = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
+	"PSMain_Sphere", ShaderType::PixelShader });
+
 
 	auto vsSig = device.createVertexShaderSignature({vs});
 	auto vsSig_Sphere = device.createVertexShaderSignature({ vs_sphere });
 
-	m_pipeline = device.createGraphicsPipelineState({*vsSig, *ps, *vsSig_Sphere});
+	m_pipeline = device.createGraphicsPipelineState({*vsSig, *ps, *vsSig_Sphere, *ps_sphere});
 
 	//Create the shape
 	const Vertex vertextList[] =
@@ -128,6 +131,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 	for (int i = 0; i <= numStacks; ++i) {
 		float phi = i * DirectX::XM_PI / numStacks;
+		std::cout << "PHI IS  " << phi << std::endl;
 
 		for (int j = 0; j <= numSlices; ++j) {
 			float theta = j * 2.0f * DirectX::XM_PI / numSlices;
@@ -145,6 +149,8 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 			sphere.textCoord = { ((float)j / numSlices),
 								((float)i / numStacks) };
+
+			sphere.color = { 1,1,1,1 };
 
 			sphere_list.push_back(sphere);
 		}
@@ -328,28 +334,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 //	}
 //}
 
-//Rendering SPheres
-{
-	auto floorComponent = world.getComponents<SphereComponent>(numComponents);
 
-	for (auto i : std::views::iota(0u, numComponents))
-	{
-		auto component = floorComponent[i];
-		auto& transform = component->getGameObject().getTransform();
-
-		data.world = transform.getAffineWorldMatrix();
-
-		auto& cb = *m_cb;
-		context.updateConstantBuffer(cb, &data);
-
-		auto& vb = *m_vb_sphere;
-		auto& ib = *m_ib_sphere;
-		context.setVertexBuffer(vb);
-		context.setConstantBuffer(cb);
-		context.setIndexBuffer(ib);
-		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
-	}
-}
 
 	/*Rendering and spawning cubes*/
 	{
@@ -377,6 +362,32 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 		}
 		bDeleteAll = false;
 	}
+
+
+	context.setGraphicsPipelineStateSphere(*m_pipeline);
+	//Rendering SPheres
+	{
+		auto floorComponent = world.getComponents<SphereComponent>(numComponents);
+
+		for (auto i : std::views::iota(0u, numComponents))
+		{
+			auto component = floorComponent[i];
+			auto& transform = component->getGameObject().getTransform();
+
+			data.world = transform.getAffineWorldMatrix();
+
+			auto& cb = *m_cb;
+			context.updateConstantBuffer(cb, &data);
+
+			auto& vb = *m_vb_sphere;
+			auto& ib = *m_ib_sphere;
+			context.setVertexBuffer(vb);
+			context.setConstantBuffer(cb);
+			context.setIndexBuffer(ib);
+			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+		}
+	}
+
 
 	m_renderSystem.executeCommandList(context);
 	swapChain.present();

@@ -66,6 +66,7 @@ namespace dx3d
 			Vec3 position;
 			Vec3 normals;
 			Vec2 textCoord;
+			Vec4 color;
 		};
 
 	public:

@@ -35,6 +35,15 @@ void dx3d::DeviceContext::setGraphicsPipelineState(const GraphicsPipelineState& 
 	m_context->PSSetShader(pipeline.m_ps.Get(), nullptr, 0);
 }
 
+void dx3d::DeviceContext::setGraphicsPipelineStateSphere(const GraphicsPipelineState& pipeline)
+{
+	m_context->IASetInputLayout(pipeline.m_layout.Get());
+
+	//SPHERE
+	m_context->VSSetShader(pipeline.m_vs_sphere.Get(), nullptr, 0);
+	m_context->PSSetShader(pipeline.m_ps_sphere.Get(), nullptr, 0);
+}
+
 void dx3d::DeviceContext::setVertexBuffer(const VertexBuffer& buffer)
 {
 	auto stride = buffer.m_vertexSize;
