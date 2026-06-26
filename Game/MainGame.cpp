@@ -96,8 +96,8 @@ void MainGame::onCreate()
 
 
 	auto player = world.createGameObject<Player>();
-	//player->getTransform().setPosition({ 0, 1, -2 });
-	player->getTransform().setPosition({ 0, 1, -1 });
+	player->getTransform().setPosition({ 0, 1, -2 });
+	//player->getTransform().setPosition({ 0, 1, -1 });
 	//player->getTransform().setPosition({ 0, 1, -1 });
 
 

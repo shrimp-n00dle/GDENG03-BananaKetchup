@@ -125,98 +125,69 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	std::vector<Vertex>  sphere_list;
 	std::vector<ui32> sphere_indices;
 
-	float radius = 0.01f;
-	int numSlices = 5; 
-	int numStacks = 5; 
+	float radius = 0.1f;
+	int numSlices = 20; 
+	int numStacks = 20; 
 
-	constexpr f32 PI = 3.14159265359f;
-	constexpr f32 TWO_PI = 2.0f * PI;
 
-	// Generate vertices
-	for (ui32 i = 0; i <= numStacks; ++i)
-	{
-		f32 stackAngle = PI / 2.0f - (i * PI / numStacks);
-		f32 xy = 0.5f * cosf(stackAngle);
-		f32 z = 0.5f * sinf(stackAngle);
+	for (int i = 0; i <= numStacks; ++i) {
+		float phi = i * DirectX::XM_PI / numStacks;
 
-		for (ui32 j = 0; j <= numSlices; ++j)
-		{
-			f32 sliceAngle = (j * TWO_PI / numSlices);
-			f32 x = xy * cosf(sliceAngle);
-			f32 y = xy * sinf(sliceAngle);
+		for (int j = 0; j <= numSlices; ++j) {
+			float theta = j * (2.0f * DirectX::XM_PI) / numSlices;
 
-			// Alternate colors for visual interest
-			f32 colorR = (i % 2 == 0) ? 1.0f : 0.5f;
-			f32 colorG = (j % 2 == 0) ? 1.0f : 0.5f;
-			f32 colorB = ((i + j) % 2 == 0) ? 1.0f : 0.5f;
+			Vertex sphere;
+			sphere.position = { (radius * sinf(phi) * cosf(theta)),
+								 (radius * cosf(phi)),
+								(radius * sinf(phi) * sinf(theta)) };
 
-			sphere_list.push_back({ {x, y, z}, {colorR, colorG, colorB, 1.0f} });
+
+			sphere.color = { 0,1,0,1 };
+
+			sphere_list.push_back(sphere);
 		}
 	}
 
 	std::cout << "SPHERE LIST SIZE IS: " << sphere_list.size() << std::endl;
 
-	for (ui32 i = 0; i < numStacks; ++i)
-	{
-		ui32 k1 = i * (numSlices + 1);
-		ui32 k2 = k1 + numSlices + 1;
+	//Sphere Indices
+	for (int i = 0; i < numStacks; ++i) {
+		for (int j = 0; j < numSlices; ++j) {
+			int current = i * (numSlices + 1) + j;
+			int next = current + numSlices + 1;
 
-		for (ui32 j = 0; j < numSlices; ++j)
-		{
-			if (i != 0)
-			{
-				sphere_indices.push_back(k1);
-				sphere_indices.push_back(k2);
-				sphere_indices.push_back(k1 + 1);
-			}
+			// Triangle 1
+			sphere_indices.push_back(current);
+			sphere_indices.push_back(next);
+			sphere_indices.push_back(current + 1);
 
-			if (i != (numStacks - 1))
-			{
-				sphere_indices.push_back(k1 + 1);
-				sphere_indices.push_back(k2);
-				sphere_indices.push_back(k2 + 1);
-			}
-
-			k1++;
-			k2++;
+			// Triangle 2
+			sphere_indices.push_back(current + 1);
+			sphere_indices.push_back(next);
+			sphere_indices.push_back(next + 1);
 		}
 	}
 
 	std::cout << "SPHERE LIST SIZE IS: " << sphere_indices.size() << std::endl;
 
-	//Sphere Indices
-	//for (int i = 0; i < numStacks; ++i) {
-	//	for (int j = 0; j < numSlices; ++j) {
-	//		int current = i * (numSlices + 1) + j;
-	//		int next = current + numSlices + 1;
-
-	//		// Triangle 1
-	//		sphere_indices.push_back(current);
-	//		sphere_indices.push_back(next);
-	//		sphere_indices.push_back(current + 1);
-
-	//		// Triangle 2
-	//		sphere_indices.push_back(current + 1);
-	//		sphere_indices.push_back(next);
-	//		sphere_indices.push_back(next + 1);
-	//	}
-	//}
+	const int sphere_size = sphere_list.size();
 
 
-/*	for (int i = 0; i < sphere_list.size(); i++)
+	
+	Vertex sphere_vertices[441];
+
+	for (int i = 0; i < sphere_list.size(); i++)
 	{
 		sphere_vertices[i] = sphere_list[i];
 	}
 
-	ui32 spheres_i[36];
+	ui32 spheres_i[2400];
+
 	for (int i = 0; i < sphere_indices.size(); i++)
 	{
 		spheres_i[i] = sphere_indices[i];
-	}*/
-
-
-	Vertex sphere_vertices[]
-	{
+	}
+	/*{
 		sphere_list[0],
 		sphere_list[1],
 		sphere_list[2],
@@ -254,9 +225,11 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 		sphere_list[33],
 		sphere_list[34],
 		sphere_list[35],
-	};
-	const ui32 spheres_i[] =
-	{
+	};*/
+
+
+
+	/*{
 		sphere_indices[0],
 		sphere_indices[1],
 		sphere_indices[2],
@@ -295,7 +268,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 		sphere_indices[33],
 		sphere_indices[34],
 		sphere_indices[35],
-	};
+	};*/
 
 	//Sphere Stuff
 	std::cout << "ABOUT TO RENDER" << std::endl;
