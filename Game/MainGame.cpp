@@ -46,6 +46,7 @@ void MainGame::onCreate()
 
 			cube->getTransform().setScale({ width, height, width });
 			cube->getTransform().setPosition({ -2 * 0.5f, -0.8, -2 });
+			m_objects[0] = cube;
 
 	//MODIFIED Spheres
 	for (auto y = -2; y < 3; y++)
@@ -152,4 +153,17 @@ void MainGame::onCreate()
 void MainGame::onUpdate(dx3d::f32 deltaTime)
 {
 	Game::onUpdate(deltaTime);
+
+	m_rot += deltaTime * 0.707f;
+	m_scale = std::abs(std::sin(m_rot));
+
+	if (value > 9) value = 0;
+
+	//for (auto i = 0; i < 9; i++)
+
+	m_objects[0]->getTransform().setRotation({ m_rot * value, m_rot, m_rot * value });
+	m_objects[0]->getTransform().setScale({ m_scale,m_scale,m_scale });
+	value++;
+
+
 }

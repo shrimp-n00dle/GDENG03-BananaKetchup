@@ -11,6 +11,8 @@ protected:
 	virtual void onUpdate(dx3d::f32 deltaTime);
 
 private:
-
+	dx3d::GameObject* m_objects[1]{};
+	dx3d::f32 m_rot{}, m_scale{};
+	int value = 0;
 };
 

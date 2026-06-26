@@ -55,18 +55,7 @@ void dx3d::Game::onInternalUpdate()
 	m_previousTime = currentTime;
 	auto deltaTime = delta.count();
 
-	m_rot += deltaTime * 0.707f;
-	m_scale = std::abs(std::sin(m_rot));
-
-	if (value > 9) value = 0;
-
-	//for (auto i = 0; i < 9; i++)
 	
-		m_objects[0]->getTransform().setRotation({ m_rot * value, m_rot, m_rot * value });
-		m_objects[0]->getTransform().setScale({ m_scale,m_scale,m_scale });
-		value++;
-	
-
 	//Rendering Shapes Input Handler
 
 	Command* command = m_inputSystem->handleInput();
