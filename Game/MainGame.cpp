@@ -43,14 +43,14 @@ void MainGame::onCreate()
 		{
 			auto sphere = world.createGameObject<dx3d::GameObject>();
 			sphere->createOrGetComponent<dx3d::SphereComponent>();
-		/*	auto height = (rand() % 120) + (80.0f);
+			auto height = (rand() % 120) + (80.0f);
 			height /= 100.0f;
 
 			auto width = (rand() % 600) + (200.0f);
 			width /= 1000.0f;
 
 			sphere->getTransform().setScale({ width, height, width });
-			sphere->getTransform().setPosition({ x * 0.5f, (height / 2.0f) - 1.0f, y * 0.5f });*/
+			sphere->getTransform().setPosition({ x * 0.5f, (height / 2.0f) - 1.0f, y * 0.5f });
 		}
 	}
 

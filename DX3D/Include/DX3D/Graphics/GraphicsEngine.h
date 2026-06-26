@@ -60,14 +60,7 @@ namespace dx3d
 			Mat4x4 view{};
 			Mat4x4 proj{};
 		};
-
-		struct Sphere_var
-		{
-			Vec3 position;
-			Vec3 normals;
-			Vec2 textCoord;
-			Vec4 color;
-		};
+		
 
 	public:
 		//For seatwork

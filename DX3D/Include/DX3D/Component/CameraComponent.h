@@ -36,14 +36,9 @@ namespace dx3d
 	private:
 		Mat4x4 m_projection{};
 
-		f32 m_nearPlane = 10.0f;//0.01f;
+		f32 m_nearPlane = 0.01f;
 		f32 m_farPlane = 100.0f;
 		f32 m_fieldOfView = 1.3f;
-
-		//With google
-		//f32 m_nearPlane = 0.1f;//0.01f;
-		//f32 m_farPlane = 1000.0f;//100.0f;
-		//f32 m_fieldOfView = DirectX::XMConvertToRadians(90.0f * (DirectX::XM_PI / 180.0f));//DirectX::XMConvertToRadians(45.0f);//1.3f;
 		Rect m_viewportSize{ 1,1 };
 
 		bool m_dirty{ true };
