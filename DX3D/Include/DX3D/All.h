@@ -7,6 +7,7 @@
 #include <DX3D/Component/PlaneComponent.h>
 #include <DX3D/Component/SphereComponent.h>
 #include <DX3D/Component/PyramidComponent.h>
+#include <DX3D/Component/CylinderComponent.h>
 
 #include <DX3D/Game/GameObject.h>
 #include <DX3D/Game/World.h>

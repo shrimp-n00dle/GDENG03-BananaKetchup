@@ -44,6 +44,7 @@ namespace dx3d
 	class PlaneComponent;
 	class SphereComponent;
 	class PyramidComponent;
+	class CylinderComponent;
 
 	using i32 = int;
 	using ui32 = unsigned int;

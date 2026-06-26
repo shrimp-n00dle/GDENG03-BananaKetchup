@@ -23,8 +23,10 @@
 #include <DX3D/Component/PlaneComponent.h>
 #include <DX3D/Component/PyramidComponent.h>
 #include <DX3D/Component/SphereComponent.h>
+#include <DX3D/Component/CylinderComponent.h>
 
 #include <ranges>
+#include <directxmath.h>
 
 #include <DX3D/Command/Command.h>
 #include <vector>
@@ -102,6 +104,10 @@ namespace dx3d
 		RefPtr<VertexBuffer> m_vb_pyramid{};
 		//RefPtr<ConstantBuffer> m_cb_pyramid{};
 		RefPtr<IndexBuffer> m_ib_pyramid{};
+
+		//Cylinder
+		RefPtr<VertexBuffer> m_vb_cylinder{};
+		RefPtr<IndexBuffer> m_ib_cylinder{};
 
 
 		friend class Window;

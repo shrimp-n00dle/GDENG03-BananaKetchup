@@ -170,9 +170,6 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 	std::cout << "SPHERE LIST SIZE IS: " << sphere_indices.size() << std::endl;
 
-	const int sphere_size = sphere_list.size();
-
-
 	
 	Vertex sphere_vertices[441];
 
@@ -190,6 +187,140 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	//Sphere Stuff
 	 m_vb_sphere = device.createVertexBuffer({ sphere_vertices, std::size(sphere_vertices), sizeof(Vertex) });
 	 m_ib_sphere = device.createIndexBuffer({ spheres_i, std::size(spheres_i) });
+
+
+	 //CREATE CYLINDER
+	 std::vector<Vertex>  cy_list;
+	 std::vector<ui32> cy_indices;
+	 float height = 20, stackCount = 20, sliceCount = 20;
+	 float topRadius = 1.0f,bottomRadius = 1.0f;
+
+	 float stackHeight = height / stackCount;
+	 float radiusStep = (topRadius - bottomRadius) / stackCount;
+	 UINT ringCount = stackCount + 1;
+
+
+	 for (UINT i = 0; i < ringCount; ++i) {
+		 float y = -0.5f * height + i * stackHeight;
+		 float r = bottomRadius + i * radiusStep;
+
+		 float dTheta = 2.0f * DirectX::XM_PI / sliceCount;
+		 for (UINT j = 0; j <= sliceCount; ++j) {
+			 float c = cosf(j * dTheta);
+			 float s = sinf(j * dTheta);
+
+			 Vertex v;
+			 v.position = {r * c, y, r * s};
+			 // Normals and UVs can be calculated here for lighting and texturing
+			// v.Normal = DirectX::XMFLOAT3(c, 0.0f, s); // simplified
+			// v.TexCoord = DirectX::XMFLOAT2((float)j / sliceCount, (float)i / stackCount);
+			 v.color = randomizeColor();
+
+			 cy_list.push_back(v);
+		 }
+	 }
+
+	 // Add indices for the cylinder body
+	 UINT ringVertexCount = sliceCount + 1;
+	 for (UINT i = 0; i < stackCount; ++i) {
+		 for (UINT j = 0; j < sliceCount; ++j) {
+			 cy_indices.push_back(i * ringVertexCount + j);
+			 cy_indices.push_back((i + 1) * ringVertexCount + j);
+			 cy_indices.push_back(i * ringVertexCount + j + 1);
+			 
+			 cy_indices.push_back(i * ringVertexCount + j + 1);
+			 cy_indices.push_back((i + 1) * ringVertexCount + j);
+			 cy_indices.push_back((i + 1) * ringVertexCount + j + 1);
+		 }
+	 }
+
+	 //BOTTOM AND TOP CAP
+	 // --- BOTTOM CAP ---
+	 UINT bottomCapStartIndex = (UINT)cy_list.size();
+	 float yBottom = -0.5f * height;
+
+	 // 1. Center vertex for the bottom cap
+	 Vertex bottomCenter;
+	 bottomCenter.position = { 0.0f, yBottom, 0.0f };
+	 //bottomCenter.Normal = DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f);
+	 //bottomCenter.TexCoord = DirectX::XMFLOAT2(0.5f, 0.5f);
+	 cy_list.push_back(bottomCenter);
+
+	 // 2. Ring vertices for the bottom cap
+	 float dTheta = 2.0f * DirectX::XM_PI / sliceCount;
+	 for (UINT i = 0; i <= sliceCount; ++i) {
+		 float c = cosf(i * dTheta);
+		 float s = sinf(i * dTheta);
+
+		 Vertex v;
+		 v.position = { bottomRadius * c, yBottom, bottomRadius * s };
+		 v.color = randomizeColor();
+		// v.Normal = DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f);
+		 // Map texture coordinates to a flat circle
+		// v.TexCoord = DirectX::XMFLOAT2(0.5f + 0.5f * c, 0.5f + 0.5f * s);
+		 cy_list.push_back(v);
+	 }
+
+	 // 3. Bottom cap indices (Clockwise winding order looking from below)
+	 for (UINT i = 0; i < sliceCount; ++i) {
+		 cy_indices.push_back(bottomCapStartIndex);
+		 cy_indices.push_back(bottomCapStartIndex + 1 + i + 1);
+		 cy_indices.push_back(bottomCapStartIndex + 1 + i);
+	 }
+
+	 // --- TOP CAP ---
+	 UINT topCapStartIndex = (UINT)cy_list.size();
+	 float yTop = 0.5f * height;
+
+	 // 1. Center vertex for the top cap
+	 Vertex topCenter;
+	 topCenter.position = { 0.0f, yTop, 0.0f };
+	 topCenter.color = randomizeColor();
+	 //topCenter.Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
+	// topCenter.TexCoord = DirectX::XMFLOAT2(0.5f, 0.5f);
+	 cy_list.push_back(topCenter);
+
+	 // 2. Ring vertices for the top cap
+	 for (UINT i = 0; i <= sliceCount; ++i) {
+		 float c = cosf(i * dTheta);
+		 float s = sinf(i * dTheta);
+
+		 Vertex v;
+		 v.position = { topRadius * c, yTop, topRadius * s };
+		 v.color = randomizeColor();
+		// v.Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
+		 // Map texture coordinates to a flat circle
+		// v.TexCoord = DirectX::XMFLOAT2(0.5f + 0.5f * c, 0.5f + 0.5f * s);
+		 cy_list.push_back(v);
+	 }
+
+	 // 3. Top cap indices (Clockwise winding order looking from above)
+	 for (UINT i = 0; i < sliceCount; ++i) {
+		 cy_indices.push_back(topCapStartIndex);
+		 cy_indices.push_back(topCapStartIndex + 1 + i);
+		 cy_indices.push_back(topCapStartIndex + 1 + i + 1);
+	 }
+	 
+	 std::cout << "CYLINDER SIZE IS " << cy_list.size() << std::endl;
+	 std::cout << "CYLINDER INDCIDED SIZE IS " << cy_indices.size() << std::endl;
+
+	 Vertex cy_vertices[485];
+
+	 for (int i = 0; i < cy_list.size(); i++)
+	 {
+		 cy_vertices[i] = cy_list[i];
+	 }
+
+	 ui32 cy_i[2520];
+
+	 for (int i = 0; i < cy_indices.size(); i++)
+	 {
+		 cy_i[i] = cy_indices[i];
+	 }
+	 //Cylinder Stuff
+	 m_vb_cylinder = device.createVertexBuffer({ cy_vertices, std::size(cy_vertices), sizeof(Vertex) });
+	 m_ib_cylinder = device.createIndexBuffer({ cy_i, std::size(cy_i) });
+
 
 }
 
@@ -305,7 +436,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 		//removeAllFromRender();
 		
 
-		for (auto i : std::views::iota(0u, numComponents))
+		for (auto i : std::views::iota(0u, numComponents - incCube))
 		{
 			auto component = components[i];
 			auto& transform = component->getGameObject().getTransform();
@@ -328,8 +459,31 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 
 
 	//Rendering SPheres
-	/*{
-		auto floorComponent = world.getComponents<SphereComponent>(numComponents);
+	//{
+	//	auto floorComponent = world.getComponents<SphereComponent>(numComponents);
+
+	//	for (auto i : std::views::iota(0u, numComponents))
+	//	{
+	//		auto component = floorComponent[i];
+	//		auto& transform = component->getGameObject().getTransform();
+
+	//		data.world = transform.getAffineWorldMatrix();
+
+	//		auto& cb = *m_cb;
+	//		context.updateConstantBuffer(cb, &data);
+
+	//		auto& vb = *m_vb_sphere;
+	//		auto& ib = *m_ib_sphere;
+	//		context.setVertexBuffer(vb);
+	//		context.setConstantBuffer(cb);
+	//		context.setIndexBuffer(ib);
+	//		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+	//	}
+	//}
+
+	//Rendering Cylinders
+	{
+		auto floorComponent = world.getComponents<CylinderComponent>(numComponents);
 
 		for (auto i : std::views::iota(0u, numComponents))
 		{
@@ -341,15 +495,14 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 			auto& cb = *m_cb;
 			context.updateConstantBuffer(cb, &data);
 
-			auto& vb = *m_vb_sphere;
-			auto& ib = *m_ib_sphere;
+			auto& vb = *m_vb_cylinder;
+			auto& ib = *m_ib_cylinder;
 			context.setVertexBuffer(vb);
 			context.setConstantBuffer(cb);
 			context.setIndexBuffer(ib);
 			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
 		}
-	}*/
-
+	}
 
 	m_renderSystem.executeCommandList(context);
 	swapChain.present();

@@ -137,6 +137,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Command\CommandActions.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\CameraComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\CubeComponent.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Component\CylinderComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\PlaneComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\PyramidComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\SphereComponent.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="DX3D\Include\DX3D\Command\CommandActions.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\CameraComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\CubeComponent.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Component\CylinderComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\PlaneComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\PyramidComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\SphereComponent.h" />

@@ -59,6 +59,5 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	auto upDir = getTransform().up() * up;
 	auto direction = dx3d::Vec3::normalize(forwardDir + rightDir + upDir);
 	pos = pos + direction * speed * deltaTime;
-	std::cout << pos.x << "  " << pos.y << "  " << pos.z << std::endl;
 	getTransform().setPosition(pos);
 }
