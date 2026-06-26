@@ -36,17 +36,28 @@ void MainGame::onCreate()
 	//	}
 	//}'
 
-	auto cube = world.createGameObject<dx3d::GameObject>();
-			cube->createOrGetComponent<dx3d::CubeComponent>();
-			auto height = (rand() % 15) + (50.0f);
-			height /= 100.0f;
+	//auto cube = world.createGameObject<dx3d::GameObject>();
+	//		cube->createOrGetComponent<dx3d::CubeComponent>();
+	//		auto height = (rand() % 15) + (50.0f);
+	//		height /= 100.0f;
 
-			auto width = (rand() % 60) + (50.0f);
-			width /= 100.0f;
+	//		auto width = (rand() % 60) + (50.0f);
+	//		width /= 100.0f;
 
-			cube->getTransform().setScale({ width, height, width });
-			cube->getTransform().setPosition({ -2 * 0.5f, -0.8, -2 });
-			m_objects[0] = cube;
+	//		cube->getTransform().setScale({ width, height, width });
+	//		cube->getTransform().setPosition({ -2 * 0.5f, -0.8, -2 });
+	//		m_objects[0] = cube;
+
+			for (auto x = 0; x < 3; x++)
+			{
+				for (auto y = 0; y < 3; y++)
+				{
+					auto object = world.createGameObject<dx3d::GameObject>();
+					object->createOrGetComponent<dx3d::CubeComponent>();
+					object->getTransform().setPosition({-2 * 0.5f, -0.8, -2});
+					m_objects[y * 3 + x] = object;
+				}
+			}
 
 	//MODIFIED Spheres
 	for (auto y = -2; y < 3; y++)
@@ -142,7 +153,7 @@ void MainGame::onCreate()
 
 	auto player = world.createGameObject<Player>();
 	//player->getTransform().setPosition({ 0, 1, -2 });
-	player->getTransform().setPosition({ -0.66, -0.397, -2.736 });
+	player->getTransform().setPosition({ -0.66, -0.397, -3/*-2.736*/});
 	//player->getTransform().setPosition({ 0, 1, -1 });
 
 
@@ -155,15 +166,12 @@ void MainGame::onUpdate(dx3d::f32 deltaTime)
 	Game::onUpdate(deltaTime);
 
 	m_rot += deltaTime * 0.707f;
-	m_scale = std::abs(std::sin(m_rot));
+	//m_scale = std::abs(std::sin(m_rot));
 
-	if (value > 9) value = 0;
-
-	//for (auto i = 0; i < 9; i++)
-
-	m_objects[0]->getTransform().setRotation({ m_rot * value, m_rot, m_rot * value });
-	m_objects[0]->getTransform().setScale({ m_scale,m_scale,m_scale });
-	value++;
-
+	for (auto i = 0; i < 9; i++)
+	{
+		m_objects[0]->getTransform().setRotation({ m_rot * i, m_rot, m_rot * i });
+		//m_objects[0]->getTransform().setScale({ m_scale,m_scale,m_scale });
+	}
 
 }

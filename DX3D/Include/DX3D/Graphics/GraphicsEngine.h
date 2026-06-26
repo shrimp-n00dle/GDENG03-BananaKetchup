@@ -71,7 +71,7 @@ namespace dx3d
 		bool bDeleteAll = false;
 		void callSpawn();
 
-		int incCube = 0;
+		int incCube = 8;
 		void removeRecent();
 
 		void closeProgram();
