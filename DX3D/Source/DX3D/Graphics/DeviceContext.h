@@ -23,6 +23,8 @@ namespace dx3d
 
 		void drawIndexedTriangleList(ui32 indexCount, ui32 startVertexIndex, ui32 startIndexLocation);
 
+		void enableLinearStuff();
+
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext> getContext();
 
 	private:

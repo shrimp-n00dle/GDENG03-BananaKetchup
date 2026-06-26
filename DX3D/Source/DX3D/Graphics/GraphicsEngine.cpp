@@ -42,15 +42,15 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	const Vertex vertextList[] =
 	{
 		//Position            //Color
-		{{-0.5f,-0.5f,-0.5f}, {1,1,1,1}},
-		{{-0.5f,0.5f,-0.5f}, {1,1,1,1} },
-		{{0.5f,0.5f,-0.5f},  {1,1,1,1}},
-		{{0.5f,-0.5f,-0.5f}, {1,1,1,1}},
+		{{-0.5f,-0.5f,-0.5f}, {1,0,0,1}},
+		{{-0.5f,0.5f,-0.5f}, {0,1,0,1} },
+		{{0.5f,0.5f,-0.5f},  {0,0,1,1}},
+		{{0.5f,-0.5f,-0.5f}, {1,0,1,1}},
 
-		{{0.5f,-0.5f,0.5f}, {1,1,1,1}},
-		{{0.5f,0.5f,0.5f}, {1,1,1,1}},
-		{{-0.5f,0.5f,0.5f}, {1,1,1,1}},
-		{{-0.5f,-0.5f,0.5f}, {1,1,1,1}}
+		{{0.5f,-0.5f,0.5f}, {1,0,1,1}},
+		{{0.5f,0.5f,0.5f}, {0,0,1,1}},
+		{{-0.5f,0.5f,0.5f}, {0,1,0,1}},
+		{{-0.5f,-0.5f,0.5f}, {1,0,0,1}}
 	};
 
 	const ui32 indexList[] =
@@ -88,241 +88,6 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 	};
 	m_vb2 = device.createVertexBuffer({ test, std::size(test), sizeof(Vertex) });
-
-
-	//Create Pyramid
-	Vertex pyramids[] =
-	{
-		{ { -0.5f, -0.5f, -0.5f }, {1,0,0,1}}, 
-		{ {  0.5f, -0.5f, -0.5f }, {0,1,0,1}},
-		{ {  0.5f, -0.5f,  0.5f }, {0,0,1,1}}, 
-		{ { -0.5f, -0.5f,  0.5f }, {1,0,1,1}}, 
-		{ {  0.0f,  0.5f,  0.0f }, {1,0,1,1}} 
-	};
-
-	const ui32 pyramids_i[] =
-	{
-		0, 2, 1,
-
-		0, 3, 2,
-
-		3, 4, 2,
-
-		1, 4, 0,
-
-		0, 4, 3,
-
-		2, 4, 1
-	};
-
-	//Pyramid Stuff
-	m_vb_pyramid = device.createVertexBuffer({ pyramids, std::size(pyramids), sizeof(Vertex) });
-	m_ib_pyramid = device.createIndexBuffer({ pyramids_i, std::size(pyramids_i) });
-
-
-	//Create Sphere
-
-	std::vector<Vertex>  sphere_list;
-	std::vector<ui32> sphere_indices;
-
-	float radius = 0.1f;
-	int numSlices = 20; 
-	int numStacks = 20; 
-
-
-	for (int i = 0; i <= numStacks; ++i) {
-		float phi = i * DirectX::XM_PI / numStacks;
-
-		for (int j = 0; j <= numSlices; ++j) {
-			float theta = j * (2.0f * DirectX::XM_PI) / numSlices;
-
-			Vertex sphere;
-			sphere.position = { (radius * sinf(phi) * cosf(theta)),
-								 (radius * cosf(phi)),
-								(radius * sinf(phi) * sinf(theta)) };
-
-
-			sphere.color = randomizeColor();
-
-			sphere_list.push_back(sphere);
-		}
-	}
-
-	std::cout << "SPHERE LIST SIZE IS: " << sphere_list.size() << std::endl;
-
-	//Sphere Indices
-	for (int i = 0; i < numStacks; ++i) {
-		for (int j = 0; j < numSlices; ++j) {
-			int current = i * (numSlices + 1) + j;
-			int next = current + numSlices + 1;
-
-			// Triangle 1
-			sphere_indices.push_back(current);
-			sphere_indices.push_back(next);
-			sphere_indices.push_back(current + 1);
-
-			// Triangle 2
-			sphere_indices.push_back(current + 1);
-			sphere_indices.push_back(next);
-			sphere_indices.push_back(next + 1);
-		}
-	}
-
-	std::cout << "SPHERE LIST SIZE IS: " << sphere_indices.size() << std::endl;
-
-	
-	Vertex sphere_vertices[441];
-
-	for (int i = 0; i < sphere_list.size(); i++)
-	{
-		sphere_vertices[i] = sphere_list[i];
-	}
-
-	ui32 spheres_i[2400];
-
-	for (int i = 0; i < sphere_indices.size(); i++)
-	{
-		spheres_i[i] = sphere_indices[i];
-	}
-	//Sphere Stuff
-	 m_vb_sphere = device.createVertexBuffer({ sphere_vertices, std::size(sphere_vertices), sizeof(Vertex) });
-	 m_ib_sphere = device.createIndexBuffer({ spheres_i, std::size(spheres_i) });
-
-
-	 //CREATE CYLINDER
-	 std::vector<Vertex>  cy_list;
-	 std::vector<ui32> cy_indices;
-	 float height = 0.3, stackCount = 2, sliceCount = 10;
-	 float topRadius = 0.1f,bottomRadius = 0.1f;
-
-	 float stackHeight = 0.5f;//height / stackCount;
-	 float radiusStep = (topRadius - bottomRadius) / stackCount;
-	 UINT ringCount = stackCount + 1;
-
-
-	 for (UINT i = 0; i < ringCount; ++i) {
-		 float y = -0.5f * height + i * stackHeight;
-		 float r = bottomRadius + i * radiusStep;
-
-		 float dTheta = 2.0f * DirectX::XM_PI / sliceCount;
-		 for (UINT j = 0; j <= sliceCount; ++j) {
-			 float c = cosf(j * dTheta);
-			 float s = sinf(j * dTheta);
-
-			 Vertex v;
-			 v.position = {r * c, y, r * s};
-			 // Normals and UVs can be calculated here for lighting and texturing
-			// v.Normal = DirectX::XMFLOAT3(c, 0.0f, s); // simplified
-			// v.TexCoord = DirectX::XMFLOAT2((float)j / sliceCount, (float)i / stackCount);
-			 v.color = randomizeColor();
-
-			 cy_list.push_back(v);
-		 }
-	 }
-
-	 // Add indices for the cylinder body
-	 UINT ringVertexCount = sliceCount + 1;
-	 for (UINT i = 0; i < stackCount; ++i) {
-		 for (UINT j = 0; j < sliceCount; ++j) {
-			 cy_indices.push_back(i * ringVertexCount + j);
-			 cy_indices.push_back((i + 1) * ringVertexCount + j);
-			 cy_indices.push_back(i * ringVertexCount + j + 1);
-			 
-			 cy_indices.push_back(i * ringVertexCount + j + 1);
-			 cy_indices.push_back((i + 1) * ringVertexCount + j);
-			 cy_indices.push_back((i + 1) * ringVertexCount + j + 1);
-		 }
-	 }
-
-	 //BOTTOM AND TOP CAP
-	 // --- BOTTOM CAP ---
-	 UINT bottomCapStartIndex = (UINT)cy_list.size();
-	 float yBottom = -0.5f * height;
-
-	 // 1. Center vertex for the bottom cap
-	 Vertex bottomCenter;
-	 bottomCenter.position = { 0.0f, yBottom, 0.0f };
-	 bottomCenter.color = randomizeColor();
-	 //bottomCenter.Normal = DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f);
-	 //bottomCenter.TexCoord = DirectX::XMFLOAT2(0.5f, 0.5f);
-	 cy_list.push_back(bottomCenter);
-
-	 // 2. Ring vertices for the bottom cap
-	 float dTheta = 2.0f * DirectX::XM_PI / sliceCount;
-	 for (UINT i = 0; i <= sliceCount; ++i) {
-		 float c = cosf(i * dTheta);
-		 float s = sinf(i * dTheta);
-
-		 Vertex v;
-		 v.position = { bottomRadius * c, yBottom, bottomRadius * s };
-		 v.color = randomizeColor();
-		// v.Normal = DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f);
-		 // Map texture coordinates to a flat circle
-		// v.TexCoord = DirectX::XMFLOAT2(0.5f + 0.5f * c, 0.5f + 0.5f * s);
-		 cy_list.push_back(v);
-	 }
-
-	 // 3. Bottom cap indices (Clockwise winding order looking from below)
-	 for (UINT i = 0; i < sliceCount; ++i) {
-		 cy_indices.push_back(bottomCapStartIndex);
-		 cy_indices.push_back(bottomCapStartIndex + 1 + i + 1);
-		 cy_indices.push_back(bottomCapStartIndex + 1 + i);
-	 }
-
-	 // --- TOP CAP ---
-	 UINT topCapStartIndex = (UINT)cy_list.size();
-	 float yTop = 0.5f * height;
-
-	 // 1. Center vertex for the top cap
-	 Vertex topCenter;
-	 topCenter.position = { 0.0f, yTop, 0.0f };
-	 topCenter.color = randomizeColor();
-	 //topCenter.Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	// topCenter.TexCoord = DirectX::XMFLOAT2(0.5f, 0.5f);
-	 cy_list.push_back(topCenter);
-
-	 // 2. Ring vertices for the top cap
-	 for (UINT i = 0; i <= sliceCount; ++i) {
-		 float c = cosf(i * dTheta);
-		 float s = sinf(i * dTheta);
-
-		 Vertex v;
-		 v.position = { topRadius * c, yTop, topRadius * s };
-		 v.color = randomizeColor();
-		// v.Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-		 // Map texture coordinates to a flat circle
-		// v.TexCoord = DirectX::XMFLOAT2(0.5f + 0.5f * c, 0.5f + 0.5f * s);
-		 cy_list.push_back(v);
-	 }
-
-	 // 3. Top cap indices (Clockwise winding order looking from above)
-	 for (UINT i = 0; i < sliceCount; ++i) {
-		 cy_indices.push_back(topCapStartIndex);
-		 cy_indices.push_back(topCapStartIndex + 1 + i);
-		 cy_indices.push_back(topCapStartIndex + 1 + i + 1);
-	 }
-	 
-	 std::cout << "CYLINDER SIZE IS " << cy_list.size() << std::endl;
-	 std::cout << "CYLINDER INDCIDED SIZE IS " << cy_indices.size() << std::endl;
-
-	 Vertex cy_vertices[57];
-
-	 for (int i = 0; i < cy_list.size(); i++)
-	 {
-		 cy_vertices[i] = cy_list[i];
-	 }
-
-	 ui32 cy_i [180];
-
-	 for (int i = 0; i < cy_indices.size(); i++)
-	 {
-		 cy_i[i] = cy_indices[i];
-	 }
-	 //Cylinder Stuff
-	 m_vb_cylinder = device.createVertexBuffer({ cy_vertices, std::size(cy_vertices), sizeof(Vertex) });
-	 m_ib_cylinder = device.createIndexBuffer({ cy_i, std::size(cy_i) });
-
-
 }
 
 
@@ -361,6 +126,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	auto size = swapChain.getSize();
 
 	auto& context = *m_deviceContext;
+
 	auto& cb = *m_cb;
 
 	m_pos += deltaTime * 0.0f;
@@ -415,38 +181,10 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 //	}
 //}
 
-//Rendering Pyramids
-//{
-//
-//	auto components = world.getComponents<PyramidComponent>(numComponents);
-//
-//
-//	for (auto i : std::views::iota(0u, numComponents - incCube))
-//	{
-//		auto component = components[i];
-//		auto& transform = component->getGameObject().getTransform();
-//
-//		data.world = transform.getAffineWorldMatrix();
-//
-//		auto& cb = *m_cb;
-//		context.updateConstantBuffer(cb, &data);
-//
-//		auto& vb = *m_vb_pyramid;
-//		auto& ib = *m_ib_pyramid;
-//		context.setVertexBuffer(vb);
-//		context.setConstantBuffer(cb);
-//		context.setIndexBuffer(ib);
-//		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
-//	}
-//}
-
-
-
 	/*Rendering and spawning cubes*/
 	{
 
 		auto components = world.getComponents<CubeComponent>(numComponents);
-		//removeAllFromRender();
 		
 
 		for (auto i : std::views::iota(0u, numComponents - incCube))
@@ -466,79 +204,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 			context.setIndexBuffer(ib);
 			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
 		}
-		//bDeleteAll = false;
 	}
-
-
-
-	//Rendering SPheres
-	//{
-	//	auto floorComponent = world.getComponents<SphereComponent>(numComponents);
-
-	//	for (auto i : std::views::iota(0u, numComponents))
-	//	{
-	//		auto component = floorComponent[i];
-	//		auto& transform = component->getGameObject().getTransform();
-
-	//		data.world = transform.getAffineWorldMatrix();
-
-	//		auto& cb = *m_cb;
-	//		context.updateConstantBuffer(cb, &data);
-
-	//		auto& vb = *m_vb_sphere;
-	//		auto& ib = *m_ib_sphere;
-	//		context.setVertexBuffer(vb);
-	//		context.setConstantBuffer(cb);
-	//		context.setIndexBuffer(ib);
-	//		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
-	//	}
-	//}
-
-	//Rendering Cylinders
-	{
-		auto floorComponent = world.getComponents<CylinderComponent>(numComponents);
-
-		for (auto i : std::views::iota(0u, numComponents))
-		{
-			auto component = floorComponent[i];
-			auto& transform = component->getGameObject().getTransform();
-
-			data.world = transform.getAffineWorldMatrix();
-
-			auto& cb = *m_cb;
-			context.updateConstantBuffer(cb, &data);
-
-			auto& vb = *m_vb_cylinder;
-			auto& ib = *m_ib_cylinder;
-			context.setVertexBuffer(vb);
-			context.setConstantBuffer(cb);
-			context.setIndexBuffer(ib);
-			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
-		}
-	}
-
-	//Rendering Capsules
-	/*{
-		auto floorComponent = world.getComponents<CapsuleComponent>(numComponents);
-
-		for (auto i : std::views::iota(0u, numComponents))
-		{
-			auto component = floorComponent[i];
-			auto& transform = component->getGameObject().getTransform();
-
-			data.world = transform.getAffineWorldMatrix();
-
-			auto& cb = *m_cb;
-			context.updateConstantBuffer(cb, &data);
-
-			auto& vb = *m_vb_capsule;
-			auto& ib = *m_ib_capsule;
-			context.setVertexBuffer(vb);
-			context.setConstantBuffer(cb);
-			context.setIndexBuffer(ib);
-			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
-		}
-	}*/
 
 	m_renderSystem.executeCommandList(context);
 	swapChain.present();

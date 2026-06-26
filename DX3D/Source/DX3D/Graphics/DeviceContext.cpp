@@ -106,6 +106,23 @@ void dx3d::DeviceContext::drawIndexedTriangleList(ui32 indexCount, ui32 startVer
 	m_context->DrawIndexed(indexCount, startIndexLocation, startVertexIndex);
 }
 
+void dx3d::DeviceContext::enableLinearStuff()
+{
+	D3D11_SAMPLER_DESC linear_pol;
+	ZeroMemory(&linear_pol, sizeof(linear_pol));
+	linear_pol.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	linear_pol.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+	linear_pol.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+	linear_pol.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+	linear_pol.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	linear_pol.MinLOD = 0;
+	linear_pol.MaxLOD = D3D11_FLOAT32_MAX;
+
+	ID3D11SamplerState* pSampler;
+	//m_context->createLinear(&linear_pol, &pSampler);
+	//m_context->PSSetSamplers(0, 1, &pSampler);
+}
+
 Microsoft::WRL::ComPtr<ID3D11DeviceContext> dx3d::DeviceContext::getContext()
 {
 	return m_context;
