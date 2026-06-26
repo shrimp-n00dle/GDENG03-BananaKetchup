@@ -34,7 +34,18 @@ void MainGame::onCreate()
 	//		cube->getTransform().setScale({ width, height, width });
 	//		cube->getTransform().setPosition({ x * 1.4f, (height / 2.0f) - 1.0f, y * 1.4f });
 	//	}
-	//}
+	//}'
+
+	auto cube = world.createGameObject<dx3d::GameObject>();
+			cube->createOrGetComponent<dx3d::CubeComponent>();
+			auto height = (rand() % 15) + (50.0f);
+			height /= 100.0f;
+
+			auto width = (rand() % 60) + (50.0f);
+			width /= 100.0f;
+
+			cube->getTransform().setScale({ width, height, width });
+			cube->getTransform().setPosition({ -2 * 0.5f, -0.8, -2 });
 
 	//MODIFIED Spheres
 	for (auto y = -2; y < 3; y++)
@@ -73,11 +84,8 @@ void MainGame::onCreate()
 	}
 
 
-
-
-
 	//MODIFIED Planes
-	for (auto y = -2; y < 3; y++)
+	/*for (auto y = -2; y < 3; y++)
 	{
 		for (auto x = -2; x < 3; x++)
 		{
@@ -92,17 +100,17 @@ void MainGame::onCreate()
 			cube->getTransform().setScale({ width, height, width });
 			cube->getTransform().setPosition({ x * 0.5f, (height / 2.0f) - 1.0f, y * 0.5f });
 		}
-	}
+	}*/
 
 
 	auto player = world.createGameObject<Player>();
-	player->getTransform().setPosition({ 0, 1, -2 });
-	//player->getTransform().setPosition({ 0, 1, -1 });
+	//player->getTransform().setPosition({ 0, 1, -2 });
+	player->getTransform().setPosition({ -0.66, -0.397, -2.736 });
 	//player->getTransform().setPosition({ 0, 1, -1 });
 
 
-	//getInputSystem().setCursorLocked(true);
-	//getInputSystem().setCursorVisible(false);
+	getInputSystem().setCursorLocked(true);
+	getInputSystem().setCursorVisible(false);
 }
 
 void MainGame::onUpdate(dx3d::f32 deltaTime)

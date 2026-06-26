@@ -70,7 +70,7 @@ void dx3d::Game::onInternalUpdate()
 
 	m_world->update(deltaTime);
 
-	m_graphicsEngine->spawnTest(*m_world);
+	//m_graphicsEngine->spawnTest(*m_world);
 
 	m_graphicsEngine->render(*m_world, m_display->getSwapChain(), deltaTime);
 }

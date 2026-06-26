@@ -82,9 +82,9 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	const Vertex test[]
 	{
 		{ { -0.5f, 0.0f, 0.5f }, {1,0,0,1} },
-		{ { 0.5f, 0.0f,  0.5f }, {1,0,0,1} },
-		{ { 0.5f, 0.0f, -0.5f }, {1,0,0,1} },
-		{ { -0.5f,0.0f, -0.5f }, {1,0,0,1} }
+		{ { 0.5f, 0.0f,  0.5f }, {0,1,0,1} },
+		{ { 0.5f, 0.0f, -0.5f }, {0,0,1,1} },
+		{ { -0.5f,0.0f, -0.5f }, {1,0,1,1} }
 
 	};
 	m_vb2 = device.createVertexBuffer({ test, std::size(test), sizeof(Vertex) });
@@ -142,7 +142,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 								(radius * sinf(phi) * sinf(theta)) };
 
 
-			sphere.color = { 0,1,0,1 };
+			sphere.color = randomizeColor();
 
 			sphere_list.push_back(sphere);
 		}
@@ -187,94 +187,9 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	{
 		spheres_i[i] = sphere_indices[i];
 	}
-	/*{
-		sphere_list[0],
-		sphere_list[1],
-		sphere_list[2],
-		sphere_list[3],
-		sphere_list[4],
-		sphere_list[5],
-		sphere_list[6],
-		sphere_list[7],
-		sphere_list[8],
-		sphere_list[9],
-		sphere_list[10],
-		sphere_list[11],
-		sphere_list[12],
-		sphere_list[13],
-		sphere_list[14],
-		sphere_list[15],
-		sphere_list[16],
-		sphere_list[17],
-		sphere_list[18],
-		sphere_list[19],
-
-		sphere_list[20],
-		sphere_list[21],
-		sphere_list[22],
-		sphere_list[23],
-		sphere_list[24],
-		sphere_list[25],
-		sphere_list[26],
-		sphere_list[27],
-		sphere_list[28],
-		sphere_list[29],
-		sphere_list[30],
-		sphere_list[31],
-		sphere_list[32],
-		sphere_list[33],
-		sphere_list[34],
-		sphere_list[35],
-	};*/
-
-
-
-	/*{
-		sphere_indices[0],
-		sphere_indices[1],
-		sphere_indices[2],
-		sphere_indices[3],
-		sphere_indices[4],
-		sphere_indices[5],
-		sphere_indices[6],
-		sphere_indices[7],
-		sphere_indices[8],
-		sphere_indices[9],
-		sphere_indices[10],
-		sphere_indices[11],
-		sphere_indices[12],
-		sphere_indices[13],
-		sphere_indices[14],
-		sphere_indices[15],
-		sphere_indices[16],
-		sphere_indices[17],
-		sphere_indices[18],
-		sphere_indices[19],
-
-
-		sphere_indices[20],
-		sphere_indices[21],
-		sphere_indices[22],
-		sphere_indices[23],
-		sphere_indices[24],
-		sphere_indices[25],
-		sphere_indices[26],
-		sphere_indices[27],
-		sphere_indices[28],
-		sphere_indices[29],
-		sphere_indices[30],
-		sphere_indices[31],
-		sphere_indices[32],
-		sphere_indices[33],
-		sphere_indices[34],
-		sphere_indices[35],
-	};*/
-
 	//Sphere Stuff
-	std::cout << "ABOUT TO RENDER" << std::endl;
 	 m_vb_sphere = device.createVertexBuffer({ sphere_vertices, std::size(sphere_vertices), sizeof(Vertex) });
 	 m_ib_sphere = device.createIndexBuffer({ spheres_i, std::size(spheres_i) });
-	 std::cout << "DONE" << std::endl;
 
 }
 
@@ -387,10 +302,10 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	{
 
 		auto components = world.getComponents<CubeComponent>(numComponents);
-		removeAllFromRender();
+		//removeAllFromRender();
 		
 
-		for (auto i : std::views::iota(0u, numComponents - incCube))
+		for (auto i : std::views::iota(0u, numComponents))
 		{
 			auto component = components[i];
 			auto& transform = component->getGameObject().getTransform();
@@ -407,13 +322,13 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 			context.setIndexBuffer(ib);
 			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
 		}
-		bDeleteAll = false;
+		//bDeleteAll = false;
 	}
 
 
 
 	//Rendering SPheres
-	{
+	/*{
 		auto floorComponent = world.getComponents<SphereComponent>(numComponents);
 
 		for (auto i : std::views::iota(0u, numComponents))
@@ -433,7 +348,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 			context.setIndexBuffer(ib);
 			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
 		}
-	}
+	}*/
 
 
 	m_renderSystem.executeCommandList(context);
@@ -467,6 +382,29 @@ void dx3d::GraphicsEngine::removeAllFromRender()
 		incCube = numComponents;
 	}
 
+}
+
+dx3d::Vec4 dx3d::GraphicsEngine::randomizeColor()
+{
+	dx3d::Vec4 color;
+
+	if (colorIndex >= 4) colorIndex = 1;
+
+	switch (colorIndex)
+	{
+		//R
+	case 1: color = {1,0,0,1}; break;
+		//G
+	case 2: color = {0,1,0,1}; break;
+		//B
+	case 3: color = {0,0,1,1 }; break;
+		//Purple
+	default: color = {1,0,1,1}; break;
+	}
+
+	colorIndex++;
+	
+	return color;
 }
 
 

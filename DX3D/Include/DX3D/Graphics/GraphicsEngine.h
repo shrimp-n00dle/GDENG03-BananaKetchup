@@ -76,6 +76,9 @@ namespace dx3d
 		void removeAllFromRender();
 		unsigned int numComponents;
 
+		Vec4 randomizeColor();
+		int colorIndex = 1;
+
 	public:
 		RenderSystem& m_renderSystem;
 		RefPtr<DeviceContext> m_deviceContext{};
