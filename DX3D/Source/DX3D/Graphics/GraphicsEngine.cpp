@@ -306,20 +306,20 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 	 Vertex cy_vertices[485];
 
-	 for (int i = 0; i < cy_list.size(); i++)
+	/* for (int i = 0; i < cy_list.size(); i++)
 	 {
 		 cy_vertices[i] = cy_list[i];
-	 }
+	 }*/
 
 	 ui32 cy_i[2520];
 
-	 for (int i = 0; i < cy_indices.size(); i++)
+	/* for (int i = 0; i < cy_indices.size(); i++)
 	 {
 		 cy_i[i] = cy_indices[i];
-	 }
+	 }*/
 	 //Cylinder Stuff
-	 m_vb_cylinder = device.createVertexBuffer({ cy_vertices, std::size(cy_vertices), sizeof(Vertex) });
-	 m_ib_cylinder = device.createIndexBuffer({ cy_i, std::size(cy_i) });
+	 /*m_vb_cylinder = device.createVertexBuffer({ cy_vertices, std::size(cy_vertices), sizeof(Vertex) });
+	 m_ib_cylinder = device.createIndexBuffer({ cy_i, std::size(cy_i) });*/
 
 
 }
@@ -497,6 +497,29 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 
 			auto& vb = *m_vb_cylinder;
 			auto& ib = *m_ib_cylinder;
+			context.setVertexBuffer(vb);
+			context.setConstantBuffer(cb);
+			context.setIndexBuffer(ib);
+			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+		}
+	}
+
+	//Rendering Cylinders
+	{
+		auto floorComponent = world.getComponents<CapsuleComponent>(numComponents);
+
+		for (auto i : std::views::iota(0u, numComponents))
+		{
+			auto component = floorComponent[i];
+			auto& transform = component->getGameObject().getTransform();
+
+			data.world = transform.getAffineWorldMatrix();
+
+			auto& cb = *m_cb;
+			context.updateConstantBuffer(cb, &data);
+
+			auto& vb = *m_vb_capsule;
+			auto& ib = *m_ib_capsule;
 			context.setVertexBuffer(vb);
 			context.setConstantBuffer(cb);
 			context.setIndexBuffer(ib);

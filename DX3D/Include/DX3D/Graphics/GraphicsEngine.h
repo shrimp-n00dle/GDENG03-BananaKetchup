@@ -24,6 +24,7 @@
 #include <DX3D/Component/PyramidComponent.h>
 #include <DX3D/Component/SphereComponent.h>
 #include <DX3D/Component/CylinderComponent.h>
+#include <DX3D/Component/CapsuleComponent.h>
 
 #include <ranges>
 #include <directxmath.h>
@@ -108,6 +109,10 @@ namespace dx3d
 		//Cylinder
 		RefPtr<VertexBuffer> m_vb_cylinder{};
 		RefPtr<IndexBuffer> m_ib_cylinder{};
+
+		//Capsule
+		RefPtr<VertexBuffer> m_vb_capsule{};
+		RefPtr<IndexBuffer> m_ib_capsule{};
 
 
 		friend class Window;
