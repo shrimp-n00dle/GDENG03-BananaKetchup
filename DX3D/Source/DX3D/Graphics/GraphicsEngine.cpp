@@ -192,10 +192,10 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	 //CREATE CYLINDER
 	 std::vector<Vertex>  cy_list;
 	 std::vector<ui32> cy_indices;
-	 float height = 20, stackCount = 20, sliceCount = 20;
-	 float topRadius = 1.0f,bottomRadius = 1.0f;
+	 float height = 0.3, stackCount = 2, sliceCount = 10;
+	 float topRadius = 0.1f,bottomRadius = 0.1f;
 
-	 float stackHeight = height / stackCount;
+	 float stackHeight = 0.5f;//height / stackCount;
 	 float radiusStep = (topRadius - bottomRadius) / stackCount;
 	 UINT ringCount = stackCount + 1;
 
@@ -242,6 +242,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	 // 1. Center vertex for the bottom cap
 	 Vertex bottomCenter;
 	 bottomCenter.position = { 0.0f, yBottom, 0.0f };
+	 bottomCenter.color = randomizeColor();
 	 //bottomCenter.Normal = DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f);
 	 //bottomCenter.TexCoord = DirectX::XMFLOAT2(0.5f, 0.5f);
 	 cy_list.push_back(bottomCenter);
@@ -304,22 +305,22 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	 std::cout << "CYLINDER SIZE IS " << cy_list.size() << std::endl;
 	 std::cout << "CYLINDER INDCIDED SIZE IS " << cy_indices.size() << std::endl;
 
-	 Vertex cy_vertices[485];
+	 Vertex cy_vertices[57];
 
-	/* for (int i = 0; i < cy_list.size(); i++)
+	 for (int i = 0; i < cy_list.size(); i++)
 	 {
 		 cy_vertices[i] = cy_list[i];
-	 }*/
+	 }
 
-	 ui32 cy_i[2520];
+	 ui32 cy_i [180];
 
-	/* for (int i = 0; i < cy_indices.size(); i++)
+	 for (int i = 0; i < cy_indices.size(); i++)
 	 {
 		 cy_i[i] = cy_indices[i];
-	 }*/
+	 }
 	 //Cylinder Stuff
-	 /*m_vb_cylinder = device.createVertexBuffer({ cy_vertices, std::size(cy_vertices), sizeof(Vertex) });
-	 m_ib_cylinder = device.createIndexBuffer({ cy_i, std::size(cy_i) });*/
+	 m_vb_cylinder = device.createVertexBuffer({ cy_vertices, std::size(cy_vertices), sizeof(Vertex) });
+	 m_ib_cylinder = device.createIndexBuffer({ cy_i, std::size(cy_i) });
 
 
 }
@@ -504,8 +505,8 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 		}
 	}
 
-	//Rendering Cylinders
-	{
+	//Rendering Capsules
+	/*{
 		auto floorComponent = world.getComponents<CapsuleComponent>(numComponents);
 
 		for (auto i : std::views::iota(0u, numComponents))
@@ -525,7 +526,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 			context.setIndexBuffer(ib);
 			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
 		}
-	}
+	}*/
 
 	m_renderSystem.executeCommandList(context);
 	swapChain.present();
