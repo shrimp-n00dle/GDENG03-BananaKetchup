@@ -114,6 +114,8 @@ namespace dx3d
 		RefPtr<VertexBuffer> m_vb_capsule{};
 		RefPtr<IndexBuffer> m_ib_capsule{};
 
+		f32 m_rot{}, m_scale{}, m_pos{ 0.0f };
+
 
 		friend class Window;
 	};

@@ -43,6 +43,10 @@ namespace dx3d
 		UniquePtr<GraphicsEngine> m_graphicsEngine{};
 		bool isRunning{ true };
 		std::chrono::steady_clock::time_point m_previousTime{};
+
+		dx3d::GameObject* m_objects[1]{};
+		dx3d::f32 m_rot{}, m_scale{};
+		int value = 0;
 	};
 }
 

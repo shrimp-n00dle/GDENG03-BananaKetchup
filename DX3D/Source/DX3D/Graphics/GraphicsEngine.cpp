@@ -42,15 +42,15 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	const Vertex vertextList[] =
 	{
 		//Position            //Color
-		{{-0.5f,-0.5f,-0.5f}, {1,0,0,1}},
-		{{-0.5f,0.5f,-0.5f}, {0,1,0,1} },
-		{{0.5f,0.5f,-0.5f},  {0,0,1,1}},
-		{{0.5f,-0.5f,-0.5f}, {1,0,1,1}},
+		{{-0.5f,-0.5f,-0.5f}, {1,1,1,1}},
+		{{-0.5f,0.5f,-0.5f}, {1,1,1,1} },
+		{{0.5f,0.5f,-0.5f},  {1,1,1,1}},
+		{{0.5f,-0.5f,-0.5f}, {1,1,1,1}},
 
-		{{0.5f,-0.5f,0.5f}, {1,0,1,1}},
-		{{0.5f,0.5f,0.5f}, {0,0,1,1}},
-		{{-0.5f,0.5f,0.5f}, {0,1,0,1}},
-		{{-0.5f,-0.5f,0.5f}, {1,0,0,1}}
+		{{0.5f,-0.5f,0.5f}, {1,1,1,1}},
+		{{0.5f,0.5f,0.5f}, {1,1,1,1}},
+		{{-0.5f,0.5f,0.5f}, {1,1,1,1}},
+		{{-0.5f,-0.5f,0.5f}, {1,1,1,1}}
 	};
 
 	const ui32 indexList[] =
@@ -361,6 +361,18 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	auto size = swapChain.getSize();
 
 	auto& context = *m_deviceContext;
+	auto& cb = *m_cb;
+
+	m_pos += deltaTime * 0.0f;
+	m_rot += deltaTime * 0.707f;
+	m_scale = std::abs(std::sin(m_rot));
+
+	auto worldMat =
+		Mat4x4::scale({ m_scale,m_scale,m_scale }) *
+		Mat4x4::rotateX(m_rot) *
+		Mat4x4::rotateY(m_rot) *
+		Mat4x4::rotateZ(m_rot) *
+		Mat4x4::translate({ m_pos,m_pos,0 });
 	//Set Bg to black
 	context.clearAndSetBackBuffer(swapChain, { 0.0f,0.0f,0.0f, 0.0f });
 	context.setGraphicsPipelineState(*m_pipeline);
@@ -381,27 +393,27 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	}
 
 	//FLOOR
-{
-	auto floorComponent = world.getComponents<PlaneComponent>(numComponents);
-
-	for (auto i : std::views::iota(0u, numComponents))
-	{
-		auto component = floorComponent[i];
-		auto& transform = component->getGameObject().getTransform();
-
-		data.world = transform.getAffineWorldMatrix();
-
-		auto& cb = *m_cb;
-		context.updateConstantBuffer(cb, &data);
-
-		auto& vb = *m_vb2;
-		auto& ib = *m_ib;
-		context.setVertexBuffer(vb);
-		context.setConstantBuffer(cb);
-		context.setIndexBuffer(ib);
-		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
-	}
-}
+//{
+//	auto floorComponent = world.getComponents<PlaneComponent>(numComponents);
+//
+//	for (auto i : std::views::iota(0u, numComponents))
+//	{
+//		auto component = floorComponent[i];
+//		auto& transform = component->getGameObject().getTransform();
+//
+//		data.world = transform.getAffineWorldMatrix();
+//
+//		auto& cb = *m_cb;
+//		context.updateConstantBuffer(cb, &data);
+//
+//		auto& vb = *m_vb2;
+//		auto& ib = *m_ib;
+//		context.setVertexBuffer(vb);
+//		context.setConstantBuffer(cb);
+//		context.setIndexBuffer(ib);
+//		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+//	}
+//}
 
 //Rendering Pyramids
 //{
@@ -437,7 +449,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 		//removeAllFromRender();
 		
 
-		for (auto i : std::views::iota(0u, numComponents - incCube))
+		for (auto i : std::views::iota(0u, numComponents))
 		{
 			auto component = components[i];
 			auto& transform = component->getGameObject().getTransform();
