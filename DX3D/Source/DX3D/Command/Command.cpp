@@ -65,7 +65,7 @@ void dx3d::EndCommand::execute(GraphicsEngine& g)
 
 	//Command Queue
 	queueList.push_back("[ESCAPE] Program Terminated.");
-	promptList();
+	//promptList();
 	
 }
 void dx3d::EndCommand::undo(GraphicsEngine& g)

@@ -31,7 +31,7 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	rot.y += getInputSystem().getMouseDelta().x * sensitivity;
 	if (rot.x > 1.57f) rot.x = 1.57f;
 	else if (rot.x < -1.57f) rot.x = -1.57f;
-	//std::cout << rot.x << "  " << rot.y << std::endl;
+	std::cout << rot.x << "  " << rot.y << std::endl;
 	getTransform().setRotation(rot);
 
 
@@ -60,6 +60,7 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	auto upDir = getTransform().up() * up;
 	auto direction = dx3d::Vec3::normalize(forwardDir + rightDir + upDir);
 	pos = pos + direction * speed * deltaTime;
-	//std::cout << pos.x << "  " << pos.y << "  " << pos.z << std::endl;
+	//std::cout << pos.x << "  " << pos.y << "  " << pos.z << "  " << std::endl;
+
 	getTransform().setPosition(pos);
 }

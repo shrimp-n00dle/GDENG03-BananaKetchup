@@ -12,102 +12,141 @@ void MainGame::onCreate()
 	Game::onCreate();
 
 	auto& world = getWorld();
-	auto floor = world.createGameObject<dx3d::GameObject>();
-	floor->createOrGetComponent<dx3d::PlaneComponent>();
-	//floor->getTransform().setScale({ 6.8f, 0.1f, 6.8f });
-	floor->getTransform().setScale({ 2.0f, 2.0f, 2.0f });
-	floor->getTransform().setPosition({ 0, -1, 0 });
-	//floor->getTransform().setPosition({ 0, 0,0 });
+
 
 	srand((unsigned int)time(NULL));
 
-	//for (auto y = -2; y < 3; y++)
-	//{
-	//	for (auto x = -2; x < 3; x++)
-	//	{
-	//		auto cube = world.createGameObject<dx3d::GameObject>();
-	//		cube->createOrGetComponent<dx3d::CubeComponent>();
-	//		auto height = (rand() % 120) + (80.0f);
-	//		height /= 100.0f;
 
-	//		auto width = (rand() % 600) + (200.0f);
-	//		width /= 1000.0f;
+	//MANUALLY ADDING THE CARDS 
+	float shape_scale = 0.2f;
+	float rotation_value = 8.2f;
+	//CARD1
+	auto plane = world.createGameObject<dx3d::GameObject>();
+	plane ->createOrGetComponent<dx3d::PlaneComponent>();
 
-	//		cube->getTransform().setScale({ width, height, width });
-	//		cube->getTransform().setPosition({ x * 1.4f, (height / 2.0f) - 1.0f, y * 1.4f });
-	//	}
-	//}'
+	plane->getTransform().setScale({shape_scale +0.2f,shape_scale,shape_scale+0.2f});
+	plane->getTransform().setPosition({ 0, 0, 0 });
+	plane->getTransform().setRotation({ rotation_value, 1, 0 });
+	CubeCount++;
 
-	//auto cube = world.createGameObject<dx3d::GameObject>();
-	//		cube->createOrGetComponent<dx3d::CubeComponent>();
-	//		auto height = (rand() % 15) + (50.0f);
-	//		height /= 100.0f;
+	//CARD2
+	auto plane2 = world.createGameObject<dx3d::GameObject>();
+	plane2->createOrGetComponent<dx3d::PlaneComponent>();
+	plane2->getTransform().setScale({ shape_scale + 0.2f,shape_scale,shape_scale + 0.2f });
+	plane2->getTransform().setPosition({ 0.1, 0, 0.1 });
+	plane2->getTransform().setRotation({ -rotation_value,1, 0 });
+	CubeCount++;
 
-	//		auto width = (rand() % 60) + (50.0f);
-	//		width /= 100.0f;
+	//CARD3
+	auto plane3 = world.createGameObject<dx3d::GameObject>();
+	plane3->createOrGetComponent<dx3d::PlaneComponent>();
+	plane3->getTransform().setScale({ shape_scale + 0.2f,shape_scale,shape_scale + 0.2f });
+	plane3->getTransform().setPosition({0.2, 0, 0.2 });
+	plane3->getTransform().setRotation({ rotation_value, 1, 0 });
+	CubeCount++;
 
-	//		cube->getTransform().setScale({ width, height, width });
-	//		cube->getTransform().setPosition({ -2 * 0.5f, -0.8, -2 });
-	//		m_objects[0] = cube;
+	//CARD4
+	auto plane4 = world.createGameObject<dx3d::GameObject>();
+	plane4->createOrGetComponent<dx3d::PlaneComponent>();
+	plane4->getTransform().setScale({ shape_scale + 0.2f,shape_scale,shape_scale + 0.2f });
+	plane4->getTransform().setPosition({ 0.3, 0, 0.3 });
+	plane4->getTransform().setRotation({ -rotation_value, 1, 0 });
+	CubeCount++;
 
-
-	//MANUALLY ADDING THE CUBES
-	float cube_scale = 0.3f;
-	//CUBE 1
-	auto cube1 = world.createGameObject<dx3d::GameObject>();
-	cube1->createOrGetComponent<dx3d::CubeComponent>();
-	auto height1 = (rand() % 120) + (80.0f);
-	height1 /= 100.0f;
-
-	auto width1 = (rand() % 600) + (200.0f);
-	width1 /= 1000.0f;
-
-	cube1->getTransform().setScale({ cube_scale,cube_scale,cube_scale });
-	//cube1->getTransform().setPosition({ 0, 0.9,0 });
-	cube1->getTransform().setPosition({ -0.3,-0.5,0.5 });
-	m_objects[CubeCount] = cube1;
+	//CARD5
+	auto plane5 = world.createGameObject<dx3d::GameObject>();
+	plane5->createOrGetComponent<dx3d::PlaneComponent>();
+	plane5->getTransform().setScale({ shape_scale + 0.2f,shape_scale,shape_scale + 0.2f });
+	plane5->getTransform().setPosition({ 0.4, 0, 0.4 });
+	plane5->getTransform().setRotation({ rotation_value, 1, 0 });
 	CubeCount++;
 
 
-	//CUBE 2
-	auto cube2 = world.createGameObject<dx3d::GameObject>();
-	cube2->createOrGetComponent<dx3d::CubeComponent>();
-	auto height2 = (rand() % 120) + (80.0f);
-	height2 /= 100.0f;
+	//CARD6
+	auto plane6 = world.createGameObject<dx3d::GameObject>();
+	plane6->createOrGetComponent<dx3d::PlaneComponent>();
+	plane6->getTransform().setScale({ shape_scale + 0.2f,shape_scale,shape_scale + 0.2f });
+	plane6->getTransform().setPosition({ 0.5, 0, 0.5 });
+	plane6->getTransform().setRotation({ -rotation_value, 1, 0 });
+	CubeCount++;
 
-	auto width2 = (rand() % 600) + (200.0f);
-	width2 /= 1000.0f;
+	//SECOND LAYER
+	auto plane7 = world.createGameObject<dx3d::GameObject>();
+	plane7->createOrGetComponent<dx3d::PlaneComponent>();
+	plane7->getTransform().setScale({ shape_scale + 0.15f,shape_scale,shape_scale+0.15f});
+	plane7->getTransform().setPosition({ 0.13, 0.2, 0.13 });
+	plane7->getTransform().setRotation({ 0, 2.5, 0 });
+	CubeCount++;
+	auto plane8 = world.createGameObject<dx3d::GameObject>();
+	plane8->createOrGetComponent<dx3d::PlaneComponent>();
+	plane8->getTransform().setScale({ shape_scale + 0.15f,shape_scale,shape_scale +0.15f});
+	plane8->getTransform().setPosition({ 0.38, 0.2, 0.38 });
+	plane8->getTransform().setRotation({ 0, 2.5, 0 });
+	CubeCount++;
 
-	cube2->getTransform().setScale({ cube_scale,cube_scale,cube_scale });
-	cube2->getTransform().setPosition({-0.7,-0.3,0.5 });
-	m_objects[CubeCount] = cube2;
+	//CARD9
+	auto plane9 = world.createGameObject<dx3d::GameObject>();
+	plane9->createOrGetComponent<dx3d::PlaneComponent>();
+	plane9->getTransform().setScale({ shape_scale + 0.2f,shape_scale,shape_scale + 0.2f });
+	plane9->getTransform().setPosition({ 0.1, 0.4, 0.1 });
+	plane9->getTransform().setRotation({ rotation_value, 0.9, 0 });
+	CubeCount++;
+
+	//CARD10
+	auto plane10 = world.createGameObject<dx3d::GameObject>();
+	plane10->createOrGetComponent<dx3d::PlaneComponent>();
+	plane10->getTransform().setScale({ shape_scale + 0.2f,shape_scale,shape_scale + 0.2f });
+	plane10->getTransform().setPosition({ 0.2, 0.4, 0.2 });
+	plane10->getTransform().setRotation({ -rotation_value, 0.9, 0 });
+	CubeCount++;
+
+	//CARD11
+	auto plane11 = world.createGameObject<dx3d::GameObject>();
+	plane11->createOrGetComponent<dx3d::PlaneComponent>();
+	plane11->getTransform().setScale({ shape_scale + 0.2f,shape_scale,shape_scale + 0.2f });
+	plane11->getTransform().setPosition({ 0.3, 0.4, 0.3 });
+	plane11->getTransform().setRotation({ rotation_value, 0.9, 0 });
+	CubeCount++;
+
+	//CARD12
+	auto plane12 = world.createGameObject<dx3d::GameObject>();
+	plane12->createOrGetComponent<dx3d::PlaneComponent>();
+	plane12->getTransform().setScale({ shape_scale + 0.2f,shape_scale,shape_scale + 0.2f });
+	plane12->getTransform().setPosition({ 0.4, 0.4, 0.4 });
+	plane12->getTransform().setRotation({ -rotation_value, 0.9, 0 });
+	CubeCount++;
+
+	//LAST LAYER
+	auto plane13 = world.createGameObject<dx3d::GameObject>();
+	plane13->createOrGetComponent<dx3d::PlaneComponent>();
+	plane13->getTransform().setScale({ shape_scale + 0.15f,shape_scale,shape_scale + 0.15f });
+	plane13->getTransform().setPosition({ 0.25, 0.6, 0.25 });
+	plane13->getTransform().setRotation({ 0, 0.9, 0 });
+	CubeCount++;
+
+	//CARD14
+	auto plane14 = world.createGameObject<dx3d::GameObject>();
+	plane14->createOrGetComponent<dx3d::PlaneComponent>();
+	plane14->getTransform().setScale({ shape_scale + 0.2f,shape_scale,shape_scale + 0.2f });
+	plane14->getTransform().setPosition({ 0.2, 0.8, 0.2 });
+	plane14->getTransform().setRotation({ rotation_value, 0.9, 0 });
+	CubeCount++;
+
+	//CARD15
+	auto plane15 = world.createGameObject<dx3d::GameObject>();
+	plane15->createOrGetComponent<dx3d::PlaneComponent>();
+	plane15->getTransform().setScale({ shape_scale + 0.2f,shape_scale,shape_scale + 0.2f });
+	plane15->getTransform().setPosition({ 0.3, 0.8, 0.3 });
+	plane15->getTransform().setRotation({ -rotation_value, 0.9, 0 });
 	CubeCount++;
 
 
-	//CUBE 3
-	auto cube3 = world.createGameObject<dx3d::GameObject>();
-	cube3->createOrGetComponent<dx3d::CubeComponent>();
-	auto height3 = (rand() % 120) + (80.0f);
-	height3 /= 100.0f;
-
-	auto width3 = (rand() % 600) + (200.0f);
-	width3 /= 1000.0f;
-
-	cube3->getTransform().setScale({ cube_scale,cube_scale,cube_scale });
-	cube3->getTransform().setPosition({ -0.7,0,0});
-	m_objects[CubeCount] = cube3;
-	CubeCount++;
-
-	std::cout << "CUBE COUNT IS " << CubeCount << std::endl;
-
-
+	std::cout << "TOTAL NUMBER OF CARDS IS " << CubeCount << std::endl;
 
 	auto player = world.createGameObject<Player>();
-	//player->getTransform().setPosition({ -0.66, -0.397, -3/*-2.736*/});
-	//player->getTransform().setPosition({ 0, 0, -1});
-	player->getTransform().setPosition({ -0.46, -0.12, 0.05 });
-	player->getTransform().setRotation({ 0.69, -1.546, 0.00 });
-
+	player->getTransform().setPosition({ -0.39, 0.60,0.21 });
+	//player->getTransform().setRotation({1.253,-1.423,0});
+	player->getTransform().setRotation({ 0.502,2.547,0 });
 
 
 	getInputSystem().setCursorLocked(true);
