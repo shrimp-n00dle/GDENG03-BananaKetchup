@@ -104,8 +104,10 @@ void MainGame::onCreate()
 
 	auto player = world.createGameObject<Player>();
 	//player->getTransform().setPosition({ -0.66, -0.397, -3/*-2.736*/});
-	player->getTransform().setPosition({ 0, 0, -1});
-	//player->getTransform().setPosition({ 1.5, 3.0,2.0 });
+	//player->getTransform().setPosition({ 0, 0, -1});
+	player->getTransform().setPosition({ -0.46, -0.12, 0.05 });
+	player->getTransform().setRotation({ 0.69, -1.546, 0.00 });
+
 
 
 	getInputSystem().setCursorLocked(true);
