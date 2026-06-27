@@ -116,7 +116,7 @@ namespace dx3d
 		RefPtr<IndexBuffer> m_ib_capsule{};
 
 		f32 m_rot{}, m_pos{ 0.0f };
-		f32 m_scale_x{}, m_scale_y{}, m_scale_z{};
+		f32 m_scale{};
 
 
 		friend class Window;

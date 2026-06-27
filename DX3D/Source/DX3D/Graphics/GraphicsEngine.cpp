@@ -131,20 +131,15 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 
 	auto& cb = *m_cb;
 
-	//LERPING STUFF
-	DirectX::XMVECTOR scale_a = DirectX::XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f);
-	DirectX::XMVECTOR scale_b = DirectX::XMVectorSet(0.25f, 0.25f, 0.25f, 0.0f);
-	DirectX::XMVECTOR curr_scale = DirectX::XMVectorLerp(scale_a, scale_b, deltaTime * 0.707f);
-	DirectX::XMMATRIX scaleMatrix = DirectX::XMMatrixScalingFromVector(curr_scale);
-
 	m_pos += deltaTime * 0.0f;
-	m_scale_x = DirectX::XMVectorGetX(curr_scale);
-	m_scale_y = DirectX::XMVectorGetY(curr_scale);
-	m_scale_z = DirectX::XMVectorGetZ(curr_scale);
-			
+	m_rot += deltaTime * 0.707f;
+	m_scale = std::abs(std::sin(m_rot));
 
 	auto worldMat =
-		Mat4x4::scale({ m_scale_x,m_scale_y,m_scale_z }) *
+		Mat4x4::scale({ m_scale,m_scale,m_scale }) *
+		Mat4x4::rotateX(m_rot) *
+		Mat4x4::rotateY(m_rot) *
+		Mat4x4::rotateZ(m_rot) *
 		Mat4x4::translate({ m_pos,m_pos,0 });
 
 	//Set Bg to black

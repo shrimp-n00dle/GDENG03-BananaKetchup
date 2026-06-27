@@ -45,9 +45,10 @@ void MainGame::onUpdate(dx3d::f32 deltaTime)
 {
 	Game::onUpdate(deltaTime);
 
-	for (auto i = 0; i < 9; i++)
-	{
-		m_objects[0]->getTransform().setScale({ m_scale_x,m_scale_y,m_scale_z });
-	}
+	m_rot += deltaTime * 0.707f;
+	m_scale = std::abs(std::sin(m_rot));
+
+	m_objects[0]->getTransform().setScale({ m_scale,m_scale,m_scale });
+	
 
 }
