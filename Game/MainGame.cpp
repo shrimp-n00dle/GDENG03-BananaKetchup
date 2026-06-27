@@ -19,7 +19,7 @@ void MainGame::onCreate()
 
 	//MANUALLY ADDING THE CARDS 
 	float shape_scale = 0.2f;
-	float rotation_value = 8.2f;
+	float rotation_value = 8.22f;
 	//CARD1
 	auto plane = world.createGameObject<dx3d::GameObject>();
 	plane ->createOrGetComponent<dx3d::PlaneComponent>();
@@ -73,13 +73,13 @@ void MainGame::onCreate()
 	//SECOND LAYER
 	auto plane7 = world.createGameObject<dx3d::GameObject>();
 	plane7->createOrGetComponent<dx3d::PlaneComponent>();
-	plane7->getTransform().setScale({ shape_scale + 0.15f,shape_scale,shape_scale+0.15f});
+	plane7->getTransform().setScale({ shape_scale + 0.15f,shape_scale,shape_scale+0.2f});
 	plane7->getTransform().setPosition({ 0.13, 0.2, 0.13 });
 	plane7->getTransform().setRotation({ 0, 2.5, 0 });
 	CubeCount++;
 	auto plane8 = world.createGameObject<dx3d::GameObject>();
 	plane8->createOrGetComponent<dx3d::PlaneComponent>();
-	plane8->getTransform().setScale({ shape_scale + 0.15f,shape_scale,shape_scale +0.15f});
+	plane8->getTransform().setScale({ shape_scale + 0.15f,shape_scale,shape_scale +0.2f});
 	plane8->getTransform().setPosition({ 0.38, 0.2, 0.38 });
 	plane8->getTransform().setRotation({ 0, 2.5, 0 });
 	CubeCount++;
