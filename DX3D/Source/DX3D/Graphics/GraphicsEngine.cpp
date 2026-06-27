@@ -188,7 +188,7 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 		auto components = world.getComponents<CubeComponent>(numComponents);
 		
 
-		for (auto i : std::views::iota(0u, numComponents))
+		for (auto i : std::views::iota(0u, numComponents - incCube))
 		{
 			auto component = components[i];
 			auto& transform = component->getGameObject().getTransform();
