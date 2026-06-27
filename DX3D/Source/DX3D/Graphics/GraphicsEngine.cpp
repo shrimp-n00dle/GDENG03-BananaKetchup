@@ -88,6 +88,8 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 	};
 	m_vb2 = device.createVertexBuffer({ test, std::size(test), sizeof(Vertex) });
+
+
 }
 
 
@@ -129,6 +131,22 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 
 	auto& cb = *m_cb;
 
+	//LERPING STUFF
+	DirectX::XMVECTOR scale_a = DirectX::XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f);
+	DirectX::XMVECTOR scale_b = DirectX::XMVectorSet(0.25f, 0.25f, 0.25f, 0.0f);
+	DirectX::XMVECTOR curr_scale = DirectX::XMVectorLerp(scale_a, scale_b, deltaTime * 0.707f);
+	DirectX::XMMATRIX scaleMatrix = DirectX::XMMatrixScalingFromVector(curr_scale);
+
+	m_pos += deltaTime * 0.0f;
+	m_scale_x = DirectX::XMVectorGetX(curr_scale);
+	m_scale_y = DirectX::XMVectorGetY(curr_scale);
+	m_scale_z = DirectX::XMVectorGetZ(curr_scale);
+			
+
+	auto worldMat =
+		Mat4x4::scale({ m_scale_x,m_scale_y,m_scale_z }) *
+		Mat4x4::translate({ m_pos,m_pos,0 });
+
 	//Set Bg to black
 	context.clearAndSetBackBuffer(swapChain, { 0.0f,0.0f,0.0f, 0.0f });
 	context.setGraphicsPipelineState(*m_pipeline);
@@ -147,29 +165,6 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 			break;
 		}
 	}
-
-	//FLOOR
-{
-	auto floorComponent = world.getComponents<PlaneComponent>(numComponents);
-
-	for (auto i : std::views::iota(0u, numComponents))
-	{
-		auto component = floorComponent[i];
-		auto& transform = component->getGameObject().getTransform();
-
-		data.world = transform.getAffineWorldMatrix();
-
-		auto& cb = *m_cb;
-		context.updateConstantBuffer(cb, &data);
-
-		auto& vb = *m_vb2;
-		auto& ib = *m_ib;
-		context.setVertexBuffer(vb);
-		context.setConstantBuffer(cb);
-		context.setIndexBuffer(ib);
-		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
-	}
-}
 
 	/*Rendering and spawning cubes*/
 	{

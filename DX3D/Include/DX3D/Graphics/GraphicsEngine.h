@@ -28,6 +28,7 @@
 
 #include <ranges>
 #include <directxmath.h>
+#include <DirectXMath.h>
 
 #include <DX3D/Command/Command.h>
 #include <vector>
@@ -114,7 +115,8 @@ namespace dx3d
 		RefPtr<VertexBuffer> m_vb_capsule{};
 		RefPtr<IndexBuffer> m_ib_capsule{};
 
-		f32 m_rot{}, m_scale{}, m_pos{ 0.0f };
+		f32 m_rot{}, m_pos{ 0.0f };
+		f32 m_scale_x{}, m_scale_y{}, m_scale_z{};
 
 
 		friend class Window;

@@ -1,6 +1,7 @@
 #pragma once
 #include <DX3D/Graphics/GraphicsResource.h>
 #include <DX3D/Math/Vec4.h>
+#include <d3d11.h>
 
 namespace dx3d
 {
@@ -22,8 +23,6 @@ namespace dx3d
 		void drawTriangleList(ui32 vertextCount, ui32 startVertexLocation);
 
 		void drawIndexedTriangleList(ui32 indexCount, ui32 startVertexIndex, ui32 startIndexLocation);
-
-		void enableLinearStuff();
 
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext> getContext();
 

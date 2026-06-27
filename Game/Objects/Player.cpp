@@ -31,7 +31,7 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	rot.y += getInputSystem().getMouseDelta().x * sensitivity;
 	if (rot.x > 1.57f) rot.x = 1.57f;
 	else if (rot.x < -1.57f) rot.x = -1.57f;
-	std::cout << rot.x << "  " << rot.y << std::endl;
+	//std::cout << rot.x << "  " << rot.y << std::endl;
 	getTransform().setRotation(rot);
 
 
