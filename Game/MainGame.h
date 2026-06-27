@@ -16,7 +16,8 @@ private:
 	int value = 0;
 	int CubeCount = 0;
 
-	float currTime = 0.0f;
-	float maxTime = 2.0f;
+	float min_scale = 0.25f;
+	float max_scale = 1.0f;
+
 };
 

@@ -46,9 +46,16 @@ void MainGame::onUpdate(dx3d::f32 deltaTime)
 	Game::onUpdate(deltaTime);
 
 	m_rot += deltaTime * 0.707f;
+
+	if (m_rot >= max_scale) m_rot += min_scale;
+	else m_rot += max_scale;
 	m_scale = std::abs(std::sin(m_rot));
 
-	m_objects[0]->getTransform().setScale({ m_scale,m_scale,m_scale });
+
+	for (int i = 0; i < 9; i++)
+	{
+		m_objects[0]->getTransform().setScale({ m_scale,m_scale,m_scale });
+	}
 	
 
 }
