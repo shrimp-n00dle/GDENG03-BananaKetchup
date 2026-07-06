@@ -1,4 +1,5 @@
 #include <DX3D/Graphics/GraphicsEngine.h>
+#include <DX3D/Resource/MaterialResource.h>
 
 
 using namespace catsup;
@@ -8,41 +9,18 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	auto& device = m_renderSystem;
 	m_deviceContext = device.createDeviceContext();
 
-	//Shader file path
-	constexpr char shaderFilePath[] = "DX3D/Assets/Shaders/Basic.hlsl";
-	std::ifstream shaderStream(shaderFilePath);
-	if (!shaderStream) DX3DLogThrowError("shaderStream failed to open, from GE.cpp");
-	std::string shaderFileData{
-		std::istreambuf_iterator<char>(shaderStream),
-		std::istreambuf_iterator<char>()
-		};
-
-	auto shaderSourceCode = shaderFileData.c_str();
-	auto shaderSourceCodeSize = shaderFileData.length();
-
-	auto vs = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
-		"VSMain", ShaderType::VertexShader});
-
-	auto ps = device.compileShader({ shaderFilePath,shaderSourceCode, shaderSourceCodeSize,
-	"PSMain", ShaderType::PixelShader });
-
-	auto vsSig = device.createVertexShaderSignature({vs});
-
-	m_pipeline = device.createGraphicsPipelineState({*vsSig, *ps});
-
 	//Create the shape
 	const Vertex vertextList[] =
 	{
-		//Position            //Color
-		{{-0.5f,-0.5f,-0.5f}, {1,0,0,1}},
-		{{-0.5f,0.5f,-0.5f}, {0,1,0,1} },
-		{{0.5f,0.5f,-0.5f},  {0,0,1,1}},
-		{{0.5f,-0.5f,-0.5f}, {1,0,1,1}},
+		{{-0.5f,-0.5f,-0.5f}},
+		{{-0.5f,0.5f,-0.5f} },
+		{{0.5f,0.5f,-0.5f}},
+		{{0.5f,-0.5f,-0.5f}},
 
-		{{0.5f,-0.5f,0.5f}, {1,0,1,1}},
-		{{0.5f,0.5f,0.5f}, {0,0,1,1}},
-		{{-0.5f,0.5f,0.5f}, {0,1,0,1}},
-		{{-0.5f,-0.5f,0.5f}, {1,0,0,1}}
+		{{0.5f,-0.5f,0.5f}},
+		{{0.5f,0.5f,0.5f}},
+		{{-0.5f,0.5f,0.5f}},
+		{{-0.5f,-0.5f,0.5f}}
 	};
 
 	const ui32 indexList[] =
@@ -66,14 +44,12 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 		1,0,7
 	};
 
+	m_objectCb = device.createConstantBuffer({ {}, sizeof(ObjectData) });
+	m_cameraCb = device.createConstantBuffer({ {}, sizeof(CameraData) });
+	m_materialCb = device.createConstantBuffer({ {}, dx3d::MaterialResource::MaxDataSize });
+
 	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
-	m_cb = device.createConstantBuffer({ {}, sizeof(ConstantData) });
 	m_ib = device.createIndexBuffer({ indexList, std::size(indexList) });
-}
-
-
-dx3d::GraphicsEngine::~GraphicsEngine()
-{
 }
 
 void dx3d::GraphicsEngine::spawnTest(World& world)
@@ -107,47 +83,56 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	auto size = swapChain.getSize();
 
 	auto& context = *m_deviceContext;
-	//Set Bg to black
-	context.clearAndSetBackBuffer(swapChain, { 0.0f,0.0f,0.0f, 0.0f });
-	context.setGraphicsPipelineState(*m_pipeline);
+	context.clearAndSetBackBuffer(swapChain, { 0.27f, 0.39f, 0.55f, 1.0f });
 	context.setViewportSize(size);
 
 	auto numComponents = 0u;
-	ConstantData data{};
+	auto& cameraCb = *m_cameraCb;
+	auto& objectCb = *m_objectCb;
+	auto& materialCb = *m_materialCb;
+
 	{
+		CameraData cameraData{};
 		auto components = world.getComponents<CameraComponent>(numComponents);
 		for (auto i : std::views::iota(0u, numComponents))
 		{
 			auto component = components[i];
-			data.view = component->getViewMatrix();
+			cameraData.view = component->getViewMatrix();
 			component->setViewportSize(size);
-			data.proj = component->getProjectionMatrix();
+			cameraData.proj = component->getProjectionMatrix();
+			context.updateConstantBuffer(cameraCb, std::as_bytes(std::span{ &cameraData, 1 }));
 			break;
 		}
 	}
 
-
 	/*Rendering and spawning cubes*/
 	{
+		ObjectData objectData{};
 		auto components = world.getComponents<CubeComponent>(numComponents);
 		
 
-		for (auto i : std::views::iota(0u, numComponents - incCube))
+		for (auto i : std::views::iota(0u, numComponents))
 		{
 			auto component = components[i];
 			auto& transform = component->getGameObject().getTransform();
+			auto material = component->getMaterial();
 
-			data.world = transform.getAffineWorldMatrix();
+			if (material)
+			{
+				objectData.world = transform.getAffineWorldMatrix();
 
-			auto& cb = *m_cb;
-			context.updateConstantBuffer(cb, &data);
+				context.setGraphicsPipelineState(material->getGraphicsPipelineState());
+				context.updateConstantBuffer(objectCb, std::as_bytes(std::span{ &objectData, 1 }));
+				context.updateConstantBuffer(materialCb, material->getData());
+				ConstantBuffer* cbs[] = { &objectCb, &cameraCb, &materialCb };
+				context.setConstantBuffers(std::span<ConstantBuffer*>{cbs});
 
-			auto& vb = *m_vb;
-			auto& ib = *m_ib;
-			context.setVertexBuffer(vb);
-			context.setConstantBuffer(cb);
-			context.setIndexBuffer(ib);
-			context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+				auto& vb = *m_vb;
+				auto& ib = *m_ib;
+				context.setVertexBuffer(vb);
+				context.setIndexBuffer(ib);
+				context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+			}
 		}
 	}
 

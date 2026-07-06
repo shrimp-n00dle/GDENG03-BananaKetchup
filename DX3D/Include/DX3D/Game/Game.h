@@ -16,6 +16,8 @@ namespace dx3d
 		virtual World& getWorld() noexcept final;
 		virtual Logger& getLogger() noexcept final;
 		virtual InputSystem& getInputSystem() noexcept final;
+		virtual ResourceManager& getResourceManager() noexcept final;
+
 		//final - cannot be inheriated/override
 		virtual void run() final;
 
@@ -39,6 +41,7 @@ namespace dx3d
 
 		RefPtr<RenderSystem> m_renderSystem{};
 		UniquePtr<Display> m_display{};
+		UniquePtr<ResourceManager> m_resourceManager{};
 		UniquePtr<World> m_world{};
 		UniquePtr<GraphicsEngine> m_graphicsEngine{};
 		bool isRunning{ true };

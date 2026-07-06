@@ -23,6 +23,11 @@ dx3d::InputSystem& dx3d::GameObject::getInputSystem() noexcept
 	return m_gameContext.input;
 }
 
+dx3d::ResourceManager& dx3d::GameObject::getResourceManager() noexcept
+{
+	return m_gameContext.resourceManager;
+}
+
 
 dx3d::Component* dx3d::GameObject::createComponentInternal(UniquePtr<Component>& component)
 {

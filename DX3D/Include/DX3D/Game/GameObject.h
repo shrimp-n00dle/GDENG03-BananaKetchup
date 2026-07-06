@@ -36,6 +36,7 @@ namespace dx3d
 
 		World& getWorld() noexcept;
 		InputSystem& getInputSystem() noexcept;
+		ResourceManager& getResourceManager() noexcept;
 
 	protected:
 		virtual void onCreate() {}

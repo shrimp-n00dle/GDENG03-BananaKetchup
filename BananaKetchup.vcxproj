@@ -140,6 +140,9 @@
     <ClCompile Include="DX3D\Source\DX3D\Component\TransformComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Game\Component.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Input\InputSystem.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Resource\MaterialResource.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Resource\Resource.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Resource\ResourceManager.cpp" />
     <ClCompile Include="Game\MainGame.cpp" />
     <ClCompile Include="DX3D\Include\DX3D\Math\MathUtils.h" />
     <ClCompile Include="DX3D\Source\DX3D\Core\Base.cpp" />
@@ -186,9 +189,13 @@
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec2.h" />
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec3.h" />
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec4.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Resource\MaterialResource.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Resource\Resource.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Resource\ResourceManager.h" />
     <ClInclude Include="DX3D\Include\DX3D\Window\Window.h" />
     <ClInclude Include="DX3D\Include\DX3D\Command\Command.h" />
     <ClInclude Include="DX3D\Source\DX3D\Clones\CubeClone.h" />
+    <ClInclude Include="DX3D\Source\DX3D\Graphics\ShaderInclude.h" />
     <ClInclude Include="Game\MainGame.h" />
     <ClInclude Include="Game\Objects\Player.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ConstantBuffer.h" />
@@ -203,6 +210,9 @@
     <ClInclude Include="DX3D\Source\DX3D\Graphics\SwapChain.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\VertexBuffer.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\VertexShaderSignature.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shadertoolsconfig.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

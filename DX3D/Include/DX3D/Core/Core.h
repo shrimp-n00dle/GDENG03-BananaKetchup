@@ -34,6 +34,10 @@ namespace dx3d
 	class VertexShaderSignature;
 	class ConstantBuffer;
 	class IndexBuffer;
+
+	class ResourceManager;
+	class Resource;
+	class MaterialResource;
 	
 
 	class World;

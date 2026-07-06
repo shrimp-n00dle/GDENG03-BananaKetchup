@@ -1,6 +1,9 @@
 #pragma once
 #include <DX3D/Game/Component.h>
 
+#include <DX3D/Resource/MaterialResource.h>
+#include <DX3D/Resource/ResourceManager.h>
+
 #include <DX3D/Component/TransformComponent.h>
 #include <DX3D/Component/CubeComponent.h>
 #include <DX3D/Component/CameraComponent.h>

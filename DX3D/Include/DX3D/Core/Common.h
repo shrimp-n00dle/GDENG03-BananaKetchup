@@ -98,6 +98,7 @@ namespace dx3d
 	struct GameContext
 	{
 		InputSystem& input;
+		ResourceManager& resourceManager;
 	};
 
 
@@ -181,5 +182,29 @@ namespace dx3d
 	struct InputSystemDesc
 	{
 		BaseDesc base;
+	};
+
+	struct ResourceDesc
+	{
+		BaseDesc base;
+		const wchar_t* path{};
+		ResourceManager& manager;
+	};
+
+	struct MaterialResourceDesc
+	{
+		ResourceDesc base;
+		RenderSystem& renderSystem;
+	};
+
+	struct SystemContext
+	{
+		RenderSystem& renderSystem;
+	};
+
+	struct ResourceManagerDesc
+	{
+		BaseDesc base;
+		SystemContext context;
 	};
 }
