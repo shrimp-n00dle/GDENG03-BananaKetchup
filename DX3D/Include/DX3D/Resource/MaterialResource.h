@@ -23,7 +23,7 @@ namespace dx3d
 	public:
 		static constexpr std::size_t MaxDataSize{ 256 };
 	private:
-		RenderSystem& m_graphicsDevice;
+		RenderSystem& m_renderSystem;
 
 		RefPtr<GraphicsPipelineLayout> m_layout{};
 

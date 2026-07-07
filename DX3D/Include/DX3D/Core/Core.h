@@ -35,18 +35,18 @@ namespace dx3d
 	class ConstantBuffer;
 	class IndexBuffer;
 
+	class Texture;
+	class Sampler;
+	class GraphicsPipelineLayout;
+	
+	class World;
+	class GameObject;
+
 	class ResourceManager;
 	class Resource;
 	class MaterialResource;
 	class TextureResource;
 
-	class Texture;
-	class Sampler;
-	class GraphicsPipelineLayout;
-	
-
-	class World;
-	class GameObject;
 
 	class Component;
 	class TransformComponent;

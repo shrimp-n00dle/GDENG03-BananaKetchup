@@ -18,14 +18,14 @@ dx3d::MaterialResource::MaterialResource(const MaterialResourceDesc& desc) : Res
 		std::istreambuf_iterator<char>()
 	};
 
-	auto vsBinary = m_graphicsDevice.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
+	auto vsBinary = m_renderSystem.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
 		shaderCode.size(), "VSMain", ShaderType::VertexShader });
 
-	auto psBinary = m_graphicsDevice.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
+	auto psBinary = m_renderSystem.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
 		shaderCode.size(), "PSMain", ShaderType::PixelShader });
 
-	m_layout = m_graphicsDevice.createGraphicsPipelineLayout({ vsBinary, psBinary });
-	m_pipeline = m_graphicsDevice.createGraphicsPipelineState({ *m_layout });
+	m_layout = m_renderSystem.createGraphicsPipelineLayout({ vsBinary, psBinary });
+	m_pipeline = m_renderSystem.createGraphicsPipelineState({ *m_layout });
 	m_textures.resize(m_layout->getMaxTextureSlots());
 }
 
