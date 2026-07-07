@@ -93,9 +93,6 @@
     <ClCompile Include="Game\Objects\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DX3D\Source\DX3D\Clones\CubeClone.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DX3D\Source\DX3D\Command\CommandActions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -237,9 +234,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DX3D\Include\DX3D\Command\Command.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DX3D\Source\DX3D\Clones\CubeClone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DX3D\Include\DX3D\Resource\MaterialResource.h">

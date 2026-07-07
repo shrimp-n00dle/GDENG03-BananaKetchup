@@ -11,7 +11,7 @@ dx3d::TextureResource::TextureResource(const TextureResourceDesc& desc) : Resour
 {
 	std::filesystem::path textureFile = desc.base.path;
 	auto textureFileStr = textureFile.string();
-
+	
 	auto width{ 0 }, height{ 0 }, channels{ 0 };
 	auto pixels = stbi_load(
 		textureFileStr.c_str(),

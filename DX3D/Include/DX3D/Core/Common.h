@@ -98,7 +98,7 @@ namespace dx3d
 	{
 		InputSystem& input;
 		ResourceManager& resourceManager;
-		RenderSystem& system;
+		RenderSystem& renderSystem;
 	};
 
 	struct TextureResourceDesc

@@ -135,7 +135,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DX3D\Source\DX3D\Clones\CubeClone.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Command\Command.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Command\CommandActions.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\CameraComponent.cpp" />
@@ -201,7 +200,6 @@
     <ClInclude Include="DX3D\Include\DX3D\Resource\TextureResource.h" />
     <ClInclude Include="DX3D\Include\DX3D\Window\Window.h" />
     <ClInclude Include="DX3D\Include\DX3D\Command\Command.h" />
-    <ClInclude Include="DX3D\Source\DX3D\Clones\CubeClone.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsPipelineLayout.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ShaderInclude.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\Texture.h" />

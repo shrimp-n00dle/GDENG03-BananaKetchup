@@ -6,7 +6,7 @@
 #include <fstream>
 #include <filesystem>
 
-dx3d::MaterialResource::MaterialResource(const MaterialResourceDesc& desc) : Resource(desc.base), m_graphicsDevice(desc.renderSystem)
+dx3d::MaterialResource::MaterialResource(const MaterialResourceDesc& desc) : Resource(desc.base), m_renderSystem(desc.renderSystem)
 {
 	std::filesystem::path shaderFile = desc.base.path;
 
@@ -29,7 +29,7 @@ dx3d::MaterialResource::MaterialResource(const MaterialResourceDesc& desc) : Res
 	m_textures.resize(m_layout->getMaxTextureSlots());
 }
 
-dx3d::MaterialResource::MaterialResource(const MaterialResource& material, const MaterialResourceDesc& desc) : Resource(desc.base), m_graphicsDevice(desc.renderSystem)
+dx3d::MaterialResource::MaterialResource(const MaterialResource& material, const MaterialResourceDesc& desc) : Resource(desc.base), m_renderSystem(desc.renderSystem)
 {
 	m_layout = material.m_layout;
 	m_pipeline = material.m_pipeline;

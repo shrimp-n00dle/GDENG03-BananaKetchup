@@ -63,8 +63,8 @@ dx3d::CubeComponent::CubeComponent(const ComponentDesc& data) : Component(data)
 	};
 
 
-	static const auto vb = m_context.system.createVertexBuffer({ vertexList, std::size(vertexList), sizeof(Vertex) });
-	static const auto ib = m_context.system.createIndexBuffer({ indexList, std::size(indexList) });
+	static const auto vb = m_context.renderSystem.createVertexBuffer({ vertexList, std::size(vertexList), sizeof(Vertex) });
+	static const auto ib = m_context.renderSystem.createIndexBuffer({ indexList, std::size(indexList) });
 
 	m_vb = vb;
 	m_ib = ib;
