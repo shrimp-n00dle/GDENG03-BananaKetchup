@@ -23,7 +23,7 @@ dx3d::Game::Game(const GameDesc& desc)
 	auto context = SystemContext{ *m_renderSystem };
 	m_resourceManager = std::make_unique<ResourceManager>(ResourceManagerDesc{ {*m_logger},context });
 
-	m_world = std::make_unique<World>(WorldDesc{ BaseDesc{*m_logger}, GameContext{*m_inputSystem, *m_resourceManager} });
+	m_world = std::make_unique<World>(WorldDesc{ BaseDesc{*m_logger}, GameContext{*m_inputSystem, *m_resourceManager,*m_renderSystem} });
 	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{ {*m_logger},*m_renderSystem });
 
 	m_inputSystem->setCursorLockArea(m_display->getClientAreaInScreenSpace());

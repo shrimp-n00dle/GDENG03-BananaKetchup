@@ -1,5 +1,6 @@
 #include <DX3D/Graphics/GraphicsEngine.h>
 #include <DX3D/Resource/MaterialResource.h>
+#include <DX3D/Resource/TextureResource.h>
 
 
 using namespace catsup;
@@ -9,47 +10,13 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	auto& device = m_renderSystem;
 	m_deviceContext = device.createDeviceContext();
 
-	//Create the shape
-	const Vertex vertextList[] =
-	{
-		{{-0.5f,-0.5f,-0.5f}},
-		{{-0.5f,0.5f,-0.5f} },
-		{{0.5f,0.5f,-0.5f}},
-		{{0.5f,-0.5f,-0.5f}},
-
-		{{0.5f,-0.5f,0.5f}},
-		{{0.5f,0.5f,0.5f}},
-		{{-0.5f,0.5f,0.5f}},
-		{{-0.5f,-0.5f,0.5f}}
-	};
-
-	const ui32 indexList[] =
-	{
-		0,1,2,
-		2,3,0,
-
-		4,5,6,
-		6,7,4,
-
-		1,6,5,
-		5,2,1,
-
-		7,0,3,
-		3,4,7,
-
-		3,2,5,
-		5,4,3,
-
-		7,6,1,
-		1,0,7
-	};
+	m_textures.reserve(32);
 
 	m_objectCb = device.createConstantBuffer({ {}, sizeof(ObjectData) });
 	m_cameraCb = device.createConstantBuffer({ {}, sizeof(CameraData) });
 	m_materialCb = device.createConstantBuffer({ {}, dx3d::MaterialResource::MaxDataSize });
 
-	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
-	m_ib = device.createIndexBuffer({ indexList, std::size(indexList) });
+	m_sampler = device.createSampler({});
 }
 
 void dx3d::GraphicsEngine::spawnTest(World& world)
@@ -85,6 +52,9 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	auto& context = *m_deviceContext;
 	context.clearAndSetBackBuffer(swapChain, { 0.27f, 0.39f, 0.55f, 1.0f });
 	context.setViewportSize(size);
+
+	Sampler* samplers[] = { m_sampler.get() };
+	context.setSamplers(std::span<Sampler*>{samplers});
 
 	auto numComponents = 0u;
 	auto& cameraCb = *m_cameraCb;
@@ -127,11 +97,18 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 				ConstantBuffer* cbs[] = { &objectCb, &cameraCb, &materialCb };
 				context.setConstantBuffers(std::span<ConstantBuffer*>{cbs});
 
-				auto& vb = *m_vb;
-				auto& ib = *m_ib;
-				context.setVertexBuffer(vb);
-				context.setIndexBuffer(ib);
-				context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+				m_textures.clear();
+				m_textures.resize(material->getNumTextures());
+				for (auto t : std::views::iota(0u, m_textures.size()))
+				{
+					auto tex = material->getTexture(t);
+					if (tex) m_textures[t] = &tex->getTexture();
+				}
+				context.setTextures(std::span<Texture*>{m_textures});
+
+				context.setVertexBuffer(component->getVertexBuffer());
+				context.setIndexBuffer(component->getIndexBuffer());
+				context.drawIndexedTriangleList(component->getIndexBuffer().getIndexListSize(), 0u, 0u);
 			}
 		}
 	}

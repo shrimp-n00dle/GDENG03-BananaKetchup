@@ -56,10 +56,10 @@ namespace dx3d
 		ShaderType shaderType{};
 	};
 
-	struct VertexShaderSignatureDesc
+	struct GraphicsPipelineLayoutDesc
 	{
 		const RefPtr<ShaderBinary>& vsBinary;
-
+		const RefPtr<ShaderBinary>& psBinary;
 	};
 
 	struct BinaryData
@@ -71,8 +71,7 @@ namespace dx3d
 
 	struct GraphicsPipelineStateDesc
 	{
-		const VertexShaderSignature& vs;
-		const ShaderBinary& ps;
+		const GraphicsPipelineLayout& layout;
 
 	};
 
@@ -99,9 +98,14 @@ namespace dx3d
 	{
 		InputSystem& input;
 		ResourceManager& resourceManager;
+		RenderSystem& system;
 	};
 
-
+	struct TextureResourceDesc
+	{
+		ResourceDesc base;
+		RenderSystem& renderSystem;
+	};
 
 	struct GameDesc
 	{
@@ -128,12 +132,22 @@ namespace dx3d
 		BaseDesc base;
 		GameObject& object;
 		World& world;
+		GameContext& context;
 	};
 
 	struct GraphicsEngineDesc
 	{
 		BaseDesc base;
 		RenderSystem& engine;
+	};
+
+	struct TextureDesc
+	{
+		Rect size{};
+		const void* pixels{};
+	};
+	struct SamplerDesc
+	{
 	};
 
 	enum class KeyCode

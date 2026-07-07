@@ -38,6 +38,11 @@ namespace dx3d
 	class ResourceManager;
 	class Resource;
 	class MaterialResource;
+	class TextureResource;
+
+	class Texture;
+	class Sampler;
+	class GraphicsPipelineLayout;
 	
 
 	class World;
