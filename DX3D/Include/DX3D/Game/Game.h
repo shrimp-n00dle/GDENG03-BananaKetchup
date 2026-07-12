@@ -39,6 +39,7 @@ namespace dx3d
 	private:
 		UniquePtr<Logger> m_logger{};
 
+
 		RefPtr<RenderSystem> m_renderSystem{};
 		RefPtr<Window> m_window{};
 		UniquePtr<Display> m_display{};

@@ -7,7 +7,8 @@
 
 using namespace catsup;
 
-dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.base), m_renderSystem(desc.engine)
+dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.base), m_renderSystem(desc.engine),
+m_display(desc.display)
 {
 	auto& device = m_renderSystem;
 	m_deviceContext = device.createDeviceContext();
@@ -54,13 +55,13 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
 	m_ib = device.createIndexBuffer({ indexList, std::size(indexList) });
 
-	//auto& hwnd = m_window;
-	//IMGUI_CHECKVERSION();
-	//ImGui::CreateContext();
-	//ImGuiIO& io = ImGui::GetIO();
-	//ImGui_ImplWin32_Init(hwnd.getHwnd());
-	//ImGui_ImplDX11_Init(device.m_d3dDevice.Get(), device.m_d3dContext.Get());
-	//ImGui::StyleColorsDark();
+	auto& hwnd = m_display;
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui_ImplWin32_Init(hwnd.getHwnd());
+	ImGui_ImplDX11_Init(device.m_d3dDevice.Get(), device.m_d3dContext.Get());
+	ImGui::StyleColorsDark();
 
 
 }
@@ -149,25 +150,25 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 
 	m_renderSystem.executeCommandList(context);
 
-	////// 1. Start the Dear ImGui frame
-	//ImGui_ImplDX11_NewFrame();
-	//ImGui_ImplWin32_NewFrame();
-	//ImGui::NewFrame();
+	//// 1. Start the Dear ImGui frame
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
 
-	//// 2. Define your custom UI layout
-	//ImGui::Begin("Debug Menu");
+	// 2. Define your custom UI layout
+	ImGui::Begin("Debug Menu");
 	//ImGui::Text("Hello, World!");
-	//if (ImGui::Button("Click Me")) {
-	//	// Handle button logic
+//	if (ImGui::Button("Click Me")) {
+		// Handle button logic
 	//}
-	//ImGui::End();
+	ImGui::End();
 
-	//// 3. Clear your DX11 Render Target as usual
-	//// context->ClearRenderTargetView(g_mainRenderTargetView, clear_color);
+	// 3. Clear your DX11 Render Target as usual
+	// context->ClearRenderTargetView(g_mainRenderTargetView, clear_color);
 
-	//// 4. Render ImGui onto your Direct3D buffer
-	//ImGui::Render();
-	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	// 4. Render ImGui onto your Direct3D buffer
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 	swapChain.present();
 }

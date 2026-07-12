@@ -25,6 +25,7 @@
 #include <vector>
 
 #include <DX3D/Window/Window.h>
+#include <DX3D/Game/Display.h>
 
 #include <random>
 
@@ -70,6 +71,7 @@ namespace dx3d
 
 
 	public:
+		Display& m_display;
 		RenderSystem& m_renderSystem;
 		RefPtr<DeviceContext> m_deviceContext{};
 
