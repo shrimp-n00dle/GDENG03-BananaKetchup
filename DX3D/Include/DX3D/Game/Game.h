@@ -40,6 +40,7 @@ namespace dx3d
 		UniquePtr<Logger> m_logger{};
 
 		RefPtr<RenderSystem> m_renderSystem{};
+		RefPtr<Window> m_window{};
 		UniquePtr<Display> m_display{};
 		UniquePtr<ResourceManager> m_resourceManager{};
 		UniquePtr<World> m_world{};

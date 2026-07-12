@@ -14,9 +14,13 @@ namespace dx3d
 
 		dx3d::Rect getClientAreaInScreenSpace();
 
+		HWND getHwnd();
+		void setHWND(HWND hwnd);
+
 	protected:
 		void* m_handle{};
 		Rect m_size{};
+		
 	};
 }
 

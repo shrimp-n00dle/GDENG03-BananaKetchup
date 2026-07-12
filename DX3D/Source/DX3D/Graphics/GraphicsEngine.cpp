@@ -1,6 +1,9 @@
 #include <DX3D/Graphics/GraphicsEngine.h>
 #include <DX3D/Resource/MaterialResource.h>
 
+#include <DX3D/Graphics/ImGui/imgui.h>
+#include <DX3D/Graphics/ImGui/imgui_impl_win32.h>
+#include <DX3D/Graphics/ImGui/imgui_impl_dx11.h>
 
 using namespace catsup;
 
@@ -50,6 +53,16 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.
 
 	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
 	m_ib = device.createIndexBuffer({ indexList, std::size(indexList) });
+
+	//auto& hwnd = m_window;
+	//IMGUI_CHECKVERSION();
+	//ImGui::CreateContext();
+	//ImGuiIO& io = ImGui::GetIO();
+	//ImGui_ImplWin32_Init(hwnd.getHwnd());
+	//ImGui_ImplDX11_Init(device.m_d3dDevice.Get(), device.m_d3dContext.Get());
+	//ImGui::StyleColorsDark();
+
+
 }
 
 void dx3d::GraphicsEngine::spawnTest(World& world)
@@ -58,8 +71,6 @@ void dx3d::GraphicsEngine::spawnTest(World& world)
 	{
 		srand(time(NULL));
 		int coord = rand() % 3 - 2;
-
-
 	
 			auto cube = world.createGameObject<dx3d::GameObject>();
 			cube->createOrGetComponent<dx3d::CubeComponent>();
@@ -137,6 +148,27 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 	}
 
 	m_renderSystem.executeCommandList(context);
+
+	////// 1. Start the Dear ImGui frame
+	//ImGui_ImplDX11_NewFrame();
+	//ImGui_ImplWin32_NewFrame();
+	//ImGui::NewFrame();
+
+	//// 2. Define your custom UI layout
+	//ImGui::Begin("Debug Menu");
+	//ImGui::Text("Hello, World!");
+	//if (ImGui::Button("Click Me")) {
+	//	// Handle button logic
+	//}
+	//ImGui::End();
+
+	//// 3. Clear your DX11 Render Target as usual
+	//// context->ClearRenderTargetView(g_mainRenderTargetView, clear_color);
+
+	//// 4. Render ImGui onto your Direct3D buffer
+	//ImGui::Render();
+	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
 	swapChain.present();
 }
 

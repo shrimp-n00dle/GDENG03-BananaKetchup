@@ -1,19 +1,49 @@
 #include <DX3D/Window/Window.h>
 
+#include <DX3D/Graphics/ImGui/imgui.h>
+#include <DX3D/Graphics/ImGui/imgui_impl_win32.h>
+#include <DX3D/Graphics/ImGui/imgui_impl_dx11.h>
+
+#include <iostream>
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+
 static LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
+	if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam)) {
+		
+		return true;
+	}
+
 	switch (msg)
 	{
 
 	case WM_CLOSE:
 	{
+		//ImGui Cleanup
+		std::cout << "GUI CLEANED UP" << std::endl;
+		ImGui_ImplDX11_Shutdown();
+		ImGui_ImplWin32_Shutdown();
+		ImGui::DestroyContext();
+
 		PostQuitMessage(0);
 		break;
 	}
 	default:
 		return DefWindowProc(hwnd, msg, wparam, lparam);
 	}
+
+	
+
 	return 0;
+}
+
+void CleanUpImGui()
+{
+	std::cout << "GUI CLEANED UP" << std::endl;
+	ImGui_ImplDX11_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
 }
 
 dx3d::Window::Window(const WindowDesc& desc) : Base(desc.base), m_size(desc.size)
@@ -68,12 +98,15 @@ dx3d::Window::Window(const WindowDesc& desc) : Base(desc.base), m_size(desc.size
 	}
 
 	ShowWindow(static_cast<HWND>(m_handle), SW_SHOW);
+
+	auto hwnd = static_cast<HWND>(m_handle);
+	setHWND(hwnd);
 }
 
 
 dx3d::Rect dx3d::Window::getClientAreaInScreenSpace()
 {
-	auto hwnd = static_cast<HWND>(m_handle);
+	auto hwnd = getHwnd();
 
 	RECT client{};
 	GetClientRect(hwnd, &client);
@@ -90,6 +123,17 @@ dx3d::Rect dx3d::Window::getClientAreaInScreenSpace()
 		bottomRight.y - topLeft.y
 	};
 }
+
+HWND dx3d::Window::getHwnd()
+{
+	return static_cast<HWND>(m_handle);
+}
+
+void dx3d::Window::setHWND(HWND hwnd)
+{
+	m_handle = hwnd;
+}
+
 
 dx3d::Window::~Window()
 {

@@ -132,6 +132,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DX3D\Include\DX3D\Graphics\ImGui\imgui.cpp" />
+    <ClCompile Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Clones\CubeClone.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Command\Command.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Command\CommandActions.cpp" />
@@ -183,6 +189,14 @@
     <ClInclude Include="DX3D\Include\DX3D\Game\GameObject.h" />
     <ClInclude Include="DX3D\Include\DX3D\Game\World.h" />
     <ClInclude Include="DX3D\Include\DX3D\Graphics\GraphicsEngine.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\ImGui\imconfig.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\ImGui\imgui.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_internal.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\ImGui\imstb_textedit.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Graphics\ImGui\imstb_truetype.h" />
     <ClInclude Include="DX3D\Include\DX3D\Input\InputSystem.h" />
     <ClInclude Include="DX3D\Include\DX3D\Math\Mat4x4.h" />
     <ClInclude Include="DX3D\Include\DX3D\Math\Rect.h" />

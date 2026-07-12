@@ -24,7 +24,7 @@ dx3d::Game::Game(const GameDesc& desc)
 	m_resourceManager = std::make_unique<ResourceManager>(ResourceManagerDesc{ {*m_logger},context });
 
 	m_world = std::make_unique<World>(WorldDesc{ BaseDesc{*m_logger}, GameContext{*m_inputSystem, *m_resourceManager} });
-	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{ {*m_logger},*m_renderSystem });
+	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{ {*m_logger},*m_renderSystem});
 
 	m_inputSystem->setCursorLockArea(m_display->getClientAreaInScreenSpace());
 
@@ -80,6 +80,16 @@ void dx3d::Game::onInternalUpdate()
 	m_world->update(deltaTime);
 
 	m_graphicsEngine->spawnTest(*m_world);
+
+
+	//ImGui
+	//ImGui_ImplDX11_NewFrame();
+	//ImGui_ImplWin32_NewFrame();
+	//ImGui::NewFrame();
+	//ImGui::Begin("Test");
+	//ImGui::End();
+	//ImGui::Render();
+	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 	m_graphicsEngine->render(*m_world, m_display->getSwapChain(), deltaTime);
 }

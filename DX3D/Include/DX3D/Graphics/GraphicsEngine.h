@@ -80,6 +80,7 @@ namespace dx3d
 		RefPtr<VertexBuffer> m_vb{};
 		RefPtr<IndexBuffer> m_ib{};
 
+
 		friend class Window;
 	};
 }
