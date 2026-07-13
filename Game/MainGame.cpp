@@ -1,10 +1,9 @@
 #include "MainGame.h"
 #include "Objects/Player.h"
-#include <DX3D/Clones/CubeClone.h>
-
 
 MainGame::MainGame(const dx3d::GameDesc& desc) : dx3d::Game(desc)
 {
+
 }
 
 void MainGame::onCreate()
@@ -89,8 +88,8 @@ void MainGame::onCreate()
 	//player->getTransform().setPosition({ 0, 1, -1 });
 
 
-	getInputSystem().setCursorLocked(true);
-	getInputSystem().setCursorVisible(false);
+	//getInputSystem().setCursorLocked(true);
+	//getInputSystem().setCursorVisible(false);
 }
 
 void MainGame::onUpdate(dx3d::f32 deltaTime)

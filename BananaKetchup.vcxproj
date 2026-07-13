@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DX3D\Include\DX3D\Graphics\ImGui\imgui.cpp" />
+    <ClCompile Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_demo.cpp" />
     <ClCompile Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_draw.cpp" />
     <ClCompile Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_impl_dx11.cpp" />
     <ClCompile Include="DX3D\Include\DX3D\Graphics\ImGui\imgui_impl_win32.cpp" />

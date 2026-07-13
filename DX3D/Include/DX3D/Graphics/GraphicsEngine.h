@@ -68,6 +68,7 @@ namespace dx3d
 		void removeRecent();
 
 		void closeProgram();
+		
 
 
 	public:

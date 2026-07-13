@@ -10,6 +10,10 @@
 #include <iostream>
 #include <DX3D/Resource/ResourceManager.h>
 
+#include <DX3D/Graphics/ImGui/imgui.h>
+#include <DX3D/Graphics/ImGui/imgui_impl_win32.h>
+#include <DX3D/Graphics/ImGui/imgui_impl_dx11.h>
+
 dx3d::Game::Game(const GameDesc& desc)
 {
 	m_logger = std::make_unique<Logger>(desc.logLevel);
@@ -90,6 +94,7 @@ void dx3d::Game::onInternalUpdate()
 	//ImGui::End();
 	//ImGui::Render();
 	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
 
 	m_graphicsEngine->render(*m_world, m_display->getSwapChain(), deltaTime);
 }

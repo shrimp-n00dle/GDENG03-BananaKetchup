@@ -1,7 +1,9 @@
 #include "MainGame.h"
 
+
 int main()
 {
+
 	try
 	{
 		MainGame game({ {1024,768},dx3d::Logger::LogLevel::Info });

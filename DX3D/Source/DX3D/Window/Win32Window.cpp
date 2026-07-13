@@ -97,6 +97,7 @@ dx3d::Window::Window(const WindowDesc& desc) : Base(desc.base), m_size(desc.size
 		DX3DLogThrowError("CreateWindowEx failed");
 	}
 
+	
 	ShowWindow(static_cast<HWND>(m_handle), SW_SHOW);
 
 	auto hwnd = static_cast<HWND>(m_handle);
