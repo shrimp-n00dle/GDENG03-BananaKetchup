@@ -1,17 +1,12 @@
 #include <DX3D/Graphics/GraphicsEngine.h>
 #include <DX3D/Resource/MaterialResource.h>
 
-#include <DX3D/Graphics/ImGui/imgui.h>
-#include <DX3D/Graphics/ImGui/imgui_impl_win32.h>
-#include <DX3D/Graphics/ImGui/imgui_impl_dx11.h>
-#include <d3d11.h>
-#include <tchar.h>
+
 
 
 using namespace catsup;
 
-dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.base), m_renderSystem(desc.engine),
-m_display(desc.display)
+dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc): Base(desc.base), m_renderSystem(desc.engine)
 {
 	auto& device = m_renderSystem;
 	m_deviceContext = device.createDeviceContext();
@@ -58,31 +53,8 @@ m_display(desc.display)
 	m_vb = device.createVertexBuffer({ vertextList, std::size(vertextList), sizeof(Vertex) });
 	m_ib = device.createIndexBuffer({ indexList, std::size(indexList) });
 
-	auto& hwnd = m_display;
-	// Make process DPI aware and obtain main monitor scale
-	ImGui_ImplWin32_EnableDpiAwareness();
-	float main_scale = ImGui_ImplWin32_GetDpiScaleForMonitor(::MonitorFromPoint(POINT{ 0, 0 }, MONITOR_DEFAULTTOPRIMARY));
-	// Setup Dear ImGui context
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
-	// Setup Dear ImGui style
-	ImGui::StyleColorsDark();
-	//ImGui::StyleColorsLight();
 
-	// Setup scaling
-	ImGuiStyle& style = ImGui::GetStyle();
-	style.ScaleAllSizes(main_scale);        // Bake a fixed style scale. (until we have a solution for dynamic style scaling, changing this requires resetting Style + calling this again)
-	style.FontScaleDpi = main_scale;        // Set initial font scale. (in docking branch: using io.ConfigDpiScaleFonts=true automatically overrides this for every window depending on the current monitor)
-
-	ImGui_ImplWin32_Init(hwnd.getHwnd());
-	ImGui_ImplDX11_Init(device.m_d3dDevice.Get(), device.m_d3dContext.Get());
-	std::cout << "GRAPHICS" << std::endl;
-
-	//ImGui::SetNextWindowPos(ImVec2(300, 300), ImGuiCond_FirstUseEver);
 }
 
 void dx3d::GraphicsEngine::spawnTest(World& world)
@@ -108,7 +80,7 @@ void dx3d::GraphicsEngine::spawnTest(World& world)
 		
 }
 
-void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 deltaTime)
+void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 deltaTime, ImDrawData* uiData)
 {
 	//camera setup
 	auto size = swapChain.getSize();
@@ -116,26 +88,9 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 
 	auto& context = *m_deviceContext;
 
-	//// 1. Start the Dear ImGui frame
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
 
-	/*if (show_demo_window)
-		ImGui::ShowDemoWindow(&show_demo_window);*/
-
-
-	// 2. Define your custom UI layout
-	ImGui::Begin("Debug Menu");
-	ImGui::Text("Hello, World!");
-	if (ImGui::Button("Click Me")) {
-		//Handle button logic
-	}
-	ImGui::End();
-
-	ImGui::Render();
 	context.clearAndSetBackBuffer(swapChain, { 0.27f, 0.39f, 0.55f, 1.0f });
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
 	context.setViewportSize(size);
 
 	auto numComponents = 0u;
@@ -190,16 +145,11 @@ void dx3d::GraphicsEngine::render(const World& world, SwapChain& swapChain, f32 
 
 	m_renderSystem.executeCommandList(context);
 
+	auto* renTarget = swapChain.getRenderTargetView();
+	m_renderSystem.m_d3dContext->OMSetRenderTargets(1, &renTarget, nullptr);
 
 
-	// 3. Clear your DX11 Render Target as usual
-	//context.clearAndSetBackBuffer(swapChain, { 0.27f, 0.39f, 0.55f, 1.0f });
-
-	// 4. Render ImGui onto your Direct3D 
-
-
-
-
+	ImGui_ImplDX11_RenderDrawData(uiData);
 	swapChain.present();
 }
 

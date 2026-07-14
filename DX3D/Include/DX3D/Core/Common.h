@@ -134,7 +134,6 @@ namespace dx3d
 	{
 		BaseDesc base;
 		RenderSystem& engine;
-		Display& display;
 	};
 
 	enum class KeyCode

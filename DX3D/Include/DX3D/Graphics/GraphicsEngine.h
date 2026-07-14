@@ -27,6 +27,12 @@
 #include <DX3D/Window/Window.h>
 #include <DX3D/Game/Display.h>
 
+#include <DX3D/Graphics/ImGui/imgui.h>
+#include <DX3D/Graphics/ImGui/imgui_impl_win32.h>
+#include <DX3D/Graphics/ImGui/imgui_impl_dx11.h>
+#include <d3d11.h>
+#include <tchar.h>
+
 #include <random>
 
 using namespace catsup;
@@ -41,7 +47,7 @@ namespace dx3d
 
 		void spawnTest(World& world);
 
-		void render(const World& world, SwapChain& swapChain, f32 deltaTime);
+		void render(const World& world, SwapChain& swapChain, f32 deltaTime, ImDrawData* uiData);
 	private:
 		//MUST BE EXACT TO BASIC.HLSL or it wont work
 		struct Vertex
@@ -72,7 +78,6 @@ namespace dx3d
 
 
 	public:
-		Display& m_display;
 		RenderSystem& m_renderSystem;
 		RefPtr<DeviceContext> m_deviceContext{};
 

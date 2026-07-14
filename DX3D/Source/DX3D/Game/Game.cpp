@@ -28,16 +28,25 @@ dx3d::Game::Game(const GameDesc& desc)
 	m_resourceManager = std::make_unique<ResourceManager>(ResourceManagerDesc{ {*m_logger},context });
 
 	m_world = std::make_unique<World>(WorldDesc{ BaseDesc{*m_logger}, GameContext{*m_inputSystem, *m_resourceManager} });
-	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{ {*m_logger},*m_renderSystem, *m_display});
+	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{ {*m_logger},*m_renderSystem });
 
 	m_inputSystem->setCursorLockArea(m_display->getClientAreaInScreenSpace());
 
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGui::StyleColorsDark();
+	ImGui_ImplWin32_Init(m_display->getHandle());
+	ImGui_ImplDX11_Init(m_renderSystem->m_d3dDevice.Get(),m_renderSystem->m_d3dContext.Get());
+	std::cout << "GRAPHICS" << std::endl;
 
 	DX3DLogInfo("Game initialized.");
 
 }
 dx3d::Game::~Game()
 {
+	ImGui_ImplDX11_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
 	DX3DLogInfo("Game is shutting down.");
 }
 
@@ -87,16 +96,20 @@ void dx3d::Game::onInternalUpdate()
 
 
 	//ImGui
-	//ImGui_ImplDX11_NewFrame();
-	//ImGui_ImplWin32_NewFrame();
-	//ImGui::NewFrame();
-	//ImGui::Begin("Test");
-	//ImGui::End();
-	//ImGui::Render();
-	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	ImGui::Begin("Debug Menu");
+	ImGui::Text("Hello, World!");
+	if (ImGui::Button("Click Me")) {
+		//Handle button logic
+	}
+	ImGui::End();
+	ImGui::Render();
+	
 
 
-	m_graphicsEngine->render(*m_world, m_display->getSwapChain(), deltaTime);
+	m_graphicsEngine->render(*m_world, m_display->getSwapChain(), deltaTime, ImGui::GetDrawData());
 }
 
 
