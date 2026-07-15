@@ -40,6 +40,7 @@ dx3d::Game::Game(const GameDesc& desc)
 	ImGui_ImplDX11_Init(m_renderSystem->m_d3dDevice.Get(),m_renderSystem->m_d3dContext.Get());
 
 	aboutWin = new AboutWin();
+	colorWin = new ColorWin();
 
 	DX3DLogInfo("Game initialized.");
 
@@ -102,7 +103,7 @@ void dx3d::Game::onInternalUpdate()
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 	aboutWin->initialize();
-	ImGui::End();
+	colorWin->initialize();
 	ImGui::Render();
 
 

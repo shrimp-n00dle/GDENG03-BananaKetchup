@@ -6,6 +6,7 @@
 
 #include <DX3D/GUI/AboutWin.h>
 #include <DX3D/GUI/WinBase.h>
+#include <DX3D/GUI/ColorWin.h>
 
 
 namespace dx3d
@@ -41,6 +42,7 @@ namespace dx3d
 
 
 	private:
+		ColorWin* colorWin;
 		AboutWin* aboutWin;
 		UniquePtr<Logger> m_logger{};
 

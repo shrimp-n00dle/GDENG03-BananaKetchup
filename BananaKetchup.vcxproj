@@ -147,6 +147,8 @@
     <ClCompile Include="DX3D\Source\DX3D\Component\TransformComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Game\Component.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\GUI\AboutWin.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\GUI\ColorWin.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\GUI\UIManager.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\GUI\WinBase.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Input\InputSystem.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\MaterialResource.cpp" />
@@ -214,6 +216,8 @@
     <ClInclude Include="DX3D\Source\DX3D\Clones\CubeClone.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ShaderInclude.h" />
     <ClInclude Include="DX3D\Source\DX3D\GUI\AboutWin.h" />
+    <ClInclude Include="DX3D\Source\DX3D\GUI\ColorWin.h" />
+    <ClInclude Include="DX3D\Source\DX3D\GUI\UIManager.h" />
     <ClInclude Include="DX3D\Source\DX3D\GUI\WinBase.h" />
     <ClInclude Include="Game\MainGame.h" />
     <ClInclude Include="Game\Objects\Player.h" />

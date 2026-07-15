@@ -13,4 +13,7 @@ void AboutWin::initialize()
 	ImGui::Begin("Credits");
 	ImGui::Text("Jan Vingno");
 	ImGui::Text("GDENG03");
+
+
+	ImGui::End();
 }
