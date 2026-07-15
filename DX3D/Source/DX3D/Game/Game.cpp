@@ -14,6 +14,7 @@
 #include <DX3D/Graphics/ImGui/imgui_impl_win32.h>
 #include <DX3D/Graphics/ImGui/imgui_impl_dx11.h>
 
+
 dx3d::Game::Game(const GameDesc& desc)
 {
 	m_logger = std::make_unique<Logger>(desc.logLevel);
@@ -37,7 +38,8 @@ dx3d::Game::Game(const GameDesc& desc)
 	ImGui::StyleColorsDark();
 	ImGui_ImplWin32_Init(m_display->getHandle());
 	ImGui_ImplDX11_Init(m_renderSystem->m_d3dDevice.Get(),m_renderSystem->m_d3dContext.Get());
-	std::cout << "GRAPHICS" << std::endl;
+
+	aboutWin = new AboutWin();
 
 	DX3DLogInfo("Game initialized.");
 
@@ -99,14 +101,9 @@ void dx3d::Game::onInternalUpdate()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	ImGui::Begin("Debug Menu");
-	ImGui::Text("Hello, World!");
-	if (ImGui::Button("Click Me")) {
-		//Handle button logic
-	}
+	aboutWin->initialize();
 	ImGui::End();
 	ImGui::Render();
-	
 
 
 	m_graphicsEngine->render(*m_world, m_display->getSwapChain(), deltaTime, ImGui::GetDrawData());

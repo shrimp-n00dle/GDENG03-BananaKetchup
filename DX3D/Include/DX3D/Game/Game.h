@@ -4,6 +4,10 @@
 #include <DX3D/Command/Command.h>
 #include <chrono>
 
+#include <DX3D/GUI/AboutWin.h>
+#include <DX3D/GUI/WinBase.h>
+
+
 namespace dx3d
 {
 	class Game
@@ -37,6 +41,7 @@ namespace dx3d
 
 
 	private:
+		AboutWin* aboutWin;
 		UniquePtr<Logger> m_logger{};
 
 
