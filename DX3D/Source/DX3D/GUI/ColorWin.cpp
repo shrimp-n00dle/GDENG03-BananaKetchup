@@ -15,6 +15,5 @@ void ColorWin::initialize()
 	ImGui::Begin("Color Picker Screen");
 	ImGuiColorEditFlags flags = ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_PickerHueWheel;
 	ImGui::ColorPicker4("Current Color", (float*)&clear_color, flags);
-	//ImGui::ColorEdit3("clear color", (float*)&clear_color);
 	ImGui::End();
 }
