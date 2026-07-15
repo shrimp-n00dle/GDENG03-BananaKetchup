@@ -7,6 +7,7 @@
 #include <DX3D/GUI/AboutWin.h>
 #include <DX3D/GUI/WinBase.h>
 #include <DX3D/GUI/ColorWin.h>
+#include <DX3D/GUI/MenuBar.h>
 
 
 namespace dx3d
@@ -42,6 +43,7 @@ namespace dx3d
 
 
 	private:
+		MenuBar* menuBar;
 		ColorWin* colorWin;
 		AboutWin* aboutWin;
 		UniquePtr<Logger> m_logger{};

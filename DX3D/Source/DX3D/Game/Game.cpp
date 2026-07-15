@@ -41,6 +41,7 @@ dx3d::Game::Game(const GameDesc& desc)
 
 	aboutWin = new AboutWin();
 	colorWin = new ColorWin();
+	menuBar = new MenuBar();
 
 	DX3DLogInfo("Game initialized.");
 
@@ -102,7 +103,8 @@ void dx3d::Game::onInternalUpdate()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	aboutWin->initialize();
+	menuBar->initialize();
+	if (menuBar->getShow())aboutWin->initialize();
 	colorWin->initialize();
 	ImGui::Render();
 
