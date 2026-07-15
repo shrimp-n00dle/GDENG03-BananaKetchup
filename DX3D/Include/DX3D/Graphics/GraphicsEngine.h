@@ -2,8 +2,10 @@
 #include <DX3D/Core/Core.h>
 #include <DX3D/Core/Base.h>
 #include <DX3D/Math/Vec3.h>
+#include <DX3D/Math/Vec2.h>
 #include <DX3D/Math/Vec4.h>
 #include <DX3D/Math/Mat4x4.h>
+#include <vector>
 
 #include <DX3D/Graphics/RenderSystem.h>
 #include <DX3D/Graphics/DeviceContext.h>
@@ -17,12 +19,12 @@
 #include <DX3D/Game/GameObject.h>
 
 #include <DX3D/Component/TransformComponent.h>
-#include <DX3D/Component/CubeComponent.h>
+
 #include <DX3D/Component/CameraComponent.h>
 #include <ranges>
 
 #include <DX3D/Command/Command.h>
-#include <vector>
+
 
 #include <DX3D/Window/Window.h>
 #include <DX3D/Game/Display.h>
@@ -50,10 +52,6 @@ namespace dx3d
 		void render(const World& world, SwapChain& swapChain, f32 deltaTime, ImDrawData* uiData);
 	private:
 		//MUST BE EXACT TO BASIC.HLSL or it wont work
-		struct Vertex
-		{
-			Vec3 position;
-		};
 
 		struct alignas(16) ObjectData
 		{
@@ -85,8 +83,8 @@ namespace dx3d
 		RefPtr<ConstantBuffer> m_objectCb{};
 		RefPtr<ConstantBuffer> m_materialCb{};
 
-		RefPtr<VertexBuffer> m_vb{};
-		RefPtr<IndexBuffer> m_ib{};
+		RefPtr<Sampler> m_sampler{};
+		std::vector<Texture*> m_textures{};
 
 
 		friend class Window;

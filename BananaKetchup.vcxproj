@@ -73,7 +73,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>Intermediate\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>DX3D/Source;DX3D/Include;$(IncludePath)</IncludePath>
+    <IncludePath>DX3D/Include;DX3D/Source;DX3D/Vendor/stb-image/include/;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;DX3D/Vendor/stb-image/include/;DX3D/Vendor/stb-image/include/</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -146,6 +149,9 @@
     <ClCompile Include="DX3D\Source\DX3D\Component\CubeComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\TransformComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Game\Component.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\GraphicsPipelineLayout.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\Sampler.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\Texture.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\GUI\AboutWin.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\GUI\ColorWin.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\GUI\UIManager.cpp" />
@@ -154,6 +160,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Resource\MaterialResource.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\Resource.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\ResourceManager.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Resource\TextureResource.cpp" />
     <ClCompile Include="Game\MainGame.cpp" />
     <ClCompile Include="DX3D\Include\DX3D\Math\MathUtils.h" />
     <ClCompile Include="DX3D\Source\DX3D\Core\Base.cpp" />
@@ -172,7 +179,6 @@
     <ClCompile Include="DX3D\Source\DX3D\Graphics\ShaderBinary.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\SwapChain.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\VertexBuffer.cpp" />
-    <ClCompile Include="DX3D\Source\DX3D\Graphics\VertexShaderSignature.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Window\Win32Window.cpp" />
     <ClCompile Include="Game\main.cpp" />
     <ClCompile Include="Game\Objects\Player.cpp" />
@@ -211,10 +217,14 @@
     <ClInclude Include="DX3D\Include\DX3D\Resource\MaterialResource.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\Resource.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\ResourceManager.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Resource\TextureResource.h" />
     <ClInclude Include="DX3D\Include\DX3D\Window\Window.h" />
     <ClInclude Include="DX3D\Include\DX3D\Command\Command.h" />
     <ClInclude Include="DX3D\Source\DX3D\Clones\CubeClone.h" />
+    <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsPipelineLayout.h" />
+    <ClInclude Include="DX3D\Source\DX3D\Graphics\Sampler.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ShaderInclude.h" />
+    <ClInclude Include="DX3D\Source\DX3D\Graphics\Texture.h" />
     <ClInclude Include="DX3D\Source\DX3D\GUI\AboutWin.h" />
     <ClInclude Include="DX3D\Source\DX3D\GUI\ColorWin.h" />
     <ClInclude Include="DX3D\Source\DX3D\GUI\UIManager.h" />
@@ -232,7 +242,6 @@
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ShaderBinary.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\SwapChain.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\VertexBuffer.h" />
-    <ClInclude Include="DX3D\Source\DX3D\Graphics\VertexShaderSignature.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shadertoolsconfig.json" />

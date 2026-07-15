@@ -1,11 +1,12 @@
 #include <DX3D/Resource/MaterialResource.h>
 #include <DX3D/Graphics/RenderSystem.h>
 #include <DX3D/Resource/ResourceManager.h>
+#include <DX3D/Graphics/GraphicsPipelineLayout.h>
 
 #include <fstream>
 #include <filesystem>
 
-dx3d::MaterialResource::MaterialResource(const MaterialResourceDesc& desc) : Resource(desc.base), m_graphicsDevice(desc.renderSystem)
+dx3d::MaterialResource::MaterialResource(const MaterialResourceDesc& desc) : Resource(desc.base), m_renderSystem(desc.renderSystem)
 {
 	std::filesystem::path shaderFile = desc.base.path;
 
@@ -17,21 +18,21 @@ dx3d::MaterialResource::MaterialResource(const MaterialResourceDesc& desc) : Res
 		std::istreambuf_iterator<char>()
 	};
 
-	auto vsBinary = m_graphicsDevice.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
+	auto vsBinary = m_renderSystem.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
 		shaderCode.size(), "VSMain", ShaderType::VertexShader });
+	auto psBinary = m_renderSystem.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
+		shaderCode.size(), "PSMain", ShaderType::PixelShader });
 
-	m_vsSignature = m_graphicsDevice.createVertexShaderSignature({ vsBinary });
-	m_psBinary = m_graphicsDevice.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
-	shaderCode.size(), "PSMain", ShaderType::PixelShader });
-
-	m_pipeline = m_graphicsDevice.createGraphicsPipelineState({ *m_vsSignature,*m_psBinary });
+	m_layout = m_renderSystem.createGraphicsPipelineLayout({ vsBinary, psBinary });
+	m_pipeline = m_renderSystem.createGraphicsPipelineState({ *m_layout });
+	m_textures.resize(m_layout->getMaxTextureSlots());
 }
 
-dx3d::MaterialResource::MaterialResource(const MaterialResource& material, const MaterialResourceDesc& desc) : Resource(desc.base), m_graphicsDevice(desc.renderSystem)
+dx3d::MaterialResource::MaterialResource(const MaterialResource& material, const MaterialResourceDesc& desc) : Resource(desc.base), m_renderSystem(desc.renderSystem)
 {
-	m_vsSignature = material.m_vsSignature;
-	m_psBinary = material.m_psBinary;
+	m_layout = material.m_layout;
 	m_pipeline = material.m_pipeline;
+	m_textures.resize(m_layout->getMaxTextureSlots());
 }
 
 const dx3d::GraphicsPipelineState& dx3d::MaterialResource::getGraphicsPipelineState() const noexcept
@@ -59,6 +60,31 @@ void dx3d::MaterialResource::setData(const std::span<const std::byte>& data)
 const std::span<const std::byte> dx3d::MaterialResource::getData() const noexcept
 {
 	return m_data;
+}
+
+dx3d::TextureResource* dx3d::MaterialResource::getTexture(size_t index)
+{
+	if (index >= m_textures.size())
+	{
+		DX3DLogError("Index {} is out of bounds for list of size {}", index, m_textures.size());
+		return {};
+	}
+	return m_textures[index].get();
+}
+
+size_t dx3d::MaterialResource::getNumTextures() const noexcept
+{
+	return m_textures.size();
+}
+
+void dx3d::MaterialResource::setTexture(size_t index, const dx3d::RefPtr<TextureResource>& texture)
+{
+	if (index >= m_textures.size())
+	{
+		DX3DLogError("Index {} is out of bounds for list of size {}", index, m_textures.size());
+		return;
+	}
+	m_textures[index] = texture;
 }
 
 

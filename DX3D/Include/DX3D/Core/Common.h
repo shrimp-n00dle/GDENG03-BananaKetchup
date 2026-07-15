@@ -56,9 +56,10 @@ namespace dx3d
 		ShaderType shaderType{};
 	};
 
-	struct VertexShaderSignatureDesc
+	struct GraphicsPipelineLayoutDesc
 	{
 		const RefPtr<ShaderBinary>& vsBinary;
+		const RefPtr<ShaderBinary>& psBinary;
 
 	};
 
@@ -71,8 +72,7 @@ namespace dx3d
 
 	struct GraphicsPipelineStateDesc
 	{
-		const VertexShaderSignature& vs;
-		const ShaderBinary& ps;
+		const GraphicsPipelineLayout& layout;
 
 	};
 
@@ -99,6 +99,7 @@ namespace dx3d
 	{
 		InputSystem& input;
 		ResourceManager& resourceManager;
+		RenderSystem& renderSystem;
 	};
 
 
@@ -107,6 +108,7 @@ namespace dx3d
 	{
 		Rect windowSize{ 1280,720 };
 		Logger::LogLevel logLevel = Logger::LogLevel::Error;
+
 	};
 
 
@@ -128,6 +130,7 @@ namespace dx3d
 		BaseDesc base;
 		GameObject& object;
 		World& world;
+		GameContext& context;
 	};
 
 	struct GraphicsEngineDesc
@@ -197,6 +200,12 @@ namespace dx3d
 		RenderSystem& renderSystem;
 	};
 
+	struct TextureResourceDesc
+	{
+		ResourceDesc base;
+		RenderSystem& renderSystem;
+	};
+
 	struct SystemContext
 	{
 		RenderSystem& renderSystem;
@@ -206,5 +215,15 @@ namespace dx3d
 	{
 		BaseDesc base;
 		SystemContext context;
+	};
+
+	struct TextureDesc
+	{
+		Rect size{};
+		const void* pixels{};
+	};
+
+	struct SamplerDesc
+	{
 	};
 }
