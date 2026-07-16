@@ -14,6 +14,10 @@ public:
 	void setShow(bool b);
 	bool getShow();
 
+	bool b_color = false;
+	void setShowColor(bool b);
+	bool getShowColor();
+
 	AboutWin* aboutWin = new AboutWin();
 
 };

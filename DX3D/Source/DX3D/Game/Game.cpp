@@ -105,7 +105,7 @@ void dx3d::Game::onInternalUpdate()
 	ImGui::NewFrame();
 	menuBar->initialize();
 	if (menuBar->getShow())aboutWin->initialize();
-	colorWin->initialize();
+	if (menuBar->getShowColor())colorWin->initialize();
 	ImGui::Render();
 
 
