@@ -1,49 +1,44 @@
 #include <DX3D/Game/Game.h>
 #include <DX3D/Window/Window.h>
-#include <DX3D/Graphics/RenderSystem.h>
+#include <DX3D/Graphics/GraphicsDevice.h>
 #include <DX3D/Core/Logger.h>
 #include <DX3D/Input/InputSystem.h>
 #include <DX3D/Game/Display.h>
 #include <DX3D/Game/World.h>
 #include <DX3D/Game/GameObject.h>
-#include <DX3D/Graphics/GraphicsEngine.h>
-#include <iostream>
+#include <DX3D/Game/WorldRenderer.h>
 #include <DX3D/Resource/ResourceManager.h>
-
-#include <DX3D/Graphics/ImGui/imgui.h>
-#include <DX3D/Graphics/ImGui/imgui_impl_win32.h>
-#include <DX3D/Graphics/ImGui/imgui_impl_dx11.h>
 
 
 dx3d::Game::Game(const GameDesc& desc)
 {
-	m_logger = std::make_unique<Logger>(desc.logLevel);
+	m_logger = std::make_unique<Logger>(desc.logLevel);	
 
 	std::clog << "BananaCatsup V 1.0" << "\n";
 	std::clog << "--------------------------------------" << "\n";
 
 	m_inputSystem = std::make_unique<InputSystem>(InputSystemDesc{ *m_logger });
-	m_renderSystem = std::make_shared<RenderSystem>(RenderSystemDesc{ *m_logger });
-	m_display = std::make_unique<Display>(DisplayDesc{ {*m_logger,desc.windowSize},*m_renderSystem });
-	auto context = SystemContext{ *m_renderSystem };
+	m_graphicsDevice = std::make_shared<GraphicsDevice>(GraphicsDeviceDesc{ *m_logger });
+	m_display = std::make_unique<Display>(DisplayDesc{ {*m_logger,desc.windowSize},*m_graphicsDevice });
+	
+	auto context = SystemContext{ *m_graphicsDevice };
 	m_resourceManager = std::make_unique<ResourceManager>(ResourceManagerDesc{ {*m_logger},context });
-	m_world = std::make_unique<World>(WorldDesc{ BaseDesc{*m_logger}, GameContext{*m_inputSystem, *m_resourceManager,*m_renderSystem} });
-	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{ {*m_logger},*m_renderSystem });
 
-	m_inputSystem->setCursorLockArea(m_display->getClientAreaInScreenSpace());
+	m_world = std::make_unique<World>(WorldDesc{ BaseDesc{*m_logger}, GameContext{*m_inputSystem, *m_resourceManager,*m_graphicsDevice} });
+	m_worldRenderer = std::make_unique<WorldRenderer>(WorldRendererDesc{ {*m_logger},*m_graphicsDevice });
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGui::StyleColorsDark();
 	ImGui_ImplWin32_Init(m_display->getHandle());
-	ImGui_ImplDX11_Init(m_renderSystem->m_d3dDevice.Get(),m_renderSystem->m_d3dContext.Get());
+	ImGui_ImplDX11_Init(m_graphicsDevice->m_d3dDevice.Get(),m_graphicsDevice->m_d3dContext.Get());
 
 	aboutWin = new AboutWin();
 	colorWin = new ColorWin();
 
 	DX3DLogInfo("Game initialized.");
-
 }
+
 dx3d::Game::~Game()
 {
 	ImGui_ImplDX11_Shutdown();
@@ -81,21 +76,17 @@ void dx3d::Game::onInternalUpdate()
 
 	//Rendering Shapes Input Handler
 
-	Command* command = m_inputSystem->handleInput();
+	/*Command* command = m_inputSystem->handleInput();
 	if (command)
 	{
-		command->execute(*m_graphicsEngine.get());
-	}
+		command->execute(*m_worldRenderer.get());
+	}*/
 
-	m_inputSystem->update();
+	///m_inputSystem->update();
 
-	
 	onUpdate(deltaTime);
 
 	m_world->update(deltaTime);
-
-	m_graphicsEngine->spawnTest(*m_world);
-
 
 	//ImGui
 	ImGui_ImplDX11_NewFrame();
@@ -105,9 +96,5 @@ void dx3d::Game::onInternalUpdate()
 	colorWin->initialize();
 	ImGui::Render();
 
-
-	m_graphicsEngine->render(*m_world, m_display->getSwapChain(), deltaTime, ImGui::GetDrawData());
+	m_worldRenderer->render(*m_world, m_display->getSwapChain(), deltaTime, ImGui::GetDrawData());
 }
-
-
-

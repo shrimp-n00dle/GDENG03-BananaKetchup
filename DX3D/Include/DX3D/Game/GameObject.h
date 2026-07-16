@@ -34,26 +34,21 @@ namespace dx3d
 		}
 
 		TransformComponent& getTransform() noexcept;
-
 		World& getWorld() noexcept;
 		InputSystem& getInputSystem() noexcept;
 		ResourceManager& getResourceManager() noexcept;
-
 	protected:
 		virtual void onCreate() {}
-		virtual void onUpdate(f32 deltaTime) {}
-
+		virtual void onUpdate(f32 deltaTime) {}	
 	private:
 		Component* createComponentInternal(UniquePtr<Component>& component);
 		Component* getComponentInternal(size_t id);
-
 	private:
 		std::unordered_map<size_t, UniquePtr<Component>> m_components{};
 		TransformComponent* m_transform{};
-
 		GameContext m_gameContext;
-		World& m_world;
-
+		World& m_world;	
 		friend class World;
 	};
 }
+

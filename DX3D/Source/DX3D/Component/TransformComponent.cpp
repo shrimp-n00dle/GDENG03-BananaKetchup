@@ -40,10 +40,11 @@ dx3d::Vec3 dx3d::TransformComponent::getScale() const noexcept
 	return m_scale;
 }
 
+
 dx3d::Vec3 dx3d::TransformComponent::forward()
 {
 	auto forward = getRigidWorldMatrix().row(2);
-	return dx3d::Vec3::normalize({ forward.x,forward.y,forward.z });
+	return dx3d::Vec3::normalize({ forward.x,forward.y,forward.z});
 }
 
 dx3d::Vec3 dx3d::TransformComponent::right()
@@ -70,22 +71,25 @@ dx3d::Mat4x4 dx3d::TransformComponent::getRigidWorldMatrix() noexcept
 	return m_rigidWorldMatrix;;
 }
 
+
+
 void dx3d::TransformComponent::updateWorldMatrix() noexcept
 {
 	if (!m_dirty) return;
 
 	m_dirty = false;
+
 	m_rigidWorldMatrix =
 		Mat4x4::rotateX(m_rotation.x) *
 		Mat4x4::rotateY(m_rotation.y) *
 		Mat4x4::rotateZ(m_rotation.z) *
-
 		Mat4x4::translate(m_position);
 
 	m_affineWorldMatrix =
 		Mat4x4::scale(m_scale) *
 		m_rigidWorldMatrix;
 }
+
 
 void dx3d::TransformComponent::markAsDirty()
 {

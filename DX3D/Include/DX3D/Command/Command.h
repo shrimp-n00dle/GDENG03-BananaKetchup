@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include <DX3D/Graphics/GraphicsEngine.h>
+#include <DX3D/Game/WorldRenderer.h>
 #include <string.h>
 
 
@@ -16,11 +16,11 @@ namespace dx3d
 		std::vector<std::string> queueList;
 
 		virtual ~Command() {}
-		virtual void execute(GraphicsEngine& g) = 0;
+		virtual void execute(WorldRenderer& g) = 0;
 
 		//std::vector<CubeClone*> cubeList;
 		//for undoing commands
-		virtual void undo(GraphicsEngine& g) = 0;
+		virtual void undo(WorldRenderer& g) = 0;
 
 		//for redoing commands
 		//virtual void redo() = 0;
@@ -34,16 +34,16 @@ namespace dx3d
 	{
 
 	public:
-		virtual void execute(GraphicsEngine& g);
-		virtual void undo(GraphicsEngine& g);
+		virtual void execute(WorldRenderer& g);
+		virtual void undo(WorldRenderer& g);
 	};
 
 	//Backspace - remove the latest shape added
 	class DeleteCommand : public Command
 	{
 	public:
-		virtual void execute(GraphicsEngine& g);
-		virtual void undo(GraphicsEngine& g);
+		virtual void execute(WorldRenderer& g);
+		virtual void undo(WorldRenderer& g);
 
 	};
 
@@ -51,8 +51,8 @@ namespace dx3d
 	class EndCommand : public Command
 	{
 	public:
-		virtual void execute(GraphicsEngine& g);
-		virtual void undo(GraphicsEngine& g);
+		virtual void execute(WorldRenderer& g);
+		virtual void undo(WorldRenderer& g);
 	};
 
 

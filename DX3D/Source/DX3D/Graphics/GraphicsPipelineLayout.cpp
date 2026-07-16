@@ -1,36 +1,12 @@
-/*MIT License
-
-C++ 3D Game Tutorial Series (https://github.com/PardCode/CPP-3D-Game-Tutorial-Series)
-
-Copyright (c) 2019-2026, PardCode
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.*/
-
 #include <DX3D/Graphics/GraphicsPipelineLayout.h>
 #include <DX3D/Graphics/ShaderBinary.h>
 #include <DX3D/Graphics/GraphicsUtils.h>
 #include <d3dcompiler.h>
 #include <ranges>
 
-dx3d::GraphicsPipelineLayout::GraphicsPipelineLayout(const GraphicsPipelineLayoutDesc& desc, const GraphicsResourceDesc& gDesc) :
-	GraphicsResource(gDesc),
-	m_vsBinary(desc.vsBinary),
+dx3d::GraphicsPipelineLayout::GraphicsPipelineLayout(const GraphicsPipelineLayoutDesc& desc, const GraphicsResourceDesc& gDesc) : 
+	GraphicsResource(gDesc), 
+	m_vsBinary(desc.vsBinary), 
 	m_psBinary(desc.psBinary)
 {
 	if (!desc.vsBinary) DX3DLogThrowInvalidArg("No shader binary provided.");
@@ -84,14 +60,14 @@ void dx3d::GraphicsPipelineLayout::processShaderBinary(ShaderBinary& binary)
 	auto data = binary.getData();
 	auto& reflection = m_reflections[static_cast<ui32>(binary.getType())];
 
-	DX3DGraphicsLogErrorAndThrow(D3DReflect(
+	DX3DGraphicsLogThrowOnFail(D3DReflect(
 		data.data,
 		data.dataSize,
 		IID_PPV_ARGS(&reflection)),
 		"D3DReflect failed.");
 
 	D3D11_SHADER_DESC shaderDesc{};
-	DX3DGraphicsLogErrorAndThrow(reflection->GetDesc(&shaderDesc),
+	DX3DGraphicsLogThrowOnFail(reflection->GetDesc(&shaderDesc),
 		"ID3D11ShaderReflection::GetDesc failed.");
 
 	if (binary.getType() == ShaderType::VertexShader)
@@ -100,7 +76,7 @@ void dx3d::GraphicsPipelineLayout::processShaderBinary(ShaderBinary& binary)
 		D3D11_SIGNATURE_PARAMETER_DESC params[D3D11_STANDARD_VERTEX_ELEMENT_COUNT]{};
 		for (auto i : std::views::iota(0u, m_numElements))
 		{
-			DX3DGraphicsLogErrorAndThrow(reflection->GetInputParameterDesc(i, &params[i]),
+			DX3DGraphicsLogThrowOnFail(reflection->GetInputParameterDesc(i, &params[i]),
 				"ID3D11ShaderReflection::GetInputParameterDesc failed.");
 		}
 		for (auto i : std::views::iota(0u, m_numElements))
@@ -122,7 +98,7 @@ void dx3d::GraphicsPipelineLayout::processShaderBinary(ShaderBinary& binary)
 		D3D11_SHADER_INPUT_BIND_DESC desc{};
 		for (auto i : std::views::iota(0u, shaderDesc.BoundResources))
 		{
-			DX3DGraphicsLogErrorAndThrow(reflection->GetResourceBindingDesc(i, &desc),
+			DX3DGraphicsLogThrowOnFail(reflection->GetResourceBindingDesc(i, &desc),
 				"ID3D11ShaderReflection::GetInputParameterDesc failed.");
 			if (desc.Type == D3D_SIT_CBUFFER)
 				m_maxBufferSlots = std::max(m_maxBufferSlots, desc.BindPoint + 1);

@@ -17,7 +17,7 @@ dx3d::RefPtr<dx3d::Resource> dx3d::ResourceManager::createResourceFromFileConcre
 	{
 		auto mat = std::dynamic_pointer_cast<MaterialResource>(it->second);
 		if (mat)
-			return std::make_shared<MaterialResource>(*mat, MaterialResourceDesc{ getResourceDesc(file_path), m_context.renderSystem});
+			return std::make_shared<MaterialResource>(*mat, MaterialResourceDesc{ getResourceDesc(file_path), m_context.graphicsDevice });
 		return it->second;
 	}
 
@@ -31,9 +31,9 @@ dx3d::RefPtr<dx3d::Resource> dx3d::ResourceManager::createResourceFromFileConcre
 	try
 	{
 		if (!ext.compare(L".hlsl") || !ext.compare(L".fx"))
-			resPtr = std::make_shared<MaterialResource>(MaterialResourceDesc{ getResourceDesc(file_path), m_context.renderSystem });
+			resPtr = std::make_shared<MaterialResource>(MaterialResourceDesc{ getResourceDesc(file_path), m_context.graphicsDevice });
 		if (!ext.compare(L".jpg") || !ext.compare(L".png"))
-			resPtr = std::make_shared<TextureResource>(TextureResourceDesc{ getResourceDesc(file_path), m_context.renderSystem});
+			resPtr = std::make_shared<TextureResource>(TextureResourceDesc{ getResourceDesc(file_path), m_context.graphicsDevice });
 	}
 	catch (...)
 	{
@@ -53,3 +53,4 @@ dx3d::ResourceDesc dx3d::ResourceManager::getResourceDesc(const wchar_t* file_pa
 {
 	return ResourceDesc{ { m_logger }, file_path, *this };
 }
+

@@ -1,5 +1,7 @@
+
 #pragma once
 #include <DX3D/Core/Common.h>
+
 
 namespace dx3d
 {
@@ -9,13 +11,10 @@ namespace dx3d
 	public:
 		explicit Base(const BaseDesc& desc);
 		virtual ~Base();
-		virtual Logger& getLogger()noexcept final;
+		virtual Logger& getLogger() noexcept final;
 
 	protected:
 		Logger& m_logger;
 	};
-
 }
-
-
 

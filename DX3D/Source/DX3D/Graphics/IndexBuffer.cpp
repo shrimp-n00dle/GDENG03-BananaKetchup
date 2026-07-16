@@ -13,7 +13,7 @@ dx3d::IndexBuffer::IndexBuffer(const IndexBufferDesc& desc, const GraphicsResour
 	D3D11_SUBRESOURCE_DATA initData{};
 	initData.pSysMem = desc.indexList;
 
-	DX3DGraphicsLogErrorAndThrow(m_device.CreateBuffer(&buffDesc, &initData, &m_buffer),
+	DX3DGraphicsLogThrowOnFail(m_device.CreateBuffer(&buffDesc, &initData, &m_buffer),
 		"CreateIndexBuffer failed.");
 }
 
@@ -21,3 +21,5 @@ dx3d::ui32 dx3d::IndexBuffer::getIndexListSize() const noexcept
 {
 	return m_listSize;
 }
+
+

@@ -13,22 +13,16 @@ namespace dx3d
 	struct WindowDesc
 	{
 		BaseDesc base;
-		//Size of window
 		Rect size{};
 	};
 
 	struct DisplayDesc
 	{
 		WindowDesc window;
-		RenderSystem& renderSystem;
+		GraphicsDevice& graphicsDevice;
 	};
 
-	struct SpawnerDesc
-	{
-		BaseDesc base;
-	};
-
-	struct RenderSystemDesc
+	struct GraphicsDeviceDesc
 	{
 		BaseDesc base;
 	};
@@ -39,7 +33,7 @@ namespace dx3d
 		Rect winSize{};
 	};
 
-	enum class  ShaderType
+	enum class ShaderType
 	{
 		VertexShader = 0,
 		PixelShader
@@ -49,10 +43,8 @@ namespace dx3d
 	{
 		const char* shaderSourceName{};
 		const void* shaderSourceCode{};
-
 		size_t shaderSourceCodeSize{};
-		const char* shaderSourceEntryPoint{};
-
+		const char* shaderEntryPoint{};
 		ShaderType shaderType{};
 	};
 
@@ -60,20 +52,17 @@ namespace dx3d
 	{
 		const RefPtr<ShaderBinary>& vsBinary;
 		const RefPtr<ShaderBinary>& psBinary;
-
 	};
 
 	struct BinaryData
 	{
 		const void* data{};
 		size_t dataSize{};
-
 	};
 
 	struct GraphicsPipelineStateDesc
 	{
 		const GraphicsPipelineLayout& layout;
-
 	};
 
 	struct VertexBufferDesc
@@ -95,24 +84,22 @@ namespace dx3d
 		ui32 indexListSize{};
 	};
 
+
+
 	struct GameContext
 	{
 		InputSystem& input;
 		ResourceManager& resourceManager;
-		RenderSystem& renderSystem;
+		GraphicsDevice& device;
 	};
-
-
 
 	struct GameDesc
 	{
 		Rect windowSize{ 1280,720 };
 		Logger::LogLevel logLevel = Logger::LogLevel::Error;
-
 	};
 
-
-	struct WorldDesc
+	struct WorldDesc 
 	{
 		BaseDesc base;
 		GameContext gameContext;
@@ -133,10 +120,10 @@ namespace dx3d
 		GameContext& context;
 	};
 
-	struct GraphicsEngineDesc
+	struct WorldRendererDesc
 	{
 		BaseDesc base;
-		RenderSystem& engine;
+		GraphicsDevice& engine;
 	};
 
 	enum class KeyCode
@@ -165,8 +152,6 @@ namespace dx3d
 		Shift,
 		Space,
 		Enter,
-		Delete,
-		Backspace,
 
 		// Mouse buttons (optional inclusion)
 		MouseLeft,
@@ -197,20 +182,19 @@ namespace dx3d
 	struct MaterialResourceDesc
 	{
 		ResourceDesc base;
-		RenderSystem& renderSystem;
+		GraphicsDevice& graphicsDevice;
 	};
-
 	struct TextureResourceDesc
 	{
 		ResourceDesc base;
-		RenderSystem& renderSystem;
+		GraphicsDevice& graphicsDevice;
 	};
 
 	struct SystemContext
 	{
-		RenderSystem& renderSystem;
+		GraphicsDevice& graphicsDevice;
 	};
-
+		
 	struct ResourceManagerDesc
 	{
 		BaseDesc base;
@@ -222,7 +206,6 @@ namespace dx3d
 		Rect size{};
 		const void* pixels{};
 	};
-
 	struct SamplerDesc
 	{
 	};

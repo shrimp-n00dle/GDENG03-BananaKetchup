@@ -7,7 +7,7 @@
 
 namespace dx3d
 {
-	class ResourceManager final : public Base
+	class ResourceManager final: public Base
 	{
 	public:
 		explicit ResourceManager(const ResourceManagerDesc& desc);

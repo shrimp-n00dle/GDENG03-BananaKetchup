@@ -25,36 +25,27 @@ namespace dx3d
 
 		//final - cannot be inheriated/override
 		virtual void run() final;
-
 	protected:
 		virtual void onCreate() {}
 		virtual void onUpdate(f32 deltaTime) {}
-
 	private:
 		void onInternalUpdate();
-
-	public:
-		UniquePtr<InputSystem> m_inputSystem{};
-
-	public:
-	
-	
 
 
 	private:
 		ColorWin* colorWin;
 		AboutWin* aboutWin;
 		UniquePtr<Logger> m_logger{};
-
-
-		RefPtr<RenderSystem> m_renderSystem{};
-		RefPtr<Window> m_window{};
+		UniquePtr<InputSystem> m_inputSystem{};
+		RefPtr<GraphicsDevice> m_graphicsDevice{};
 		UniquePtr<Display> m_display{};
 		UniquePtr<ResourceManager> m_resourceManager{};
-		UniquePtr<World> m_world{};
-		UniquePtr<GraphicsEngine> m_graphicsEngine{};
-		bool isRunning{ true };
+		UniquePtr<World> m_world{};	
+		
+		UniquePtr<WorldRenderer> m_worldRenderer{};
+
+		bool m_isRunning{ true };
+
 		std::chrono::steady_clock::time_point m_previousTime{};
 	};
 }
-

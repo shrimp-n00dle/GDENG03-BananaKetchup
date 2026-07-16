@@ -2,35 +2,14 @@
 #include <DX3D/Graphics/GraphicsUtils.h>
 #include <d3dcompiler.h>
 #include <DX3D/Graphics/ShaderInclude.h>
-#include <iostream>
 
-dx3d::ShaderBinary::ShaderBinary(const ShaderCompileDesc& desc, const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc),
-				m_type(desc.shaderType)
+dx3d::ShaderBinary::ShaderBinary(const ShaderCompileDesc& desc, const GraphicsResourceDesc& gDesc): 
+	GraphicsResource(gDesc), m_type(desc.shaderType)
 {
-	if (!desc.shaderSourceName)
-	{
-		//std::cout << "No shader source name provided, ShaderBinary.cpp";
-		DX3DLogThrowInvalidArg("No shader source name provided, ShaderBinary.cpp");
-	}
-
-	if (!desc.shaderSourceCode)
-	{
-		//std::cout << "No shader source code provided, ShaderBinary.cpp";
-		DX3DLogThrowInvalidArg("No shader source code provided, ShaderBinary.cpp");
-	}
-
-	if (!desc.shaderSourceCodeSize)
-	{
-		//std::cout << "No shader source code SIZE provided, ShaderBinary.cpp";
-		DX3DLogThrowInvalidArg("No shader source code SIZE provided, ShaderBinary.cpp");
-	}
-
-	if (!desc.shaderSourceEntryPoint)
-	{
-		//std::cout << "No shader source entry point provided, ShaderBinary.cpp";
-		DX3DLogThrowInvalidArg("No shader source entry point provided, ShaderBinary.cpp");
-	}
-
+	if (!desc.shaderSourceName) DX3DLogThrowInvalidArg("No shader source name provided.");
+	if (!desc.shaderSourceCode) DX3DLogThrowInvalidArg("No shader source code provided.");
+	if (!desc.shaderSourceCodeSize) DX3DLogThrowInvalidArg("No shader source code size provided.");
+	if (!desc.shaderEntryPoint) DX3DLogThrowInvalidArg("No shader entry point provided.");
 
 	UINT compileFlags{};
 
@@ -48,19 +27,21 @@ dx3d::ShaderBinary::ShaderBinary(const ShaderCompileDesc& desc, const GraphicsRe
 			desc.shaderSourceName,
 			nullptr,
 			&shaderInclude,
-			desc.shaderSourceEntryPoint,
+			desc.shaderEntryPoint,
 			dx3d::GraphicsUtils::GetShaderModelTarget(desc.shaderType),
 			compileFlags,
 			0,
-			&m_blob, 
-			&errorBlob),
-			errorBlob.Get()
-		);
+			&m_blob,
+			&errorBlob
+		),
+		errorBlob.Get()
+	);
 }
 
 dx3d::BinaryData dx3d::ShaderBinary::getData() const noexcept
 {
-	return {
+	return
+	{
 		m_blob->GetBufferPointer(),
 		m_blob->GetBufferSize()
 	};

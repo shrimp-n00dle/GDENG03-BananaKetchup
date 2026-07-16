@@ -1,17 +1,17 @@
 #pragma once
 #include <DX3D/Graphics/GraphicsResource.h>
-#include <DX3D/Core/Core.h>
+#include <DX3D/Core/Common.h>
 #include <DX3D/Core/Base.h>
 #include <d3d11.h>
 #include <wrl.h>
 
 namespace dx3d
 {
-	class RenderSystem final: public Base, public std::enable_shared_from_this<RenderSystem>
+	class GraphicsDevice final: public Base, public std::enable_shared_from_this<GraphicsDevice>
 	{
 	public:
-		explicit RenderSystem(const RenderSystemDesc& desc);
-		virtual ~RenderSystem() override;
+		explicit GraphicsDevice(const GraphicsDeviceDesc& desc);
+		virtual ~GraphicsDevice() override;
 
 		RefPtr<SwapChain> createSwapChain(const SwapChainDesc& desc);
 		RefPtr<DeviceContext> createDeviceContext();
@@ -24,6 +24,7 @@ namespace dx3d
 		RefPtr<Texture> createTexture(const TextureDesc& desc);
 		RefPtr<Sampler> createSampler(const SamplerDesc& desc);
 
+
 		void executeCommandList(DeviceContext& context);
 	private:
 		GraphicsResourceDesc getGraphicsResourceDesc() const noexcept;
@@ -35,3 +36,4 @@ namespace dx3d
 		Microsoft::WRL::ComPtr<IDXGIFactory> m_dxgiFactory{};
 	};
 }
+

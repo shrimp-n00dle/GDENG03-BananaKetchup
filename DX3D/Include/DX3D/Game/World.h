@@ -1,9 +1,11 @@
+
 #pragma once
 #include <DX3D/Core/Common.h>
 #include <DX3D/Core/Base.h>
 #include <DX3D/Core/Identifiable.h>
 #include <unordered_map>
 #include <vector>
+
 
 namespace dx3d
 {
@@ -15,11 +17,11 @@ namespace dx3d
 		template <typename T>
 		T* createGameObject() requires IsRegistered<GameObject, T>
 		{
-			UniquePtr<GameObject> e = std::make_unique<T>(GameObjectDesc{
+			UniquePtr<GameObject> e = std::make_unique<T>(GameObjectDesc{ 
 				{m_logger},
 				m_gameContext,
-				*this
-			});
+				*this 
+				});
 			return static_cast<T*>(createGameObjectInternal(e));
 		}
 
@@ -29,16 +31,13 @@ namespace dx3d
 			return reinterpret_cast<T* const*>(getComponentsInternal(T::GetTypeId(), &numComponents));
 		}
 
-
 		void update(f32 deltaTime);
-
 	private:
 		GameObject* createGameObjectInternal(UniquePtr<GameObject>& object);
 		void addComponentInternal(Component& component);
 		void addDirtyTransformInternal(TransformComponent& component);
 
 		Component* const* getComponentsInternal(size_t typeId, ui32* numComponents) const noexcept;
-	
 	private:
 		enum class EventType
 		{
@@ -51,7 +50,7 @@ namespace dx3d
 			EventType eventType{};
 		};
 
-	private:
+	private:	
 		GameContext m_gameContext;
 
 		std::unordered_map<size_t, std::vector<UniquePtr<GameObject>>> m_objects{};
@@ -65,7 +64,9 @@ namespace dx3d
 		std::vector<GameObjectEvent> m_events{};
 		std::vector<GameObjectEvent> m_eventsSwapBuffer{};
 
+
 		friend class GameObject;
 		friend class TransformComponent;
 	};
 }
+

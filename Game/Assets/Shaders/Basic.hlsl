@@ -1,3 +1,4 @@
+
 #include "DX3D/Assets/Shaders/Common.hlsl"
 
 cbuffer MaterialData : register(b2)
@@ -20,5 +21,5 @@ VSOutput VSMain(VSInput input)
 float4 PSMain(VSOutput input) : SV_TARGET
 {
     float4 diffuse = Diffuse.Sample(DefaultSampler, input.texcoord);
-    return float4(color.rgb * diffuse.rgb, 1);
+    return float4(color.rgb*diffuse.rgb, 1);
 }

@@ -1,18 +1,21 @@
+
+
 #include "MainGame.h"
 #include "Objects/Player.h"
 
+
 MainGame::MainGame(const dx3d::GameDesc& desc) : dx3d::Game(desc)
 {
-
 }
 
 void MainGame::onCreate()
 {
 	Game::onCreate();
-
 	auto& world = getWorld();
 	auto woodTex = getResourceManager().createResourceFromFile<dx3d::TextureResource>(L"Game/Assets/Textures/wood.jpg");
 	auto floorTex = getResourceManager().createResourceFromFile<dx3d::TextureResource>(L"Game/Assets/Textures/floor.jpg");
+
+
 	{
 		auto basicMat = getResourceManager().createResourceFromFile<dx3d::MaterialResource>(L"Game/Assets/Shaders/Basic.hlsl");
 		if (basicMat)
@@ -28,7 +31,7 @@ void MainGame::onCreate()
 		comp->setMaterial(basicMat);
 		floor->getTransform().setScale({ 6.8f, 0.1f, 6.8f });
 		floor->getTransform().setPosition({ 0, 0, 0 });
-
+		
 	}
 
 	srand((unsigned int)time(NULL));
@@ -55,38 +58,13 @@ void MainGame::onCreate()
 		}
 	}
 
-
-
-
-
-	//MODIFIED
-	/*for (auto y = -2; y < 3; y++)
-	{
-		for (auto x = -2; x < 3; x++)
-		{
-			auto cube = world.createGameObject<dx3d::GameObject>();
-			cube->createOrGetComponent<dx3d::CubeComponent>();
-			auto height = (rand() % 120) + (80.0f);
-			height /= 100.0f;
-
-			auto width = (rand() % 600) + (200.0f);
-			width /= 1000.0f;
-
-			cube->getTransform().setScale({ width, height, width });
-			cube->getTransform().setPosition({ x * 0.5f, (height / 2.0f) - 1.0f, y * 0.5f });
-		}
-	}*/
-
-
 	auto player = world.createGameObject<Player>();
-	player->getTransform().setPosition({ 0, 1, -2 });
-	//player->getTransform().setPosition({ 0, 1, -1 });
-	//player->getTransform().setPosition({ 0, 1, -1 });
+	player->getTransform().setPosition({ 0, 1, -2});
 
-
-	//getInputSystem().setCursorLocked(true);
-	//getInputSystem().setCursorVisible(false);
+	getInputSystem().setCursorLocked(true);
+	getInputSystem().setCursorVisible(false);
 }
+
 
 void MainGame::onUpdate(dx3d::f32 deltaTime)
 {

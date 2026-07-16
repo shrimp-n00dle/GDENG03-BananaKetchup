@@ -8,12 +8,11 @@
 
 namespace dx3d
 {
-	class InputSystem final : public Base
+	class InputSystem final: public Base
 	{
 	public:
 		explicit InputSystem(const InputSystemDesc& desc);
-	
-	public:
+
 		bool isKeyDown(KeyCode key) const;
 		bool isKeyPressed(KeyCode key) const;
 		bool isKeyReleased(KeyCode key) const;
@@ -22,8 +21,8 @@ namespace dx3d
 		Vec2 getMouseDelta() const noexcept;
 
 		void setCursorVisible(bool visible);
-		void setCursorLocked(bool locked);
-		void setCursorLockArea(const Rect& rect);
+        void setCursorLocked(bool locked);
+        void setCursorLockArea(const Rect& rect);
 
 		void update();
 
@@ -46,7 +45,6 @@ namespace dx3d
 
 		bool m_cursorVisible{ true };
 		bool m_cursorLocked{ false };
-
 	};
 
 }

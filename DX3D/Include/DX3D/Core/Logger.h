@@ -8,13 +8,13 @@ namespace dx3d
 	{
 		dx3d_disable_copy_and_move(Logger)
 	public:
-
 		enum class LogLevel
 		{
 			Error = 0,
 			Warning,
 			Info
 		};
+
 		explicit Logger(LogLevel logLevel = LogLevel::Error);
 		~Logger();
 
@@ -27,16 +27,11 @@ namespace dx3d
 			);
 		}
 	private:
-
-		//Const - doesnt alter the state of the class
 		void _log(LogLevel level, const char* message);
-
 	private:
 		LogLevel m_logLevel = LogLevel::Error;
 	};
-
 }
-
 
 #define DX3DLog(logger, type, message,...)\
 	logger.log((type), {message} __VA_OPT__(,) __VA_ARGS__);
@@ -61,6 +56,3 @@ throw exception(message);\
 
 #define DX3DLogThrowInvalidArg(message,...)\
 	DX3DLogThrow(getLogger(), std::invalid_argument, Logger::LogLevel::Error, message, __VA_ARGS__)
-
-
-

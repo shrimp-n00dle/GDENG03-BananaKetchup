@@ -3,10 +3,7 @@
 dx3d::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc& gDesc) : 
 	GraphicsResource(gDesc), m_size(desc.winSize)
 {
-
-	if (!desc.winHandle) DX3DLogThrowInvalidArg("No window handle provided, SwapChain.cpp");
-
-
+	if (!desc.winHandle) DX3DLogThrowInvalidArg("No window handle provided.");
 
 	DXGI_SWAP_CHAIN_DESC dxgiDesc{};
 
@@ -21,11 +18,10 @@ dx3d::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc
 	dxgiDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	dxgiDesc.Windowed = TRUE;
 
-
-	DX3DGraphicsLogErrorAndThrow(m_factory.CreateSwapChain(&m_device, &dxgiDesc, &m_swapChain), "SwapChain failed, check SwapChain.cpp");
+	DX3DGraphicsLogThrowOnFail(m_factory.CreateSwapChain(&m_device, &dxgiDesc, &m_swapChain),
+		"CreateSwapChain failed.");
 
 	reloadBuffers();
-
 }
 
 dx3d::Rect dx3d::SwapChain::getSize() const noexcept
@@ -41,21 +37,15 @@ void dx3d::SwapChain::present(bool vsync)
 		DX3DLogError("Present failed.");
 		return;
 	}
-
 }
 
 void dx3d::SwapChain::reloadBuffers()
 {
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> buffer{};
-	DX3DGraphicsLogErrorAndThrow
-		(m_swapChain->GetBuffer(0, IID_PPV_ARGS(&buffer)),
-		"GetBuffer() failed from SwapChain.cpp"
-		);
-
-	DX3DGraphicsLogErrorAndThrow(
-	m_device.CreateRenderTargetView(buffer.Get(), nullptr, &m_rtv),
-		"CreateRenderTargetView() failed from SwapChain.cpp"
-	);
+	DX3DGraphicsLogThrowOnFail(m_swapChain->GetBuffer(0, IID_PPV_ARGS(&buffer)),
+		"GetBuffer failed.");
+	DX3DGraphicsLogThrowOnFail(m_device.CreateRenderTargetView(buffer.Get(), nullptr, &m_rtv),
+		"CreateRenderTargetView failed.");
 
 	D3D11_TEXTURE2D_DESC depthTexDesc = {};
 	depthTexDesc.Width = std::max(1, m_size.width);
@@ -66,9 +56,9 @@ void dx3d::SwapChain::reloadBuffers()
 	depthTexDesc.SampleDesc.Count = 1;
 	depthTexDesc.ArraySize = 1;
 
-	DX3DGraphicsLogErrorAndThrow(m_device.CreateTexture2D(&depthTexDesc, nullptr, &buffer),
+	DX3DGraphicsLogThrowOnFail(m_device.CreateTexture2D(&depthTexDesc, nullptr, &buffer),
 		"CreateTexture2D failed.");
-	DX3DGraphicsLogErrorAndThrow(m_device.CreateDepthStencilView(buffer.Get(), NULL, &m_dsv),
+	DX3DGraphicsLogThrowOnFail(m_device.CreateDepthStencilView(buffer.Get(), NULL, &m_dsv),
 		"CreateDepthStencilView failed.");
-
 }
+

@@ -6,7 +6,7 @@
 
 namespace dx3d
 {
-	class Window : public Base
+	class Window: public Base
 	{
 	public:
 		explicit Window(const WindowDesc& desc);
@@ -16,11 +16,9 @@ namespace dx3d
 		void* getHandle() const { return m_handle; }
 
 		dx3d::Rect getClientAreaInScreenSpace();
-
 	protected:
 		void* m_handle{};
 		Rect m_size{};
-		
 	};
 }
 

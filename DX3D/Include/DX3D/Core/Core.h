@@ -9,13 +9,6 @@ protected:\
     Class(Class&&) = delete;             \
     Class& operator=(Class&&) = delete;
 
-//CATSUP 
-namespace catsup
-{
-	class Spawner;
-	using SpawnerPtr = std::shared_ptr<Spawner>;
-}
-
 namespace dx3d
 {
 	class Base;
@@ -23,7 +16,7 @@ namespace dx3d
 	class Game;
 	class InputSystem;
 	class GraphicsEngine;
-	class RenderSystem;
+	class GraphicsDevice;
 	class Logger;
 	class SwapChain;
 	class Display;
@@ -34,22 +27,23 @@ namespace dx3d
 	class VertexShaderSignature;
 	class ConstantBuffer;
 	class IndexBuffer;
-
 	class Texture;
 	class Sampler;
 	class GraphicsPipelineLayout;
+
+	class World;
+	class GameObject;
+	class Component;
+	class TransformComponent;
+
+	class WorldRenderer;
 
 	class ResourceManager;
 	class Resource;
 	class MaterialResource;
 	class TextureResource;
-	
 
-	class World;
-	class GameObject;
 
-	class Component;
-	class TransformComponent;
 
 	using i32 = int;
 	using ui32 = unsigned int;

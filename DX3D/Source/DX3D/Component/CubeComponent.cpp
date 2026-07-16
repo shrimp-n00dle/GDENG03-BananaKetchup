@@ -3,7 +3,8 @@
 #include <DX3D/Math/Vec3.h>
 #include <DX3D/Math/Vec2.h>
 #include <DX3D/Math/Mat4x4.h>
-#include <DX3D/Graphics/RenderSystem.h>
+#include <DX3D/Graphics/GraphicsDevice.h>
+
 
 dx3d::CubeComponent::CubeComponent(const ComponentDesc& data) : Component(data)
 {
@@ -63,8 +64,8 @@ dx3d::CubeComponent::CubeComponent(const ComponentDesc& data) : Component(data)
 	};
 
 
-	static const auto vb = m_context.renderSystem.createVertexBuffer({ vertexList, std::size(vertexList), sizeof(Vertex) });
-	static const auto ib = m_context.renderSystem.createIndexBuffer({ indexList, std::size(indexList) });
+	static const auto vb = m_context.device.createVertexBuffer({ vertexList, std::size(vertexList), sizeof(Vertex) });
+	static const auto ib = m_context.device.createIndexBuffer({ indexList, std::size(indexList) });
 
 	m_vb = vb;
 	m_ib = ib;

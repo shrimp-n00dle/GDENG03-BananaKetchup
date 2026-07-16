@@ -12,3 +12,4 @@ namespace dx3d
 		RefPtr<Texture> m_texture{};
 	};
 }
+

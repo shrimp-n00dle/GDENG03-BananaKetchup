@@ -1,12 +1,12 @@
 #include <DX3D/Resource/MaterialResource.h>
-#include <DX3D/Graphics/RenderSystem.h>
+#include <DX3D/Graphics/GraphicsDevice.h>
 #include <DX3D/Resource/ResourceManager.h>
 #include <DX3D/Graphics/GraphicsPipelineLayout.h>
 
 #include <fstream>
 #include <filesystem>
 
-dx3d::MaterialResource::MaterialResource(const MaterialResourceDesc& desc) : Resource(desc.base), m_renderSystem(desc.renderSystem)
+dx3d::MaterialResource::MaterialResource(const MaterialResourceDesc& desc) : Resource(desc.base), m_graphicsDevice(desc.graphicsDevice)
 {
 	std::filesystem::path shaderFile = desc.base.path;
 
@@ -18,17 +18,17 @@ dx3d::MaterialResource::MaterialResource(const MaterialResourceDesc& desc) : Res
 		std::istreambuf_iterator<char>()
 	};
 
-	auto vsBinary = m_renderSystem.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
+	auto vsBinary = m_graphicsDevice.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
 		shaderCode.size(), "VSMain", ShaderType::VertexShader });
-	auto psBinary = m_renderSystem.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
+	auto psBinary = m_graphicsDevice.compileShader({ shaderFileStr.c_str(), shaderCode.c_str(),
 		shaderCode.size(), "PSMain", ShaderType::PixelShader });
 
-	m_layout = m_renderSystem.createGraphicsPipelineLayout({ vsBinary, psBinary });
-	m_pipeline = m_renderSystem.createGraphicsPipelineState({ *m_layout });
+	m_layout = m_graphicsDevice.createGraphicsPipelineLayout({ vsBinary, psBinary });
+	m_pipeline = m_graphicsDevice.createGraphicsPipelineState({ *m_layout });
 	m_textures.resize(m_layout->getMaxTextureSlots());
 }
 
-dx3d::MaterialResource::MaterialResource(const MaterialResource& material, const MaterialResourceDesc& desc) : Resource(desc.base), m_renderSystem(desc.renderSystem)
+dx3d::MaterialResource::MaterialResource(const MaterialResource& material, const MaterialResourceDesc& desc) : Resource(desc.base), m_graphicsDevice(desc.graphicsDevice)
 {
 	m_layout = material.m_layout;
 	m_pipeline = material.m_pipeline;
@@ -45,7 +45,7 @@ void dx3d::MaterialResource::setData(const std::span<const std::byte>& data)
 	if (!data.size())
 	{
 		DX3DLogError("No material data provided.")
-			return;
+		return;
 	}
 	if (data.size() > MaxDataSize)
 	{
@@ -86,5 +86,3 @@ void dx3d::MaterialResource::setTexture(size_t index, const dx3d::RefPtr<Texture
 	}
 	m_textures[index] = texture;
 }
-
-

@@ -1,3 +1,4 @@
+
 #pragma once
 #include <DX3D/Core/Core.h>
 
@@ -5,12 +6,11 @@ namespace dx3d
 {
 	class Vec3
 	{
+
 	public:
 		Vec3() = default;
-		Vec3(f32 x, f32 y, f32 z) : x(x), y(y), z(z) {};
+		Vec3(f32 x, f32 y, f32 z) : x(x), y(y), z(z) {}
 
-	//Operators
-	public:
 		Vec3& operator+=(const Vec3& rhs)
 		{
 			x += rhs.x;
@@ -41,10 +41,8 @@ namespace dx3d
 				v.z * invLen
 			};
 		}
-
 	public:
 		f32 x{}, y{}, z{};
-
 	};
 
 	inline Vec3 operator+(Vec3 lhs, const Vec3& rhs)
@@ -65,3 +63,4 @@ namespace dx3d
 		return v;
 	}
 }
+
