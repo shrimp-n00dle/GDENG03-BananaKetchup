@@ -61,8 +61,8 @@ void MainGame::onCreate()
 	auto player = world.createGameObject<Player>();
 	player->getTransform().setPosition({ 0, 1, -2});
 
-	getInputSystem().setCursorLocked(true);
-	getInputSystem().setCursorVisible(false);
+	//getInputSystem().setCursorLocked(true);
+	//getInputSystem().setCursorVisible(false);
 }
 
 

@@ -33,6 +33,7 @@ dx3d::Game::Game(const GameDesc& desc)
 	ImGui_ImplWin32_Init(m_display->getHandle());
 	ImGui_ImplDX11_Init(m_graphicsDevice->m_d3dDevice.Get(),m_graphicsDevice->m_d3dContext.Get());
 
+	menuBar = new MenuBar();
 	aboutWin = new AboutWin();
 	colorWin = new ColorWin();
 
@@ -92,8 +93,9 @@ void dx3d::Game::onInternalUpdate()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	aboutWin->initialize();
-	colorWin->initialize();
+	menuBar->initialize();
+	if (menuBar->getShow())aboutWin->initialize();
+	if (menuBar->getShowColor())colorWin->initialize();
 	ImGui::Render();
 
 	m_worldRenderer->render(*m_world, m_display->getSwapChain(), deltaTime, ImGui::GetDrawData());

@@ -158,6 +158,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Graphics\Texture.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\GUI\AboutWin.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\GUI\ColorWin.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\GUI\MenuBar.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\GUI\UIManager.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\GUI\WinBase.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Input\InputSystem.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Resource\ResourceManager.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\TextureResource.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Window\Win32Window.cpp" />
+    <ClCompile Include="Game\main.cpp" />
     <ClCompile Include="Game\MainGame.cpp" />
     <ClCompile Include="DX3D\Include\DX3D\Math\MathUtils.h" />
     <ClCompile Include="DX3D\Source\DX3D\Core\Base.cpp" />
@@ -181,7 +183,6 @@
     <ClCompile Include="DX3D\Source\DX3D\Graphics\ShaderBinary.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\SwapChain.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\VertexBuffer.cpp" />
-    <ClCompile Include="Game\main.cpp" />
     <ClCompile Include="Game\Objects\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +229,7 @@
     <ClInclude Include="DX3D\Source\DX3D\Graphics\Texture.h" />
     <ClInclude Include="DX3D\Source\DX3D\GUI\AboutWin.h" />
     <ClInclude Include="DX3D\Source\DX3D\GUI\ColorWin.h" />
+    <ClInclude Include="DX3D\Source\DX3D\GUI\MenuBar.h" />
     <ClInclude Include="DX3D\Source\DX3D\GUI\UIManager.h" />
     <ClInclude Include="DX3D\Source\DX3D\GUI\WinBase.h" />
     <ClInclude Include="Game\MainGame.h" />

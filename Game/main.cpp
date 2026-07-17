@@ -1,12 +1,10 @@
 #include "MainGame.h"
 
-
 int main()
 {
-
 	try
 	{
-		MainGame game({ {1024,768},dx3d::Logger::LogLevel::Info });
+		MainGame game({ {1280,720},dx3d::Logger::LogLevel::Info });
 		game.run();
 	}
 	catch (const std::runtime_error&)
@@ -25,5 +23,6 @@ int main()
 	{
 		return EXIT_FAILURE;
 	}
+
 	return EXIT_SUCCESS;
 }
