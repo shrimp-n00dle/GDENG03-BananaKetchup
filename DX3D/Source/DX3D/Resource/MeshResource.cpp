@@ -15,6 +15,10 @@
 #include <sstream>
 #include <string>
 
+#include <cwchar>
+#include <clocale>
+#include <cstdlib> 
+
 dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.base)
 {
     tinyobj::attrib_t attribs;
@@ -25,23 +29,53 @@ dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.b
     std::string err;
 
     //PATH
-    std::ifstream file(desc.base.path);
-
-    if (!file.is_open()) std::cout << "OBJ PATH NOT FOUND" << std::endl;
-    else  std::cout << "HELLO MESH" << std::endl;
+    if (desc.base.path == nullptr) std::cout << "PARH IS NULL" << std::endl;
 
 
-   std::stringstream buffer;
-   buffer << file.rdbuf(); // Read the file buffer into the stringstream
+    //OPTION 1
+    //// Step 1: Calculate the buffer size needed (passing nullptr as the destination)
+    //size_t requiredSize = 0;
+    //errno_t err = wcstombs_s(&requiredSize, nullptr, 0, desc.base.path, 0);
 
-    std::string path = buffer.str(); // Convert to std::string
-    //std::string path = "Game/Assets/Models/teapot.obj";
+    //if (err != 0 || requiredSize == 0) {
+    //    std::cout << "Conversion failed or string is empty" << std::endl;
+    //    //return ""; // Conversion failed or string is empty
+    //}
 
-    //std::string inputfile = std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(path);
-    bool res = tinyobj::LoadObj(&attribs, &shapes, &materials, &warn, &err, path.c_str());
+    //// Step 2: Allocate a temporary buffer for the narrow character data
+    //std::string resultStr;
+    //resultStr.resize(requiredSize - 1); // Size includes null terminator, std::string handles it automatically
+
+    //// Step 3: Perform the actual conversion into the std::string buffer space
+    //size_t convertedChars = 0;
+    //err = wcstombs_s(&convertedChars, &resultStr[0], requiredSize, desc.base.path, _TRUNCATE);
+
+    //if (err != 0) {
+    //    std::cout << "Conversion failed" << std::endl;
+    //   //return ""; // Conversion failed
+    //}
+
+    //OPTION 2
+      // Determine the required buffer size
+    size_t convertedChars = 0;
+    size_t bufferSize = 0;
+    wcstombs_s(&bufferSize, nullptr, 0, desc.base.path, _TRUNCATE);
+
+    // Allocate buffer for the multibyte string
+    std::vector<char> buffer(bufferSize);
+
+    // Convert wide-character string to multibyte
+    wcstombs_s(&convertedChars, buffer.data(), bufferSize, desc.base.path, _TRUNCATE);
+
+    std::string resultStr = std::string(buffer.data());
+
+
+    std::cout << "PATH IS " + resultStr << std::endl;
+
+    bool res = tinyobj::LoadObj(&attribs, &shapes, &materials, &warn, &err, resultStr.c_str());
     if (!res)
     {
-        DX3DLogThrowError("LoadObj did not work", path.c_str());
+        DX3DLogThrowError("LoadObj did not work", resultStr.c_str());
     }
 
     if (!err.empty()) throw std::exception("MESH IS NOT CREATED #1");
@@ -83,7 +117,7 @@ dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.b
                 tinyobj::real_t tx = attribs.texcoords[index.texcoord_index * 2 + 0];
                 tinyobj::real_t ty = attribs.texcoords[index.texcoord_index * 2 + 1];
 
-                Vertex mesh_v(Vec3(vx, vy, vz), Vec2(tx, ty));
+                Vertex mesh_v(Vec3(vx, vy, vz), Vec2(0, 0));
                 vertices_count.push_back(mesh_v);
 
                 indices_count.push_back(index_offset + v);

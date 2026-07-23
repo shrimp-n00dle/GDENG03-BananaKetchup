@@ -6,6 +6,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb-image/stb_image.h>
 
+#include <iostream>
+
 
 dx3d::TextureResource::TextureResource(const TextureResourceDesc& desc) : Resource(desc.base)
 {
@@ -23,7 +25,7 @@ dx3d::TextureResource::TextureResource(const TextureResourceDesc& desc) : Resour
 
 	if (!pixels) DX3DLogThrowError("Failed to load texture file {}", textureFileStr.c_str());
 	m_texture = desc.graphicsDevice.createTexture({ {width,height}, pixels });
-
+	std::cout <<"Texture Initialized" << std::endl;
 }
 
 dx3d::Texture& dx3d::TextureResource::getTexture()
