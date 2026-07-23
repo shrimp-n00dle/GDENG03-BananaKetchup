@@ -1,5 +1,7 @@
 #include <DX3D/Graphics/MeshResource.h>
 
+
+
 dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.base)
 {
 
