@@ -22,7 +22,8 @@ dx3d::Game::Game(const GameDesc& desc)
 	m_display = std::make_unique<Display>(DisplayDesc{ {*m_logger,desc.windowSize},*m_graphicsDevice });
 	
 	auto context = SystemContext{ *m_graphicsDevice };
-	m_resourceManager = std::make_unique<ResourceManager>(ResourceManagerDesc{ {*m_logger},context });
+	//m_resourceManager = std::make_unique<ResourceManager>(ResourceManagerDesc{ {*m_logger},context });
+	m_resourceManager = std::make_shared<ResourceManager>(ResourceManagerDesc{ {*m_logger},context });
 
 	m_world = std::make_unique<World>(WorldDesc{ BaseDesc{*m_logger}, GameContext{*m_inputSystem, *m_resourceManager,*m_graphicsDevice} });
 	m_worldRenderer = std::make_unique<WorldRenderer>(WorldRendererDesc{ {*m_logger},*m_graphicsDevice });
@@ -33,9 +34,6 @@ dx3d::Game::Game(const GameDesc& desc)
 	ImGui_ImplWin32_Init(m_display->getHandle());
 	ImGui_ImplDX11_Init(m_graphicsDevice->m_d3dDevice.Get(),m_graphicsDevice->m_d3dContext.Get());
 
-	menuBar = new MenuBar();
-	aboutWin = new AboutWin();
-	colorWin = new ColorWin();
 
 	DX3DLogInfo("Game initialized.");
 }
@@ -83,7 +81,7 @@ void dx3d::Game::onInternalUpdate()
 		command->execute(*m_worldRenderer.get());
 	}*/
 
-	///m_inputSystem->update();
+	m_inputSystem->update();
 
 	onUpdate(deltaTime);
 
@@ -94,7 +92,10 @@ void dx3d::Game::onInternalUpdate()
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 	menuBar->initialize();
-	if (menuBar->getShow())aboutWin->initialize();
+
+	aboutWin->setOpen(menuBar->getShow());
+	aboutWin->initialize();
+	
 	if (menuBar->getShowColor())colorWin->initialize();
 	ImGui::Render();
 

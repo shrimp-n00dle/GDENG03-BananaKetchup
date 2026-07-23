@@ -33,15 +33,16 @@ namespace dx3d
 		void onInternalUpdate();
 
 
-	private:
-		MenuBar* menuBar;
-		ColorWin* colorWin;
-		AboutWin* aboutWin;
+	protected:
+		MenuBar* menuBar = new MenuBar();
+		ColorWin* colorWin = new ColorWin();
+		AboutWin* aboutWin = new AboutWin();
 		UniquePtr<Logger> m_logger{};
 		UniquePtr<InputSystem> m_inputSystem{};
 		RefPtr<GraphicsDevice> m_graphicsDevice{};
 		UniquePtr<Display> m_display{};
-		UniquePtr<ResourceManager> m_resourceManager{};
+		//UniquePtr<ResourceManager> m_resourceManager{};
+		RefPtr<ResourceManager> m_resourceManager{};
 		UniquePtr<World> m_world{};	
 		
 		UniquePtr<WorldRenderer> m_worldRenderer{};
