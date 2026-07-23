@@ -16,8 +16,6 @@ void MainGame::onCreate()
 	auto floorTex = getResourceManager().createResourceFromFile<dx3d::TextureResource>(L"Game/Assets/Textures/floor.jpg");
 	auto logoTex = getResourceManager().createResourceFromFile<dx3d::TextureResource>(L"Game/Assets/Textures/floor.jpg");
 	aboutWin->setUpImage(logoTex);
-
-
 	auto teapot = getResourceManager().createResourceFromFile<dx3d::MeshResource>(L"Game/Assets/Models/bunny.obj");
 
 
