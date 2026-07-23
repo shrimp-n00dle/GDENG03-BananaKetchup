@@ -155,7 +155,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Game\WorldRenderer.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\GraphicsDevice.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\GraphicsPipelineLayout.cpp" />
-    <ClCompile Include="DX3D\Source\DX3D\Graphics\MeshResource.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Resource\MeshResource.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\Sampler.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\Texture.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\GUI\AboutWin.cpp" />
@@ -227,7 +227,7 @@
     <ClInclude Include="DX3D\Source\DX3D\Game\WorldRenderer.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsDevice.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsPipelineLayout.h" />
-    <ClInclude Include="DX3D\Source\DX3D\Graphics\MeshResource.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Resource\MeshResource.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\Sampler.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ShaderInclude.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\Texture.h" />

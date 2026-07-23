@@ -18,6 +18,9 @@ void MainGame::onCreate()
 	aboutWin->setUpImage(logoTex);
 
 
+	auto teapot = getResourceManager().createResourceFromFile<dx3d::MeshResource>(L"Game/Assets/Models/bunny.obj");
+
+
 	{
 		auto basicMat = getResourceManager().createResourceFromFile<dx3d::MaterialResource>(L"Game/Assets/Shaders/Basic.hlsl");
 		if (basicMat)
@@ -38,7 +41,7 @@ void MainGame::onCreate()
 
 	srand((unsigned int)time(NULL));
 
-	for (auto y = -2; y < 3; y++)
+	/*for (auto y = -2; y < 3; y++)
 	{
 		for (auto x = -2; x < 3; x++)
 		{
@@ -52,6 +55,28 @@ void MainGame::onCreate()
 
 			auto cube = world.createGameObject<dx3d::GameObject>();
 			auto comp = cube->createOrGetComponent<dx3d::CubeComponent>();
+			comp->setMaterial(basicMat);
+			auto roty = (rand() % 628) / 100.0f;
+			cube->getTransform().setScale({ 0.5,0.5,0.5 });
+			cube->getTransform().setPosition({ x * 1.4f, 0.25f + 0.05f, y * 1.4f });
+			cube->getTransform().setRotation({ 0,roty,0 });
+		}
+	}*/
+
+	for (auto y = -2; y < 3; y++)
+	{
+		for (auto x = -2; x < 3; x++)
+		{
+			auto basicMat = getResourceManager().createResourceFromFile<dx3d::MaterialResource>(L"Game/Assets/Shaders/Basic.hlsl");
+			if (basicMat)
+			{
+				auto matData = dx3d::Vec3(1, 1, 1);
+				basicMat->setData(std::as_bytes(std::span{ &matData, 1 }));
+				basicMat->setTexture(0, woodTex);
+			}
+
+			auto cube = world.createGameObject<dx3d::GameObject>();
+			auto comp = cube->createOrGetComponent<dx3d::MeshComponent>();
 			comp->setMaterial(basicMat);
 			auto roty = (rand() % 628) / 100.0f;
 			cube->getTransform().setScale({ 0.5,0.5,0.5 });
