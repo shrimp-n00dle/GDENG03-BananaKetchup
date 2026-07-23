@@ -156,7 +156,10 @@
     <ClCompile Include="DX3D\Source\DX3D\GUI\MenuBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DX3D\Source\DX3D\Resource\MeshManager.cpp">
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\MeshResource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DX3D\Source\DX3D\Component\MeshComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -335,7 +338,10 @@
     <ClInclude Include="DX3D\Source\DX3D\GUI\MenuBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DX3D\Include\DX3D\Resource\MeshManager.h">
+    <ClInclude Include="DX3D\Source\DX3D\Graphics\MeshResource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DX3D\Include\DX3D\Component\MeshComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -17,9 +17,6 @@ void MainGame::onCreate()
 	auto logoTex = getResourceManager().createResourceFromFile<dx3d::TextureResource>(L"Game/Assets/Textures/floor.jpg");
 	aboutWin->setUpImage(logoTex);
 
-	auto teapotModel = getResourceManager().createResourceFromFile<dx3d::MeshResource>(L"");
-
-
 
 	{
 		auto basicMat = getResourceManager().createResourceFromFile<dx3d::MaterialResource>(L"Game/Assets/Shaders/Basic.hlsl");

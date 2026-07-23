@@ -148,6 +148,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Command\CommandActions.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\CameraComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\CubeComponent.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Component\MeshComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Component\TransformComponent.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Game\Component.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Game\Win32\Win32Game.cpp" />
@@ -164,7 +165,6 @@
     <ClCompile Include="DX3D\Source\DX3D\GUI\WinBase.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Input\InputSystem.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\MaterialResource.cpp" />
-    <ClCompile Include="DX3D\Source\DX3D\Resource\MeshManager.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\Resource.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\ResourceManager.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\TextureResource.cpp" />
@@ -192,6 +192,7 @@
     <ClInclude Include="DX3D\Include\DX3D\Command\CommandActions.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\CameraComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\CubeComponent.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Component\MeshComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Component\TransformComponent.h" />
     <ClInclude Include="DX3D\Include\DX3D\Core\Base.h" />
     <ClInclude Include="DX3D\Include\DX3D\Core\Common.h" />
@@ -218,7 +219,6 @@
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec3.h" />
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec4.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\MaterialResource.h" />
-    <ClInclude Include="DX3D\Include\DX3D\Resource\MeshManager.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\Resource.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\ResourceManager.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\TextureResource.h" />
