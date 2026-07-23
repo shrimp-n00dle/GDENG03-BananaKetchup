@@ -3,6 +3,8 @@
 #include <DX3D/Core/Core.h>
 #include <DX3D/Game/Component.h>
 
+
+
 namespace dx3d
 {
 	class MeshComponent final : public Component
@@ -21,6 +23,5 @@ namespace dx3d
 		RefPtr<MaterialResource> m_material{};
 		RefPtr<VertexBuffer> m_vb{};
 		RefPtr<IndexBuffer> m_ib{};
-		wchar_t path;
 	};
 }

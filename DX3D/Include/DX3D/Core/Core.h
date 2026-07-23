@@ -43,9 +43,6 @@ namespace dx3d
 	class MaterialResource;
 	class TextureResource;
 
-	class MeshManager;
-	class Mesh;
-
 
 
 	using i32 = int;
