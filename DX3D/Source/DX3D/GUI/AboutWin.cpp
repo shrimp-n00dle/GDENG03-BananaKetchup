@@ -4,9 +4,6 @@ using namespace dx3d;
 
 AboutWin::AboutWin()
 {
-	
-	//manager = nullptr;
-	setUpImage();
 }
 
 AboutWin::~AboutWin()
@@ -14,23 +11,23 @@ AboutWin::~AboutWin()
 }
 
 
-void AboutWin::setUpImage()
+void AboutWin::setUpImage(dx3d::RefPtr<dx3d::TextureResource> textSrc)
 {
-
-
-
-
+	src = textSrc;
+	ptrValue = reinterpret_cast<ImTextureID>(src.get());
+	
 }
 
 void AboutWin::initialize()
 {
 	if (b_about_open)
 	{
-		//auto texture = manager.createResourceFromFile<dx3d::TextureResource>(L"Game/Assets/Textures/wood.jpg");
 		ImGui::Begin("Credits");
 		//Insert Photo
-		//ImVec2 display_size = ImVec2(100.0f, 100.0f);
-		//ImGui::Image((ImTextureID)(intptr_t)texture, display_size);
+		ImVec2 display_size = ImVec2(100.0f, 100.0f);
+		//ImGui::Image((ImTextureID)(intptr_t)ptrValue, display_size);
+		ImGui::Image(ptrValue, display_size);
+		//ImGui::Image((ImTextureID)ptrValue, display_size);
 		//ImGui::Image((void*)my_texture_srv, display_size);
 
 		//Header

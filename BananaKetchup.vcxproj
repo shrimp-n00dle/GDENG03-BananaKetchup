@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -154,6 +154,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Game\WorldRenderer.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\GraphicsDevice.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\GraphicsPipelineLayout.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\MeshResource.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\Sampler.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\Texture.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\GUI\AboutWin.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="DX3D\Source\DX3D\GUI\WinBase.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Input\InputSystem.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\MaterialResource.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Resource\MeshManager.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\Resource.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\ResourceManager.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\TextureResource.cpp" />
@@ -216,6 +218,7 @@
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec3.h" />
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec4.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\MaterialResource.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Resource\MeshManager.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\Resource.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\ResourceManager.h" />
     <ClInclude Include="DX3D\Include\DX3D\Resource\TextureResource.h" />
@@ -224,6 +227,7 @@
     <ClInclude Include="DX3D\Source\DX3D\Game\WorldRenderer.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsDevice.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsPipelineLayout.h" />
+    <ClInclude Include="DX3D\Source\DX3D\Graphics\MeshResource.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\Sampler.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ShaderInclude.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\Texture.h" />

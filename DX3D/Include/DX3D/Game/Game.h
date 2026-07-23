@@ -41,8 +41,8 @@ namespace dx3d
 		UniquePtr<InputSystem> m_inputSystem{};
 		RefPtr<GraphicsDevice> m_graphicsDevice{};
 		UniquePtr<Display> m_display{};
-		//UniquePtr<ResourceManager> m_resourceManager{};
-		RefPtr<ResourceManager> m_resourceManager{};
+		UniquePtr<ResourceManager> m_resourceManager{};
+		//RefPtr<ResourceManager> m_resourceManager{};
 		UniquePtr<World> m_world{};	
 		
 		UniquePtr<WorldRenderer> m_worldRenderer{};

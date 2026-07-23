@@ -190,6 +190,12 @@ namespace dx3d
 		GraphicsDevice& graphicsDevice;
 	};
 
+	struct MeshResourceDesc
+	{
+		ResourceDesc base;
+		GraphicsDevice& graphicsDevice;
+	};
+
 	struct SystemContext
 	{
 		GraphicsDevice& graphicsDevice;
