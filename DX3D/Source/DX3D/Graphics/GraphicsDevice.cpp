@@ -6,6 +6,7 @@
 #include <DX3D/Graphics/GraphicsPipelineState.h>
 #include <DX3D/Graphics/VertexBuffer.h>
 #include <DX3D/Graphics/IndexBuffer.h>
+#include <DX3D/Graphics/MeshBuffer.h>
 #include <DX3D/Graphics/ConstantBuffer.h>
 #include <DX3D/Graphics/Texture.h>
 #include <DX3D/Graphics/Sampler.h>
@@ -88,6 +89,11 @@ dx3d::RefPtr<dx3d::Texture> dx3d::GraphicsDevice::createTexture(const TextureDes
 dx3d::RefPtr<dx3d::Sampler> dx3d::GraphicsDevice::createSampler(const SamplerDesc& desc)
 {
 	return std::make_shared<Sampler>(desc, getGraphicsResourceDesc());
+}
+
+dx3d::RefPtr<dx3d::MeshBuffer> dx3d::GraphicsDevice::createMesh(const MeshBufferDesc& desc)
+{
+	return std::make_shared<MeshBuffer>(desc, getGraphicsResourceDesc());
 }
 
 void dx3d::GraphicsDevice::executeCommandList(DeviceContext& context)

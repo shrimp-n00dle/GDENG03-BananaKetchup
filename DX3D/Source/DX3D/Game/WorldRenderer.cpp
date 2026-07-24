@@ -89,6 +89,9 @@ void dx3d::WorldRenderer::render(const World& world, SwapChain& swapChain, f32 d
 				ConstantBuffer* cbs[] = { &objectCb, &cameraCb, &materialCb};
 				context.setConstantBuffers(std::span<ConstantBuffer*>{cbs});
 
+				auto vb = component->callVertexBuffer(m_graphicsDevice);
+				auto ib = component->callIndexBuffer(m_graphicsDevice);
+
 				m_textures.clear();
 				m_textures.resize(material->getNumTextures());
 				for (auto t: std::views::iota(0u, m_textures.size()))
@@ -97,9 +100,8 @@ void dx3d::WorldRenderer::render(const World& world, SwapChain& swapChain, f32 d
 					if (tex) m_textures[t] = &tex->getTexture();
 				}
 				context.setTextures(std::span<Texture*>{m_textures});
-
-				context.setVertexBuffer(component->getVertexBuffer());
-				context.setIndexBuffer(component->getIndexBuffer());
+				context.setVertexBuffer(*vb);
+				context.setIndexBuffer(*ib);
 				context.drawIndexedTriangleList(component->getIndexBuffer().getIndexListSize(), 0u, 0u);
 			}
 		}

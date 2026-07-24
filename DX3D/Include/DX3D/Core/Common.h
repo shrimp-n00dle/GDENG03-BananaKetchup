@@ -3,8 +3,12 @@
 #include <DX3D/Core/Logger.h>
 #include <DX3D/Math/Rect.h>
 
+#include <DX3D/Math/Vec3.h>
+#include <vector>
+
 namespace dx3d
 {
+
 	struct BaseDesc
 	{
 		Logger& logger;
@@ -84,6 +88,21 @@ namespace dx3d
 		ui32 indexListSize{};
 	};
 
+
+	struct Vertex
+	{
+		Vec3 position;
+	};
+
+
+	struct MeshBufferDesc
+	{
+		std::vector<Vertex> verticesList{};
+		std::vector<ui32> indicesList{};
+
+		//VertexBufferDesc& vertex;
+		//IndexBufferDesc& index;
+	};
 
 
 	struct GameContext

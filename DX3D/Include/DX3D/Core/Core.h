@@ -24,6 +24,7 @@ namespace dx3d
 	class ShaderBinary;
 	class GraphicsPipelineState;
 	class VertexBuffer;
+	class MeshBuffer;
 	class VertexShaderSignature;
 	class ConstantBuffer;
 	class IndexBuffer;
@@ -42,6 +43,7 @@ namespace dx3d
 	class Resource;
 	class MaterialResource;
 	class TextureResource;
+	class MeshResource;
 
 
 

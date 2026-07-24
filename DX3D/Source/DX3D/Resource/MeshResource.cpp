@@ -49,14 +49,6 @@ dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.b
 
     //if (shapes.size() > 1) throw std::exception("MESH IS NOT CREATED #2");
 
-
-    struct Vertex
-    {
-        Vec3 position;
-        Vec2 texCoord;
-    };
-
-    std::vector<Vertex> vertices_count;
     std::vector<ui32> indices_count;
 
     int index = 0;
@@ -65,8 +57,6 @@ dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.b
 
     std::vector<Vec3> vectors;
     std::vector<ui32> indices;
-
-
 
 
     std::string line;
@@ -98,6 +88,8 @@ dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.b
 
     }
 
+
+    std::vector<Vertex> vertices_count;
     for (auto& coords : vectors)
     {
         Vertex v{};
@@ -106,26 +98,8 @@ dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.b
 
     }
 
+    std::cout << "VERICTES COUNT IS " + static_cast<ui32>(vectors.size()) << std::endl;
+    std::cout << "INDICES COUNT IS " + static_cast<ui32>(indices.size()) << std::endl;
 
-    std::cout << "VERICTES COUNT IS " + vertices_count.size() << std::endl;
-    std::cout << "INDICES COUNT IS " + indices_count.size() << std::endl;
-
-    Vertex mesh_vertices[2503];
-
-    for (int i = 0; i < vertices_count.size(); i++)
-    {
-        mesh_vertices[i] = vertices_count[i];
-    }
-
-    ui32 mesh_indices[4968];
-    for (int i = 0; i < indices_count.size(); i++)
-    {
-        mesh_indices[i] = indices_count[i];
-    }
-
-
-    m_vertex_buffer = desc.graphicsDevice.createVertexBuffer({mesh_vertices, std::size(mesh_vertices), sizeof(Vertex)});
-    m_index_buffer = desc.graphicsDevice.createIndexBuffer({ mesh_indices, std::size(mesh_indices) });
-
-
+    m_mesh_buffer = desc.graphicsDevice.createMesh({vertices_count, indices});
 }

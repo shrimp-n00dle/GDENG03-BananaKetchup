@@ -23,6 +23,7 @@ namespace dx3d
 		RefPtr<IndexBuffer> createIndexBuffer(const IndexBufferDesc& desc);
 		RefPtr<Texture> createTexture(const TextureDesc& desc);
 		RefPtr<Sampler> createSampler(const SamplerDesc& desc);
+		RefPtr<MeshBuffer> createMesh(const MeshBufferDesc& desc);
 
 
 		void executeCommandList(DeviceContext& context);
