@@ -14,6 +14,7 @@ void MainGame::onCreate()
 	auto& world = getWorld();
 	auto woodTex = getResourceManager().createResourceFromFile<dx3d::TextureResource>(L"Game/Assets/Textures/wood.jpg");
 	auto floorTex = getResourceManager().createResourceFromFile<dx3d::TextureResource>(L"Game/Assets/Textures/floor.jpg");
+	auto brickTex = getResourceManager().createResourceFromFile<dx3d::TextureResource>(L"Game/Assets/Textures/brick.jpg");
 	auto logoTex = getResourceManager().createResourceFromFile<dx3d::TextureResource>(L"Game/Assets/Textures/floor.jpg");
 	aboutWin->setUpImage(logoTex);
 
@@ -27,6 +28,14 @@ void MainGame::onCreate()
 		auto matData = dx3d::Vec3(1, 1, 1);
 		basicMat->setData(std::as_bytes(std::span{ &matData, 1 }));
 		basicMat->setTexture(0, woodTex);
+	}
+
+	auto brickMat = getResourceManager().createResourceFromFile<dx3d::MaterialResource>(L"Game/Assets/Shaders/Basic.hlsl");
+	if (basicMat)
+	{
+		auto matData = dx3d::Vec3(1, 1, 1);
+		brickMat->setData(std::as_bytes(std::span{ &matData, 1 }));
+		brickMat->setTexture(0, brickTex);
 	}
 
 	//BUNNY
@@ -43,7 +52,7 @@ void MainGame::onCreate()
 	//TEAPOT
 	auto teapot = world.createGameObject<dx3d::GameObject>();
 	auto Teapotcomp = teapot->createOrGetComponent<dx3d::MeshComponent>();
-	Teapotcomp->setMaterial(basicMat);
+	Teapotcomp->setMaterial(brickMat);
 	Teapotcomp->assignMesh(teapotMesh->getMesh());
 	auto rotyTeaPot = (rand() % 628) / 100.0f;
 	teapot->getTransform().setScale({ 1,1,1 });
