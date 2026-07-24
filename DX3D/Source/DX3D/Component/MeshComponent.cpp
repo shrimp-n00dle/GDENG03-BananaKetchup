@@ -62,11 +62,3 @@ dx3d::IndexBuffer& dx3d::MeshComponent::getIndexBuffer()
 {
 	return *m_ib;
 }
-
-void dx3d::MeshComponent::onUpdate(dx3d::f32 deltaTime)
-{
-	if (input.isKeyDown(dx3d::KeyCode::J)) { std::cout << "J" << std::endl; meshScale += 1.0f; };
-	if (input.isKeyDown(dx3d::KeyCode::L)) meshScale += -1.0f;
-
-	modelScale.setScale({ meshScale,meshScale,meshScale});
-}

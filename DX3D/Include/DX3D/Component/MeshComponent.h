@@ -19,7 +19,6 @@ namespace dx3d
 
 		void setMaterial(const RefPtr<MaterialResource>& material);
 		void assignMesh(const RefPtr<MeshBuffer>& mesh) noexcept;
-		virtual void onUpdate(dx3d::f32 deltaTime);
 		MaterialResource* getMaterial();
 
 		VertexBuffer& getVertexBuffer();
