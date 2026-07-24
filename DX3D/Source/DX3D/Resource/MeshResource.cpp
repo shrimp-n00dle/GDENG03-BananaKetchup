@@ -21,66 +21,33 @@
 
 dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.base)
 {
-    tinyobj::attrib_t attribs;
-    std::vector<tinyobj::shape_t> shapes;
-    std::vector<tinyobj::material_t> materials;
+    //tinyobj::attrib_t attribs;
+    //std::vector<tinyobj::shape_t> shapes;
+    //std::vector<tinyobj::material_t> materials;
 
-    std::string warn;
-    std::string err;
+    //std::string warn;
+    //std::string err;
 
-    //PATH
-    if (desc.base.path == nullptr) std::cout << "PARH IS NULL" << std::endl;
+    ////PATH
+    //if (desc.base.path == nullptr) std::cout << "PARH IS NULL" << std::endl;
 
-
-    //OPTION 1
-    //// Step 1: Calculate the buffer size needed (passing nullptr as the destination)
-    //size_t requiredSize = 0;
-    //errno_t err = wcstombs_s(&requiredSize, nullptr, 0, desc.base.path, 0);
-
-    //if (err != 0 || requiredSize == 0) {
-    //    std::cout << "Conversion failed or string is empty" << std::endl;
-    //    //return ""; // Conversion failed or string is empty
-    //}
-
-    //// Step 2: Allocate a temporary buffer for the narrow character data
-    //std::string resultStr;
-    //resultStr.resize(requiredSize - 1); // Size includes null terminator, std::string handles it automatically
-
-    //// Step 3: Perform the actual conversion into the std::string buffer space
+    ////OPTION 2
     //size_t convertedChars = 0;
-    //err = wcstombs_s(&convertedChars, &resultStr[0], requiredSize, desc.base.path, _TRUNCATE);
-
-    //if (err != 0) {
-    //    std::cout << "Conversion failed" << std::endl;
-    //   //return ""; // Conversion failed
+    //size_t bufferSize = 0;
+    //wcstombs_s(&bufferSize, nullptr, 0, desc.base.path, _TRUNCATE);
+    //std::vector<char> buffer(bufferSize);
+    //wcstombs_s(&convertedChars, buffer.data(), bufferSize, desc.base.path, _TRUNCATE);
+    //std::string resultStr = std::string(buffer.data());
+    //std::cout << "PATH IS " + resultStr << std::endl;
+    //bool res = tinyobj::LoadObj(&attribs, &shapes, &materials, &warn, &err, resultStr.c_str());
+    //if (!res)
+    //{
+    //    DX3DLogThrowError("LoadObj did not work", resultStr.c_str());
     //}
 
-    //OPTION 2
-      // Determine the required buffer size
-    size_t convertedChars = 0;
-    size_t bufferSize = 0;
-    wcstombs_s(&bufferSize, nullptr, 0, desc.base.path, _TRUNCATE);
+    //if (!err.empty()) throw std::exception("MESH IS NOT CREATED #1");
 
-    // Allocate buffer for the multibyte string
-    std::vector<char> buffer(bufferSize);
-
-    // Convert wide-character string to multibyte
-    wcstombs_s(&convertedChars, buffer.data(), bufferSize, desc.base.path, _TRUNCATE);
-
-    std::string resultStr = std::string(buffer.data());
-
-
-    std::cout << "PATH IS " + resultStr << std::endl;
-
-    bool res = tinyobj::LoadObj(&attribs, &shapes, &materials, &warn, &err, resultStr.c_str());
-    if (!res)
-    {
-        DX3DLogThrowError("LoadObj did not work", resultStr.c_str());
-    }
-
-    if (!err.empty()) throw std::exception("MESH IS NOT CREATED #1");
-
-    if (shapes.size() > 1) throw std::exception("MESH IS NOT CREATED #2");
+    //if (shapes.size() > 1) throw std::exception("MESH IS NOT CREATED #2");
 
 
     struct Vertex
@@ -93,43 +60,50 @@ dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.b
     std::vector<ui32> indices_count;
 
     int index = 0;
+    std::ifstream file(desc.base.path);
+    if (!file.is_open()) return;
+
+    std::vector<Vec3> vectors;
+    std::vector<ui32> indices;
 
 
-    for (size_t s = 0; s < shapes.size(); s++)
-    {
-        size_t index_offset = 0;
-        vertices_count.reserve(shapes[s].mesh.indices.size());
-        indices_count.reserve(shapes[s].mesh.indices.size());
-
-        for (size_t f = 0; f < shapes[s].mesh.num_face_vertices.size(); f++)
-        {
-            unsigned char num_face_verts = shapes[s].mesh.num_face_vertices[f];
-
-            for (unsigned char v = 0; v < num_face_verts; v++)
-            {
-                std::cout << index << std::endl;
-                index++;
-
-                tinyobj::index_t index = shapes[s].mesh.indices[index_offset + v];
-
-                //Vertices
-                tinyobj::real_t vx = attribs.vertices[index.vertex_index * 3 + 0];
-                tinyobj::real_t vy = attribs.vertices[index.vertex_index * 3 + 1];
-                tinyobj::real_t vz = attribs.vertices[index.vertex_index * 3 + 2];
 
 
-                //Textures
-                tinyobj::real_t tx = attribs.texcoords[index.texcoord_index * 2 + 0];
-                tinyobj::real_t ty = attribs.texcoords[index.texcoord_index * 2 + 1];
+    std::string line;
+    while (std::getline(file, line)) {
+        std::stringstream ss(line);
+        std::string prefix;
+        ss >> prefix;
 
-                Vertex mesh_v(Vec3(vx, vy, vz), Vec2(0, 0));
-                vertices_count.push_back(mesh_v);
-
-                indices_count.push_back(index_offset + v);
-            }
-
-            index_offset += num_face_verts;
+        if (prefix == "v") {
+            float x, y, z;
+            ss >> x >> y >> z;
+            vectors.push_back({ x, y, z });
         }
+
+        else if (prefix == "f")
+        {
+            std::string vStr;
+            for (int i = 0; i < 3; i++)
+            {
+                ss >> vStr;
+                if (!vStr.empty())
+                {
+                    size_t slash = vStr.find('/');
+                    int vIndex = std::stoi(vStr.substr(0,slash));
+                    indices.push_back(static_cast<ui32>(vIndex - 1));
+                }
+            }
+        }
+
+    }
+
+    for (auto& coords : vectors)
+    {
+        Vertex v{};
+        v.position = coords;
+        vertices_count.push_back(v);
+
     }
 
 

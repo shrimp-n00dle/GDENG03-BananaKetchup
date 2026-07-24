@@ -12,6 +12,8 @@
 #include <DX3D/Component/TransformComponent.h>
 #include <DX3D/Component/CubeComponent.h>
 #include <DX3D/Component/CameraComponent.h>
+#include <DX3D/Component/MeshComponent.h>
+
 
 #include <DX3D/Resource/MaterialResource.h>
 #include <DX3D/Resource/TextureResource.h>
@@ -69,7 +71,7 @@ void dx3d::WorldRenderer::render(const World& world, SwapChain& swapChain, f32 d
 
 	{	
 		ObjectData objectData{};
-		auto components = world.getComponents<CubeComponent>(numComponents);
+		auto components = world.getComponents<MeshComponent>(numComponents);
 		for (auto i : std::views::iota(0u, numComponents))
 		{
 			auto component = components[i];
