@@ -92,6 +92,8 @@ dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.b
     std::vector<Vertex> vertices_count;
     std::vector<ui32> indices_count;
 
+    int index = 0;
+
 
     for (size_t s = 0; s < shapes.size(); s++)
     {
@@ -105,6 +107,9 @@ dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.b
 
             for (unsigned char v = 0; v < num_face_verts; v++)
             {
+                std::cout << index << std::endl;
+                index++;
+
                 tinyobj::index_t index = shapes[s].mesh.indices[index_offset + v];
 
                 //Vertices
