@@ -30,22 +30,22 @@ namespace dx3d
 	};
 
 	//Space Bar - Spawn Shapes
-	class SpawnCommand : public Command
-	{
+	//class SpawnCommand : public Command
+	//{
 
-	public:
-		virtual void execute(WorldRenderer& g);
-		virtual void undo(WorldRenderer& g);
-	};
+	//public:
+	//	virtual void execute(WorldRenderer& g);
+	//	virtual void undo(WorldRenderer& g);
+	//};
 
 	//Backspace - remove the latest shape added
-	class DeleteCommand : public Command
-	{
-	public:
-		virtual void execute(WorldRenderer& g);
-		virtual void undo(WorldRenderer& g);
+	//class DeleteCommand : public Command
+	//{
+	//public:
+	//	virtual void execute(WorldRenderer& g);
+	//	virtual void undo(WorldRenderer& g);
 
-	};
+	//};
 
 	//Escape - closes program
 	class EndCommand : public Command

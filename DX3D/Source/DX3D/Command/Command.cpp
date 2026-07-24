@@ -14,37 +14,37 @@ void dx3d::Command::promptList()
 
 }
 
-void dx3d::SpawnCommand::execute(WorldRenderer& g)
-{
-	//g.callSpawn();
-	
-
-	//Command Queue
-	queueList.push_back("[SPACEBAR] Cube summoned.");
-	promptList();
-}
-void dx3d::SpawnCommand::undo(WorldRenderer& g)
-{
-	///g.removeRecent();
-
-	//Command Queue
-	queueList.push_back("[BACKSPACE] Cube removed.");
-	promptList();
-}
-
-void dx3d::DeleteCommand::execute(WorldRenderer& g)
-{
-	//g.removeRecent();
-
-	//Command Queue
-	queueList.push_back("[BACKSPACE] Cube removed.");
-	promptList();
-}
-
-void dx3d::DeleteCommand::undo(WorldRenderer& g)
-{
-	promptList();
-}
+//void dx3d::SpawnCommand::execute(WorldRenderer& g)
+//{
+//	//g.callSpawn();
+//	
+//
+//	//Command Queue
+//	queueList.push_back("[SPACEBAR] Cube summoned.");
+//	promptList();
+//}
+//void dx3d::SpawnCommand::undo(WorldRenderer& g)
+//{
+//	///g.removeRecent();
+//
+//	//Command Queue
+//	queueList.push_back("[BACKSPACE] Cube removed.");
+//	promptList();
+//}
+//
+//void dx3d::DeleteCommand::execute(WorldRenderer& g)
+//{
+//	//g.removeRecent();
+//
+//	//Command Queue
+//	queueList.push_back("[BACKSPACE] Cube removed.");
+//	promptList();
+//}
+//
+//void dx3d::DeleteCommand::undo(WorldRenderer& g)
+//{
+//	promptList();
+//}
 
 void dx3d::EndCommand::execute(WorldRenderer& g)
 {
