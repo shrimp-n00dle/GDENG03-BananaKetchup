@@ -39,7 +39,7 @@ void MainGame::onCreate()
 	}
 
 	//BUNNY
-	auto bunny = world.createGameObject<dx3d::GameObject>();
+	auto bunny = world.createGameObject<MeshObject>();
 	auto Bunnycomp = bunny->createOrGetComponent<dx3d::MeshComponent>();
 	Bunnycomp->setMaterial(basicMat);
 	Bunnycomp->assignMesh(bunnyMesh->getMesh());
@@ -50,7 +50,7 @@ void MainGame::onCreate()
 
 
 	//TEAPOT
-	auto teapot = world.createGameObject<dx3d::GameObject>();
+	auto teapot = world.createGameObject<MeshObject>();
 	auto Teapotcomp = teapot->createOrGetComponent<dx3d::MeshComponent>();
 	Teapotcomp->setMaterial(brickMat);
 	Teapotcomp->assignMesh(teapotMesh->getMesh());
@@ -60,7 +60,7 @@ void MainGame::onCreate()
 	teapot->getTransform().setRotation({ 0,rotyTeaPot,0 });
 
 	//ARMADILLO
-	auto arma = world.createGameObject<dx3d::GameObject>();
+	auto arma = world.createGameObject<MeshObject>();
 	auto Armacomp = arma->createOrGetComponent<dx3d::MeshComponent>();
 	Armacomp->setMaterial(basicMat);
 	Armacomp->assignMesh(armaMesh->getMesh());

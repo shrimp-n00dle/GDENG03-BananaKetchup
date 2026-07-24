@@ -17,6 +17,7 @@
 
 
 #include <DX3D/Game/GameObject.h>
+#include <DX3D/Game/MeshObject.h>
 #include <DX3D/Game/World.h>
 
 

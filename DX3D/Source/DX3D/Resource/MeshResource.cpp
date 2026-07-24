@@ -98,8 +98,5 @@ dx3d::MeshResource::MeshResource(const MeshResourceDesc& desc) : Resource(desc.b
 
     }
 
-    std::cout << "VERICTES COUNT IS " + static_cast<ui32>(vectors.size()) << std::endl;
-    std::cout << "INDICES COUNT IS " + static_cast<ui32>(indices.size()) << std::endl;
-
     m_mesh_buffer = desc.graphicsDevice.createMesh({vertices_count, indices});
 }

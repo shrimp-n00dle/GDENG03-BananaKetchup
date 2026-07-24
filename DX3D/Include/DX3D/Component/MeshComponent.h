@@ -2,9 +2,11 @@
 #pragma once
 #include <DX3D/Core/Core.h>
 #include <DX3D/Game/Component.h>
+#include <DX3D/Component/TransformComponent.h>
 #include <DX3D/Graphics/MeshBuffer.h>
 #include <DX3D/Graphics/GraphicsDevice.h>
-
+#include <DX3D/Input/InputSystem.h>
+#include <DX3D/Game/GameObject.h>
 
 
 namespace dx3d
@@ -17,6 +19,7 @@ namespace dx3d
 
 		void setMaterial(const RefPtr<MaterialResource>& material);
 		void assignMesh(const RefPtr<MeshBuffer>& mesh) noexcept;
+		virtual void onUpdate(dx3d::f32 deltaTime);
 		MaterialResource* getMaterial();
 
 		VertexBuffer& getVertexBuffer();
@@ -26,6 +29,9 @@ namespace dx3d
 		RefPtr<dx3d::IndexBuffer> callIndexBuffer(GraphicsDevice& _device);
 
 	private:
+		float meshScale = 1.0f;
+		dx3d::InputSystem& input;
+		dx3d::TransformComponent& modelScale;
 		RefPtr<MaterialResource> m_material{};
 		RefPtr<VertexBuffer> m_vb;
 		RefPtr<IndexBuffer> m_ib;

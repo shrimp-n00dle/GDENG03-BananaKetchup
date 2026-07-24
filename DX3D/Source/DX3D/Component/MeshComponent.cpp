@@ -6,7 +6,8 @@
 #include <DX3D/Graphics/GraphicsDevice.h>
 
 
-dx3d::MeshComponent::MeshComponent(const ComponentDesc& data) : Component(data)
+dx3d::MeshComponent::MeshComponent(const ComponentDesc& data) : Component(data), input(data.object.getInputSystem())
+	,modelScale(data.object.getTransform())
 {
 }
 
@@ -60,4 +61,12 @@ dx3d::VertexBuffer& dx3d::MeshComponent::getVertexBuffer()
 dx3d::IndexBuffer& dx3d::MeshComponent::getIndexBuffer()
 {
 	return *m_ib;
+}
+
+void dx3d::MeshComponent::onUpdate(dx3d::f32 deltaTime)
+{
+	if (input.isKeyDown(dx3d::KeyCode::J)) { std::cout << "J" << std::endl; meshScale += 1.0f; };
+	if (input.isKeyDown(dx3d::KeyCode::L)) meshScale += -1.0f;
+
+	modelScale.setScale({ meshScale,meshScale,meshScale});
 }

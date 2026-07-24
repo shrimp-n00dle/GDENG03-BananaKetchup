@@ -11,6 +11,7 @@ namespace dx3d
 	public:
 		explicit Component(const ComponentDesc& desc);
 		GameObject& getGameObject() noexcept;
+		virtual void onUpdate(dx3d::f32 deltaTime) {};
 	
 	protected:
 		GameObject& m_object;

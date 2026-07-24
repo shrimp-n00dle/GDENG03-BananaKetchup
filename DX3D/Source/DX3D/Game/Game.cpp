@@ -76,11 +76,11 @@ void dx3d::Game::onInternalUpdate()
 
 	//Rendering Shapes Input Handler
 
-	Command* command = m_inputSystem->handleInput();
-	if (command)
-	{
-		command->execute(*m_worldRenderer.get());
-	}
+	//Command* command = m_inputSystem->handleInput();
+	//if (command)
+	//{
+	//	command->execute(*m_worldRenderer.get());
+	//}
 
 	m_inputSystem->update();
 

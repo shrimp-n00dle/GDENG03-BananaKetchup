@@ -46,16 +46,16 @@ void dx3d::Command::promptList()
 //	promptList();
 //}
 
-void dx3d::EndCommand::execute(WorldRenderer& g)
-{
+//void dx3d::EndCommand::execute(WorldRenderer& g)
+//{
 //	g.closeProgram();
-
-	//Command Queue
-	queueList.push_back("[ESCAPE] Program Terminated.");
-	promptList();
-	
-}
-void dx3d::EndCommand::undo(WorldRenderer& g)
-{
-	promptList();
-}
+//
+//	//Command Queue
+//	queueList.push_back("[ESCAPE] Program Terminated.");
+//	promptList();
+//	
+//}
+//void dx3d::EndCommand::undo(WorldRenderer& g)
+//{
+//	promptList();
+//}

@@ -131,6 +131,13 @@ namespace dx3d
 		World& world;
 	};
 
+	struct MeshObjectDesc
+	{
+		BaseDesc base;
+		GameContext gameContext;
+		World& world;
+	};
+
 	struct ComponentDesc
 	{
 		BaseDesc base;

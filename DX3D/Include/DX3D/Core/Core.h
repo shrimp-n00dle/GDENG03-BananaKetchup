@@ -34,6 +34,7 @@ namespace dx3d
 
 	class World;
 	class GameObject;
+	class MeshObject;
 	class Component;
 	class TransformComponent;
 
