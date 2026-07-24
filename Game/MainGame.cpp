@@ -18,6 +18,8 @@ void MainGame::onCreate()
 	aboutWin->setUpImage(logoTex);
 
 	auto bunnyMesh = getResourceManager().createResourceFromFile<dx3d::MeshResource>(L"Game/Assets/Models/bunny.obj");
+	auto teapotMesh = getResourceManager().createResourceFromFile<dx3d::MeshResource>(L"Game/Assets/Models/teapot.obj");
+	auto armaMesh = getResourceManager().createResourceFromFile<dx3d::MeshResource>(L"Game/Assets/Models/armadillo.obj");
 
 	auto basicMat = getResourceManager().createResourceFromFile<dx3d::MaterialResource>(L"Game/Assets/Shaders/Basic.hlsl");
 	if (basicMat)
@@ -26,14 +28,37 @@ void MainGame::onCreate()
 		basicMat->setData(std::as_bytes(std::span{ &matData, 1 }));
 		basicMat->setTexture(0, woodTex);
 	}
+
+	//BUNNY
 	auto bunny = world.createGameObject<dx3d::GameObject>();
-	auto comp = bunny->createOrGetComponent<dx3d::MeshComponent>();
-	comp->setMaterial(basicMat);
-	comp->assignMesh(bunnyMesh->getMesh());
-	auto roty = (rand() % 628) / 100.0f;
-	bunny->getTransform().setScale({ 0.5,0.5,0.5 });
-	bunny->getTransform().setPosition({1, 1,1});
-	bunny->getTransform().setRotation({ 0,roty,0 });
+	auto Bunnycomp = bunny->createOrGetComponent<dx3d::MeshComponent>();
+	Bunnycomp->setMaterial(basicMat);
+	Bunnycomp->assignMesh(bunnyMesh->getMesh());
+	auto rotyBunny = (rand() % 628) / 100.0f;
+	bunny->getTransform().setScale({ 5,5,5 });
+	bunny->getTransform().setPosition({2,0,0});
+	bunny->getTransform().setRotation({ 0,rotyBunny,0 });
+
+
+	//TEAPOT
+	auto teapot = world.createGameObject<dx3d::GameObject>();
+	auto Teapotcomp = teapot->createOrGetComponent<dx3d::MeshComponent>();
+	Teapotcomp->setMaterial(basicMat);
+	Teapotcomp->assignMesh(teapotMesh->getMesh());
+	auto rotyTeaPot = (rand() % 628) / 100.0f;
+	teapot->getTransform().setScale({ 1,1,1 });
+	teapot->getTransform().setPosition({ 1, 0,0 });
+	teapot->getTransform().setRotation({ 0,rotyTeaPot,0 });
+
+	//ARMADILLO
+	auto arma = world.createGameObject<dx3d::GameObject>();
+	auto Armacomp = arma->createOrGetComponent<dx3d::MeshComponent>();
+	Armacomp->setMaterial(basicMat);
+	Armacomp->assignMesh(armaMesh->getMesh());
+	auto rotyArma = (rand() % 628) / 100.0f;
+	arma->getTransform().setScale({ 0.2,0.2,0.2 });
+	arma->getTransform().setPosition({ 3, 0,0 });
+	arma->getTransform().setRotation({ 0,rotyArma,0 });
 
 	/*{
 		auto basicMat = getResourceManager().createResourceFromFile<dx3d::MaterialResource>(L"Game/Assets/Shaders/Basic.hlsl");
