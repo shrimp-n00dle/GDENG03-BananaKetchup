@@ -75,7 +75,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>Intermediate\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>DX3D/Include;DX3D/Source;DX3D/Vendor/stb-image/include/;DX3D/Vendor/tinyobj/;$(IncludePath)</IncludePath>
+    <IncludePath>DX3D/Include;DX3D/Source;DX3D/Vendor/stb-image/include/;DX3D/Vendor/tinyobj/;DX3D/Vendor/reactPhysics3D;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;DX3D/Vendor/stb-image/include/;DX3D/Vendor/stb-image/include/</IncludePath>
