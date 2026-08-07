@@ -16,9 +16,9 @@ PhysicsObject::PhysicsObject(const dx3d::GameObjectDesc& desc) : dx3d::GameObjec
 
 	//Transform transform;
 	//transform.setFromOpenGL(this->getTransform()->)
-	Transform transform( Vector3(getTransform().getPosition().x, 
-								getTransform().getPosition().y,
-								getTransform().getPosition().z)
+	Transform transform( Vector3(this->getTransform().getPosition().x, 
+								this->getTransform().getPosition().y,
+								this->getTransform().getPosition().z)
 								, 
 						orientation);
 
@@ -46,6 +46,15 @@ RigidBody* PhysicsObject::getRigidBody()
 	return rigidBody;
 }
 
+void PhysicsObject::isObjStatic(bool v)
+{
+	//If it is static
+	if (v == true)
+	{
+		this->rigidBody->setType(BodyType::STATIC);
+	}
+}
+
 void PhysicsObject::onCreate()
 {
 	createOrGetComponent<dx3d::MeshComponent>();
@@ -53,7 +62,6 @@ void PhysicsObject::onCreate()
 
 void PhysicsObject::onUpdate(dx3d::f32 deltaTime)
 {
-	std::cout << "P6!!" << std::endl;
 	//Get Transform
 	Transform transform = this->rigidBody->getTransform();
 

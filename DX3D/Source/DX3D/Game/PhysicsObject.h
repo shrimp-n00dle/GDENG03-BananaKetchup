@@ -16,10 +16,12 @@ class PhysicsObject : public dx3d::GameObject
 public:
 	explicit PhysicsObject(const dx3d::GameObjectDesc& desc);
 	virtual ~PhysicsObject() override;
+	void isObjStatic(bool v);
 protected:
 	virtual void onCreate();
 	virtual void onUpdate(dx3d::f32 deltaTime);
 	RigidBody* getRigidBody();
+
 
 
 public:

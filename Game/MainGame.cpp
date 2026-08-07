@@ -38,25 +38,64 @@ void MainGame::onCreate()
 		brickMat->setTexture(0, brickTex);
 	}
 
+
+	//FLOOOR
+	auto floor = world.createGameObject<dx3d::GameObject>();
+	floor->createOrGetComponent<dx3d::CubeComponent>();
+	auto comp = floor->createOrGetComponent<dx3d::CubeComponent>();
+	comp->setMaterial(basicMat);
+	floor->getTransform().setScale({ 10.8f, 0.1f, 6.8f });
+	floor->getTransform().setPosition({ 2, 0, 0 });
+
+
+	//CUBE
+	//for (auto y = -2; y < 3; y++)
+	//{
+	//	for (auto x = -2; x < 3; x++)
+	//	{
+	//		auto cube = world.createGameObject<PhysicsObject>();
+	//		cube->createOrGetComponent<dx3d::CubeComponent>();
+	//		auto height = (rand() % 120) + (80.0f);
+	//		height /= 100.0f;
+
+	//		auto width = (rand() % 600) + (200.0f);
+	//		width /= 1000.0f;
+
+	//		cube->getTransform().setScale({ width, height, width });
+	//		cube->getTransform().setPosition({ x * 1.4f, (height / 2.0f) - 1.0f, y * 1.4f });
+	//	}
+	//}
+
+
+
+
 	//BUNNY
-	auto bunny = world.createGameObject<PhysicsObject>();
-	auto Bunnycomp = bunny->createOrGetComponent<dx3d::MeshComponent>();
-	Bunnycomp->setMaterial(basicMat);
-	Bunnycomp->assignMesh(bunnyMesh->getMesh());
-	auto rotyBunny = (rand() % 628) / 100.0f;
-	bunny->getTransform().setScale({ 5,5,5 });
-	bunny->getTransform().setPosition({2,0,0});
-	bunny->getTransform().setRotation({ 0,rotyBunny,0 });
+	//PHYSICS OBJECT
+	for (int i = 0; i < 20; i++)
+	{
+		auto bunny = world.createGameObject<PhysicsObject>();
+		auto Bunnycomp = bunny->createOrGetComponent<dx3d::MeshComponent>();
+		Bunnycomp->setMaterial(basicMat);
+		Bunnycomp->assignMesh(bunnyMesh->getMesh());
+		auto rotyBunny = (rand() % 628) / 100.0f;
+		bunny->getTransform().setScale({ 5,5,5 });
+		bunny->getTransform().setPosition({ 2,0,0 });
+		bunny->getTransform().setRotation({ 0,rotyBunny,0 });
+
+	}
+
 
 
 	//TEAPOT
-	auto teapot = world.createGameObject<MeshObject>();
+	auto teapot = world.createGameObject<PhysicsObject>();
+	teapot->getTransform().setPosition({ 2, 0,0 });
+	teapot->isObjStatic(true);
 	auto Teapotcomp = teapot->createOrGetComponent<dx3d::MeshComponent>();
 	Teapotcomp->setMaterial(brickMat);
 	Teapotcomp->assignMesh(teapotMesh->getMesh());
 	auto rotyTeaPot = (rand() % 628) / 100.0f;
 	teapot->getTransform().setScale({ 2,2,2 });
-	teapot->getTransform().setPosition({ 1, 0,0 });
+	
 	teapot->getTransform().setRotation({ 0,rotyTeaPot,0 });
 
 	//ARMADILLO
