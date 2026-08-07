@@ -40,6 +40,8 @@ namespace dx3d
 
 	class WorldRenderer;
 
+	class PhysicsSystem;
+
 	class ResourceManager;
 	class Resource;
 	class MaterialResource;

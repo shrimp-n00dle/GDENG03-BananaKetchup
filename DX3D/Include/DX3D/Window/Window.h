@@ -3,6 +3,7 @@
 #include <DX3D/Core/Common.h>
 #include <Windows.h>
 #include <stdexcept>
+//#define NOMINMAX //to avoid conflict with Windows.h MIN and MAX stuff
 
 namespace dx3d
 {

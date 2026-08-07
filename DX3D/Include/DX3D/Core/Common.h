@@ -31,6 +31,11 @@ namespace dx3d
 		BaseDesc base;
 	};
 
+	struct PhysicsSystemDesc
+	{
+		BaseDesc base;
+	};
+
 	struct SwapChainDesc
 	{
 		void* winHandle{};

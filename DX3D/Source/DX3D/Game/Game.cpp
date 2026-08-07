@@ -3,6 +3,7 @@
 #include <DX3D/Graphics/GraphicsDevice.h>
 #include <DX3D/Core/Logger.h>
 #include <DX3D/Input/InputSystem.h>
+#include <DX3D/Game/PhysicsSystem.h>
 #include <DX3D/Game/Display.h>
 #include <DX3D/Game/World.h>
 #include <DX3D/Game/GameObject.h>
@@ -25,6 +26,8 @@ dx3d::Game::Game(const GameDesc& desc)
 	m_resourceManager = std::make_unique<ResourceManager>(ResourceManagerDesc{ {*m_logger},context });
 	//m_resourceManager = std::make_shared<ResourceManager>(ResourceManagerDesc{ {*m_logger},context });
 
+	m_physicsSystem = std::make_unique<PhysicsSystem>(PhysicsSystemDesc{ *m_logger });
+
 	m_world = std::make_unique<World>(WorldDesc{ BaseDesc{*m_logger}, GameContext{*m_inputSystem, *m_resourceManager,*m_graphicsDevice} });
 	m_worldRenderer = std::make_unique<WorldRenderer>(WorldRendererDesc{ {*m_logger},*m_graphicsDevice });
 
@@ -34,13 +37,7 @@ dx3d::Game::Game(const GameDesc& desc)
 	ImGui_ImplWin32_Init(m_display->getHandle());
 	ImGui_ImplDX11_Init(m_graphicsDevice->m_d3dDevice.Get(),m_graphicsDevice->m_d3dContext.Get());
 
-	//Physics System Initialization
-	this->physicsCommon = new reactphysics3d::PhysicsCommon();
-	reactphysics3d::PhysicsWorld::WorldSettings settings;
-	settings.defaultVelocitySolverNbIterations = 50;
-	Vec3 gravityBase = Vec3(0, -9.81, 0);
-	settings.gravity = reactphysics3d::Vector3(gravityBase.x, gravityBase.y, gravityBase.z);
-	this->physicsWorld = this->physicsCommon->createPhysicsWorld(settings);
+
 
 
 	DX3DLogInfo("Game initialized.");

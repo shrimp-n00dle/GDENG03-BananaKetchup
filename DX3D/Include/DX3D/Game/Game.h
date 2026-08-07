@@ -9,9 +9,6 @@
 #include <DX3D/GUI/ColorWin.h>
 #include <DX3D/GUI/MenuBar.h>
 
-//Physics System
-#include <reactphysics3d/reactphysics3d.h>
-
 
 namespace dx3d
 {
@@ -47,15 +44,16 @@ namespace dx3d
 		UniquePtr<ResourceManager> m_resourceManager{};
 		//RefPtr<ResourceManager> m_resourceManager{};
 		UniquePtr<World> m_world{};	
+
+		//Physics system
+		UniquePtr<PhysicsSystem> m_physicsSystem{};
+		
 		
 		UniquePtr<WorldRenderer> m_worldRenderer{};
 
 		bool m_isRunning{ true };
 
 		std::chrono::steady_clock::time_point m_previousTime{};
-
-		reactphysics3d::PhysicsCommon* physicsCommon;
-		reactphysics3d::PhysicsWorld* physicsWorld;
 
 	};
 }
