@@ -39,7 +39,7 @@ void MainGame::onCreate()
 	}
 
 	//BUNNY
-	auto bunny = world.createGameObject<dx3d::GameObject>();
+	auto bunny = world.createGameObject<PhysicsObject>();
 	auto Bunnycomp = bunny->createOrGetComponent<dx3d::MeshComponent>();
 	Bunnycomp->setMaterial(basicMat);
 	Bunnycomp->assignMesh(bunnyMesh->getMesh());

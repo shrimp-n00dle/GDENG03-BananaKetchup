@@ -115,6 +115,7 @@ namespace dx3d
 		InputSystem& input;
 		ResourceManager& resourceManager;
 		GraphicsDevice& device;
+		PhysicsSystem& physics;
 	};
 
 	struct GameDesc

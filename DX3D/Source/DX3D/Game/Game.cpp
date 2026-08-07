@@ -26,9 +26,9 @@ dx3d::Game::Game(const GameDesc& desc)
 	m_resourceManager = std::make_unique<ResourceManager>(ResourceManagerDesc{ {*m_logger},context });
 	//m_resourceManager = std::make_shared<ResourceManager>(ResourceManagerDesc{ {*m_logger},context });
 
-	m_physicsSystem = std::make_unique<PhysicsSystem>(PhysicsSystemDesc{ *m_logger });
+	m_physicsSystem = std::make_shared<PhysicsSystem>(PhysicsSystemDesc{ *m_logger });
 
-	m_world = std::make_unique<World>(WorldDesc{ BaseDesc{*m_logger}, GameContext{*m_inputSystem, *m_resourceManager,*m_graphicsDevice} });
+	m_world = std::make_unique<World>(WorldDesc{ BaseDesc{*m_logger}, GameContext{*m_inputSystem, *m_resourceManager,*m_graphicsDevice, *m_physicsSystem} });
 	m_worldRenderer = std::make_unique<WorldRenderer>(WorldRendererDesc{ {*m_logger},*m_graphicsDevice });
 
 	IMGUI_CHECKVERSION();
@@ -88,6 +88,9 @@ void dx3d::Game::onInternalUpdate()
 	//}
 
 	m_inputSystem->update();
+
+	//Physics
+	m_physicsSystem->getPhysicsWorld()->update(deltaTime);
 
 	onUpdate(deltaTime);
 

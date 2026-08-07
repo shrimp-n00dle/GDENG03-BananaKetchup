@@ -34,13 +34,13 @@ namespace dx3d {
 
 		//void updateAllComponents();
 		PhysicsWorld* getPhysicsWorld();
-		PhysicsCommon* getPhysicsCommon();
+		PhysicsCommon& getPhysicsCommon();
 
-	private:
+	public:
 		//ComponentTable componentTavle;
 		//ComponentList componentList;
 
-		PhysicsCommon* physicsCommon;
+		PhysicsCommon physicsCommon;
 		PhysicsWorld* physicsWorld;
 	};
 }

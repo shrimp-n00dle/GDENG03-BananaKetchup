@@ -46,7 +46,7 @@ namespace dx3d
 		UniquePtr<World> m_world{};	
 
 		//Physics system
-		UniquePtr<PhysicsSystem> m_physicsSystem{};
+		RefPtr<PhysicsSystem> m_physicsSystem{};
 		
 		
 		UniquePtr<WorldRenderer> m_worldRenderer{};
