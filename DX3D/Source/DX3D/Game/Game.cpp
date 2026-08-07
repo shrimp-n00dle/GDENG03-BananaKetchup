@@ -34,6 +34,14 @@ dx3d::Game::Game(const GameDesc& desc)
 	ImGui_ImplWin32_Init(m_display->getHandle());
 	ImGui_ImplDX11_Init(m_graphicsDevice->m_d3dDevice.Get(),m_graphicsDevice->m_d3dContext.Get());
 
+	//Physics System Initialization
+	this->physicsCommon = new reactphysics3d::PhysicsCommon();
+	reactphysics3d::PhysicsWorld::WorldSettings settings;
+	settings.defaultVelocitySolverNbIterations = 50;
+	Vec3 gravityBase = Vec3(0, -9.81, 0);
+	settings.gravity = reactphysics3d::Vector3(gravityBase.x, gravityBase.y, gravityBase.z);
+	this->physicsWorld = this->physicsCommon->createPhysicsWorld(settings);
+
 
 	DX3DLogInfo("Game initialized.");
 
