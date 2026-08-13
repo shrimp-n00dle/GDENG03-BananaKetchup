@@ -45,7 +45,7 @@ void MainGame::onCreate()
 	auto comp = sphere->createOrGetComponent<dx3d::SphereComponent>();
 	comp->setMaterial(basicMat);
 	sphere->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
-	sphere->getTransform().setPosition({ 2, 100, 0 });
+	sphere->getTransform().setPosition({ 2, 20, 0 });
 	sphere->initializePhysicsObject(false);
 
 	//CAPSULE
@@ -104,14 +104,13 @@ void MainGame::onCreate()
 	//TEAPOT
 	//auto teapot = world.createGameObject<PhysicsObject>();
 	//teapot->getTransform().setPosition({ 2, 0,0 });
-	//teapot->isObjStatic(true);
 	//auto Teapotcomp = teapot->createOrGetComponent<dx3d::MeshComponent>();
 	//Teapotcomp->setMaterial(brickMat);
 	//Teapotcomp->assignMesh(teapotMesh->getMesh());
 	//auto rotyTeaPot = (rand() % 628) / 100.0f;
-	//teapot->getTransform().setScale({ 2,2,2 });
-	//
+	//teapot->getTransform().setScale({ 6.8,1,6.8 });
 	//teapot->getTransform().setRotation({ 0,rotyTeaPot,0 });
+	//teapot->initializePhysicsObject(true);
 
 	//ARMADILLO
 	/*auto arma = world.createGameObject<dx3d::GameObject>();
@@ -136,7 +135,7 @@ void MainGame::onCreate()
 		floor->createOrGetComponent<dx3d::CubeComponent>();
 		auto comp = floor->createOrGetComponent<dx3d::CubeComponent>();
 		comp->setMaterial(basicMat);
-		floor->getTransform().setScale({ 6.8f, 0.1f, 6.8f });
+		floor->getTransform().setScale({ 12.8f, 0.1f, 12.8f });
 		floor->getTransform().setPosition({ 0, 0, 0 });
 		floor->initializePhysicsObject(true);
 		

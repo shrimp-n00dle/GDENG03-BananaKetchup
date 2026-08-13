@@ -4,8 +4,24 @@ PhysicsObject::PhysicsObject(const dx3d::GameObjectDesc& desc) : dx3d::GameObjec
 {
 	//Get physicsCommon and World
 
-	//physicsCommon = desc.gameContext.physics.getPhysicsCommon();
-	physicsWorld = desc.gameContext.physics.getPhysicsWorld();//m_system->getPhysicsWorld();
+	physicsWorld = desc.gameContext.physics.getPhysicsWorld();
+
+	// 1. Enable debug rendering on the world
+	physicsWorld->setIsDebugRenderingEnabled(true);
+
+	// 2. Get a reference to the DebugRenderer
+	reactphysics3d::DebugRenderer& debugRenderer = physicsWorld->getDebugRenderer();
+
+	// 3. Enable specific debug items
+	debugRenderer.setIsDebugItemDisplayed(
+		reactphysics3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true
+	);
+	debugRenderer.setIsDebugItemDisplayed(
+		reactphysics3d::DebugRenderer::DebugItem::CONTACT_POINT, true
+	);
+	debugRenderer.setIsDebugItemDisplayed(
+		reactphysics3d::DebugRenderer::DebugItem::CONTACT_NORMAL, true
+	);
 
 }
 
@@ -19,8 +35,6 @@ void PhysicsObject::initializePhysicsObject(bool isStatic)
 	Vector3 position(pos.x, pos.y, pos.z);
 	Quaternion orientation = Quaternion::identity();
 
-	//Transform transform;
-	//transform.setFromOpenGL(this->getTransform()->)
 	Transform transform(Vector3(this->getTransform().getPosition().x,
 		this->getTransform().getPosition().y,
 		this->getTransform().getPosition().z)
@@ -28,7 +42,7 @@ void PhysicsObject::initializePhysicsObject(bool isStatic)
 		orientation);
 
 
-	BoxShape* boxShape = physicsCommon.createBoxShape(Vector3(scale.x / 2, scale.y / 2, scale.z / 2));
+	BoxShape* boxShape = physicsCommon.createBoxShape(Vector3(scale.x/6, scale.y/6, scale.z/6));
 	this->rigidBody = physicsWorld->createRigidBody(transform);
 	this->rigidBody->addCollider(boxShape, Transform::identity());
 	this->rigidBody->updateMassPropertiesFromColliders();
@@ -42,6 +56,7 @@ void PhysicsObject::initializePhysicsObject(bool isStatic)
 	transform = this->rigidBody->getTransform();
 	float matrix[16];
 	transform.getOpenGLMatrix(matrix);
+
 
 }
 

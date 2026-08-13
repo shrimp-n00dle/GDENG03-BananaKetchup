@@ -26,7 +26,7 @@ protected:
 
 
 public:
-	float mass = 1000.0f;
+	float mass = 10.0f;
 	RigidBody* rigidBody;
 	dx3d::RefPtr<dx3d::PhysicsSystem> m_system{};
 	PhysicsCommon& physicsCommon;
