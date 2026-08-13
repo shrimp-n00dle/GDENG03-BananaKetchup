@@ -15,6 +15,7 @@ class PhysicsObject : public dx3d::GameObject
 	dx3d_typeid(PhysicsObject)
 public:
 	explicit PhysicsObject(const dx3d::GameObjectDesc& desc);
+	void initializePhysicsObject(bool isStatic);
 	virtual ~PhysicsObject() override;
 	void isObjStatic(bool v);
 protected:
@@ -28,5 +29,7 @@ public:
 	float mass = 1000.0f;
 	RigidBody* rigidBody;
 	dx3d::RefPtr<dx3d::PhysicsSystem> m_system{};
+	PhysicsCommon& physicsCommon;
+	PhysicsWorld* physicsWorld;
 };
 

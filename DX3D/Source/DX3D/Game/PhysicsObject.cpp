@@ -1,39 +1,47 @@
 #include <DX3D/Game/PhysicsObject.h>
 
-PhysicsObject::PhysicsObject(const dx3d::GameObjectDesc& desc) : dx3d::GameObject(desc)
+PhysicsObject::PhysicsObject(const dx3d::GameObjectDesc& desc) : dx3d::GameObject(desc), physicsCommon(desc.gameContext.physics.getPhysicsCommon())
 {
 	//Get physicsCommon and World
-	
-	PhysicsCommon& physicsCommon = desc.gameContext.physics.getPhysicsCommon();
-	PhysicsWorld* physicsWorld = desc.gameContext.physics.getPhysicsWorld();//m_system->getPhysicsWorld();
 
+	//physicsCommon = desc.gameContext.physics.getPhysicsCommon();
+	physicsWorld = desc.gameContext.physics.getPhysicsWorld();//m_system->getPhysicsWorld();
+
+}
+
+void PhysicsObject::initializePhysicsObject(bool isStatic)
+{
 	//Rigid Body Initialization
 	dx3d::Vec3 scale = this->getTransform().getScale();
 
 	dx3d::Vec3 pos = this->getTransform().getPosition();
-	Vector3 position(pos.x,pos.y,pos.z);
+	std::cout << "POSITION IS: " << this->getTransform().getPosition().y << std::endl;
+	Vector3 position(pos.x, pos.y, pos.z);
 	Quaternion orientation = Quaternion::identity();
 
 	//Transform transform;
 	//transform.setFromOpenGL(this->getTransform()->)
-	Transform transform( Vector3(this->getTransform().getPosition().x, 
-								this->getTransform().getPosition().y,
-								this->getTransform().getPosition().z)
-								, 
-						orientation);
+	Transform transform(Vector3(this->getTransform().getPosition().x,
+		this->getTransform().getPosition().y,
+		this->getTransform().getPosition().z)
+		,
+		orientation);
 
 
-	BoxShape* boxShape = physicsCommon.createBoxShape(Vector3(scale.x/2, scale.y/2, scale.z/2));
+	BoxShape* boxShape = physicsCommon.createBoxShape(Vector3(scale.x / 2, scale.y / 2, scale.z / 2));
 	this->rigidBody = physicsWorld->createRigidBody(transform);
-	this->rigidBody->addCollider(boxShape, transform);
+	this->rigidBody->addCollider(boxShape, Transform::identity());
 	this->rigidBody->updateMassPropertiesFromColliders();
 	this->rigidBody->setMass(this->mass);
-	this->rigidBody->setType(BodyType::DYNAMIC);
+
+	if (isStatic)
+	{
+		this->rigidBody->setType(BodyType::STATIC);
+	} else this->rigidBody->setType(BodyType::DYNAMIC);
 
 	transform = this->rigidBody->getTransform();
 	float matrix[16];
 	transform.getOpenGLMatrix(matrix);
-
 
 }
 
