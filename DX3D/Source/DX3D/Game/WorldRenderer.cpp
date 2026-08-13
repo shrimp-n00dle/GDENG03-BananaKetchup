@@ -11,6 +11,7 @@
 
 #include <DX3D/Component/TransformComponent.h>
 #include <DX3D/Component/CubeComponent.h>
+#include <DX3D/Component/CapsuleComponent.h>
 #include <DX3D/Component/SphereComponent.h>
 
 #include <DX3D/Component/CameraComponent.h>
@@ -152,6 +153,43 @@ void dx3d::WorldRenderer::render(const World& world, SwapChain& swapChain, f32 d
 	{
 		ObjectData objectData{};
 		auto components = world.getComponents<SphereComponent>(numComponents);
+		for (auto i : std::views::iota(0u, numComponents))
+		{
+			auto component = components[i];
+			auto& transform = component->getGameObject().getTransform();
+
+			auto material = component->getMaterial();
+
+			if (material)
+			{
+				objectData.world = transform.getAffineWorldMatrix();
+
+				context.setGraphicsPipelineState(material->getGraphicsPipelineState());
+				context.updateConstantBuffer(objectCb, std::as_bytes(std::span{ &objectData, 1 }));
+				context.updateConstantBuffer(materialCb, material->getData());
+				ConstantBuffer* cbs[] = { &objectCb, &cameraCb, &materialCb };
+				context.setConstantBuffers(std::span<ConstantBuffer*>{cbs});
+
+				m_textures.clear();
+				m_textures.resize(material->getNumTextures());
+				for (auto t : std::views::iota(0u, m_textures.size()))
+				{
+					auto tex = material->getTexture(t);
+					if (tex) m_textures[t] = &tex->getTexture();
+				}
+				context.setTextures(std::span<Texture*>{m_textures});
+				context.setVertexBuffer(component->getVertexBuffer());
+				context.setIndexBuffer(component->getIndexBuffer());
+				context.drawIndexedTriangleList(component->getIndexBuffer().getIndexListSize(), 0u, 0u);
+			}
+		}
+	}
+
+
+	//CAPSULE
+	{
+		ObjectData objectData{};
+		auto components = world.getComponents<CapsuleComponent>(numComponents);
 		for (auto i : std::views::iota(0u, numComponents))
 		{
 			auto component = components[i];

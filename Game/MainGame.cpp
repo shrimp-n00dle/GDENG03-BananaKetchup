@@ -40,12 +40,21 @@ void MainGame::onCreate()
 
 
 	//SPHERE
-	auto sphere = world.createGameObject<dx3d::GameObject>();
-	sphere->createOrGetComponent<dx3d::SphereComponent>();
-	auto comp = sphere->createOrGetComponent<dx3d::SphereComponent>();
+	//auto sphere = world.createGameObject<dx3d::GameObject>();
+	//sphere->createOrGetComponent<dx3d::SphereComponent>();
+	//auto comp = sphere->createOrGetComponent<dx3d::SphereComponent>();
+	//comp->setMaterial(basicMat);
+	//sphere->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
+	//sphere->getTransform().setPosition({ 2, 0, 0 });
+
+	//CAPSULE
+	auto capsule = world.createGameObject<dx3d::GameObject>();
+	capsule->createOrGetComponent<dx3d::CapsuleComponent>();
+	auto comp = capsule->createOrGetComponent<dx3d::CapsuleComponent>();
 	comp->setMaterial(basicMat);
-	sphere->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
-	sphere->getTransform().setPosition({ 2, 0, 0 });
+	capsule->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
+	capsule->getTransform().setPosition({ 2, 0, 0 });
+
 
 
 	//CUBE

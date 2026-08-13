@@ -11,6 +11,7 @@
 
 #include <DX3D/Component/TransformComponent.h>
 #include <DX3D/Component/CubeComponent.h>
+#include <DX3D/Component/CapsuleComponent.h>
 #include <DX3D/Component/SphereComponent.h>
 #include <DX3D/Component/CameraComponent.h>
 #include <DX3D/Component/MeshComponent.h>
