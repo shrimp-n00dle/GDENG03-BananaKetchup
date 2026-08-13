@@ -28,6 +28,42 @@ void MenuBar::initialize()
 		ImGui::EndMenu();
 	};
 
+	//SAVE AND LOAD SCENE
+	if (ImGui::BeginMenu("Save Scene")) {
+		//Insert functionality here
+		ImGui::EndMenu();
+	};
+
+	//SPAWNIES
+	if (ImGui::BeginMenu("Instantiate")) {
+
+		//PLANE
+		if (ImGui::MenuItem("Plane")) {
+			
+		}
+
+		//CUBE
+		if (ImGui::MenuItem("Cube")) {
+
+		}
+
+
+		//SPHERE
+		if (ImGui::MenuItem("Sphere")) {
+
+		}
+
+
+		//CAPSULE
+		if (ImGui::MenuItem("Capsule")) {
+
+		}
+
+
+
+		ImGui::EndMenu();
+	};
+
 	
 	ImGui::EndMainMenuBar();
 

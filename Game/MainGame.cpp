@@ -49,22 +49,22 @@ void MainGame::onCreate()
 
 
 	//CUBE
-	//for (auto y = -2; y < 3; y++)
-	//{
-	//	for (auto x = -2; x < 3; x++)
-	//	{
-	//		auto cube = world.createGameObject<PhysicsObject>();
-	//		cube->createOrGetComponent<dx3d::CubeComponent>();
-	//		auto height = (rand() % 120) + (80.0f);
-	//		height /= 100.0f;
+	for (auto y = -2; y < 3; y++)
+	{
+		for (auto x = -2; x < 3; x++)
+		{
+			auto cube = world.createGameObject<PhysicsObject>();
+			cube->createOrGetComponent<dx3d::CubeComponent>();
+			auto height = (rand() % 120) + (80.0f);
+			height /= 100.0f;
 
-	//		auto width = (rand() % 600) + (200.0f);
-	//		width /= 1000.0f;
+			auto width = (rand() % 600) + (200.0f);
+			width /= 1000.0f;
 
-	//		cube->getTransform().setScale({ width, height, width });
-	//		cube->getTransform().setPosition({ x * 1.4f, (height / 2.0f) - 1.0f, y * 1.4f });
-	//	}
-	//}
+			cube->getTransform().setScale({ width, height, width });
+			cube->getTransform().setPosition({ x * 1.4f, (height / 2.0f) - 1.0f, y * 1.4f });
+		}
+	}
 
 
 
@@ -108,7 +108,7 @@ void MainGame::onCreate()
 	arma->getTransform().setPosition({ 3, 0,0 });
 	arma->getTransform().setRotation({ 0,rotyArma,0 });
 
-	/*{
+	{
 		auto basicMat = getResourceManager().createResourceFromFile<dx3d::MaterialResource>(L"Game/Assets/Shaders/Basic.hlsl");
 		if (basicMat)
 		{
@@ -124,11 +124,11 @@ void MainGame::onCreate()
 		floor->getTransform().setScale({ 6.8f, 0.1f, 6.8f });
 		floor->getTransform().setPosition({ 0, 0, 0 });
 		
-	}*/
+	}
 
 	srand((unsigned int)time(NULL));
 
-	/*for (auto y = -2; y < 3; y++)
+	for (auto y = -2; y < 3; y++)
 	{
 		for (auto x = -2; x < 3; x++)
 		{
@@ -148,7 +148,7 @@ void MainGame::onCreate()
 			cube->getTransform().setPosition({ x * 1.4f, 0.25f + 0.05f, y * 1.4f });
 			cube->getTransform().setRotation({ 0,roty,0 });
 		}
-	}*/
+	}
 
 	//for (auto y = -2; y < 3; y++)
 	//{
