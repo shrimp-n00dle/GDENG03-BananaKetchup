@@ -6,11 +6,15 @@
 #include <unordered_map>
 #include <DX3D/Game/GameObject.h>
 
+
+
 //file reader headers
 #include <iostream>
 #include <fstream>
 #include <string>
 using namespace std;
+
+#include <json\json.h>
 
 //math stuff
 #include <DX3D/Math/Vec3.h>
