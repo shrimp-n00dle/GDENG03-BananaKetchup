@@ -72,75 +72,76 @@ void dx3d::SceneMaster::saveScene(const std::unordered_map<size_t, std::vector<U
     }
 }
 
-void dx3d::SceneMaster::loadScene(World& world)
-{
-
-    std::string filepath = curr_path.empty() ? "test.json" : curr_path;
-    std::cout << "Loading scene from filename: " << filepath << std::endl;
-
-    std::ifstream file(filepath, std::ios::in);
-    if (!file.is_open()) {
-        std::cerr << "Error: Could not open file " << filepath << " for reading." << std::endl;
-        return;
-    }
-
-    Json::Value root;
-    Json::CharReaderBuilder readerBuilder;
-    std::string errs;
-
-
-    bool parsingSuccessful = Json::parseFromStream(readerBuilder, file, &root, &errs);
-    file.close();
-
-    if (!parsingSuccessful) {
-        std::cerr << "Error: Failed to parse JSON file. Parse errors:\n" << errs << std::endl;
-        return;
-    }
-    if (!root.isMember("GameObjects") || !root["GameObjects"].isArray()) {
-        std::cerr << "Error: Invalid JSON format. 'GameObjects' array not found." << std::endl;
-        return;
-    }
-
-    const Json::Value& objectsArray = root["GameObjects"];
-
-    for (const auto& objJson : objectsArray)
-    {
-        std::string objName = objJson.isMember("name") ? objJson["name"].asString() : "Default_Object";
-
-        float posX = 0.0f, posY = 0.0f, posZ = 0.0f;
-        if (objJson.isMember("position")) {
-            posX = objJson["position"].get("x", 0.0f).asFloat();
-            posY = objJson["position"].get("y", 0.0f).asFloat();
-            posZ = objJson["position"].get("z", 0.0f).asFloat();
-        }
-
-        float rotX = 0.0f, rotY = 0.0f, rotZ = 0.0f;
-        if (objJson.isMember("rotation")) {
-            rotX = objJson["rotation"].get("x", 0.0f).asFloat();
-            rotY = objJson["rotation"].get("y", 0.0f).asFloat();
-            rotZ = objJson["rotation"].get("z", 0.0f).asFloat();
-        }
-
-        float scaleX = 1.0f, scaleY = 1.0f, scaleZ = 1.0f;
-        if (objJson.isMember("scale")) {
-            scaleX = objJson["scale"].get("x", 1.0f).asFloat();
-            scaleY = objJson["scale"].get("y", 1.0f).asFloat();
-            scaleZ = objJson["scale"].get("z", 1.0f).asFloat();
-        }
-        
-        auto cube = world.createGameObject<dx3d::GameObject>();
-       // dx3d::Component objComp = getComp(objName);
-        cube->createOrGetComponent<dx3d::CubeComponent>();
-        cube->objName = "Cube";
-        auto comp = cube->createOrGetComponent<dx3d::CubeComponent>();
-        //comp->setMaterial(basicMat);
-        cube->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
-        cube->getTransform().setPosition({ 2, 0, 0 });
-        
-    }
-
-    std::cout << "Successfully loaded scene from " << filepath << std::endl;
-}
+//void dx3d::SceneMaster::loadScene(const World& world)
+//{
+//
+//    std::string filepath = curr_path.empty() ? "test.json" : curr_path;
+//    std::cout << "Loading scene from filename: " << filepath << std::endl;
+//
+//    std::ifstream file(filepath, std::ios::in);
+//    if (!file.is_open()) {
+//        std::cerr << "Error: Could not open file " << filepath << " for reading." << std::endl;
+//        return;
+//    }
+//
+//    Json::Value root;
+//    Json::CharReaderBuilder readerBuilder;
+//    std::string errs;
+//
+//
+//    bool parsingSuccessful = Json::parseFromStream(readerBuilder, file, &root, &errs);
+//    file.close();
+//
+//    if (!parsingSuccessful) {
+//        std::cerr << "Error: Failed to parse JSON file. Parse errors:\n" << errs << std::endl;
+//        return;
+//    }
+//    if (!root.isMember("GameObjects") || !root["GameObjects"].isArray()) {
+//        std::cerr << "Error: Invalid JSON format. 'GameObjects' array not found." << std::endl;
+//        return;
+//    }
+//
+//    const Json::Value& objectsArray = root["GameObjects"];
+//
+//    for (const auto& objJson : objectsArray)
+//    {
+//        std::string objName = objJson.isMember("name") ? objJson["name"].asString() : "Default_Object";
+//
+//        float posX = 0.0f, posY = 0.0f, posZ = 0.0f;
+//        if (objJson.isMember("position")) {
+//            posX = objJson["position"].get("x", 0.0f).asFloat();
+//            posY = objJson["position"].get("y", 0.0f).asFloat();
+//            posZ = objJson["position"].get("z", 0.0f).asFloat();
+//        }
+//
+//        float rotX = 0.0f, rotY = 0.0f, rotZ = 0.0f;
+//        if (objJson.isMember("rotation")) {
+//            rotX = objJson["rotation"].get("x", 0.0f).asFloat();
+//            rotY = objJson["rotation"].get("y", 0.0f).asFloat();
+//            rotZ = objJson["rotation"].get("z", 0.0f).asFloat();
+//        }
+//
+//        float scaleX = 1.0f, scaleY = 1.0f, scaleZ = 1.0f;
+//        if (objJson.isMember("scale")) {
+//            scaleX = objJson["scale"].get("x", 1.0f).asFloat();
+//            scaleY = objJson["scale"].get("y", 1.0f).asFloat();
+//            scaleZ = objJson["scale"].get("z", 1.0f).asFloat();
+//        }
+//        
+//        
+//        auto cube = world.createGameObject<dx3d::GameObject>();
+//       // dx3d::Component objComp = getComp(objName);
+//        cube->createOrGetComponent<dx3d::CubeComponent>();
+//        cube->objName = "Cube";
+//        auto comp = cube->createOrGetComponent<dx3d::CubeComponent>();
+//        //comp->setMaterial(basicMat);
+//        cube->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
+//        cube->getTransform().setPosition({ 2, 0, 0 });
+//        
+//    }
+//
+//    std::cout << "Successfully loaded scene from " << filepath << std::endl;
+//}
 
 //dx3d::Component dx3d::SceneMaster::getComp(std::string objName)
 //{

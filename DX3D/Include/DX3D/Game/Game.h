@@ -9,6 +9,9 @@
 #include <DX3D/GUI/ColorWin.h>
 #include <DX3D/GUI/MenuBar.h>
 
+//Scene Saver/Reader
+#include <DX3D/Scene/SceneMaster.h>
+
 
 namespace dx3d
 {
@@ -35,7 +38,7 @@ namespace dx3d
 
 	protected:
 
-
+		bool bLoad = false;
 		MenuBar* menuBar = new MenuBar();
 		ColorWin* colorWin = new ColorWin();
 		AboutWin* aboutWin = new AboutWin();
@@ -49,6 +52,8 @@ namespace dx3d
 
 		//Physics system
 		RefPtr<PhysicsSystem> m_physicsSystem{};
+
+		SceneMaster* sceneCall = new SceneMaster();
 		
 		
 		UniquePtr<WorldRenderer> m_worldRenderer{};

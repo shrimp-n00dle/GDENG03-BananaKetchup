@@ -37,7 +37,7 @@ namespace dx3d {
 		void saveScene(const std::unordered_map<size_t, std::vector<UniquePtr<GameObject>>>& Objlist);
 
 		//Reader
-		void loadScene(World& world);
+		//void loadScene(const World& world);
 		//component getter
 		//dx3d::Component getComp(std::string _name);
 

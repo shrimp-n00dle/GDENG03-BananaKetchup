@@ -232,8 +232,8 @@ void dx3d::WorldRenderer::render(const World& world, SwapChain& swapChain, f32 d
 	//if the save button is pressed
 	if (menu->getShowLoad())
 	{
-		//sceneCall->loadScene(world);
 		menu->setShowLoad(false);
+
 	}
 
 

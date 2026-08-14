@@ -10,6 +10,10 @@
 #include <DX3D/Game/WorldRenderer.h>
 #include <DX3D/Resource/ResourceManager.h>
 
+#include <span>
+#include <DX3D/Resource/MaterialResource.h>
+#include <DX3D/Resource/TextureResource.h>
+
 
 dx3d::Game::Game(const GameDesc& desc)
 {
@@ -107,7 +111,96 @@ void dx3d::Game::onInternalUpdate()
 	
 	if (menuBar->getShowColor())colorWin->initialize();
 
+	if (menuBar->getShowLoad()) bLoad = true;
+
 	ImGui::Render();
+
+	if (bLoad)
+	{
+
+		auto& world = getWorld();
+
+		string curr_path = "test_export.json";
+		std::string filepath = curr_path.empty() ? "test.json" : curr_path;
+		std::cout << "Loading scene from filename: " << filepath << std::endl;
+
+		std::ifstream file(filepath, std::ios::in);
+		if (!file.is_open()) {
+			std::cerr << "Error: Could not open file " << filepath << " for reading." << std::endl;
+			return;
+		}
+
+		Json::Value root;
+		Json::CharReaderBuilder readerBuilder;
+		std::string errs;
+
+
+		bool parsingSuccessful = Json::parseFromStream(readerBuilder, file, &root, &errs);
+		file.close();
+
+		if (!parsingSuccessful) {
+			std::cerr << "Error: Failed to parse JSON file. Parse errors:\n" << errs << std::endl;
+			return;
+		}
+		if (!root.isMember("objects") || !root["objects"].isArray()) {
+			std::cerr << "Error: Invalid JSON format. 'objects' array not found." << std::endl;
+			return;
+		}
+
+		const Json::Value& objectsArray = root["objects"];
+
+		for (const auto& objJson : objectsArray)
+		{
+			std::string objName = objJson.isMember("name") ? objJson["name"].asString() : "Default_Object";
+
+			float posX = 0.0f, posY = 0.0f, posZ = 0.0f;
+			if (objJson.isMember("position")) {
+				posX = objJson["position"].get("x", 0.0f).asFloat();
+				posY = objJson["position"].get("y", 0.0f).asFloat();
+				posZ = objJson["position"].get("z", 0.0f).asFloat();
+			}
+
+			float rotX = 0.0f, rotY = 0.0f, rotZ = 0.0f;
+			if (objJson.isMember("rotation")) {
+				rotX = objJson["rotation"].get("x", 0.0f).asFloat();
+				rotY = objJson["rotation"].get("y", 0.0f).asFloat();
+				rotZ = objJson["rotation"].get("z", 0.0f).asFloat();
+			}
+
+			float scaleX = 1.0f, scaleY = 1.0f, scaleZ = 1.0f;
+			if (objJson.isMember("scale")) {
+				scaleX = objJson["scale"].get("x", 1.0f).asFloat();
+				scaleY = objJson["scale"].get("y", 1.0f).asFloat();
+				scaleZ = objJson["scale"].get("z", 1.0f).asFloat();
+			}
+
+			auto brickTex = getResourceManager().createResourceFromFile<dx3d::TextureResource>(L"Game/Assets/Textures/brick.jpg");
+			auto basicMat = getResourceManager().createResourceFromFile<dx3d::MaterialResource>(L"Game/Assets/Shaders/Basic.hlsl");
+			if (basicMat)
+			{
+				auto matData = dx3d::Vec3(1, 1, 1);
+				basicMat->setData(std::as_bytes(std::span{ &matData, 1 }));
+				basicMat->setTexture(0, brickTex);
+			}
+
+
+
+			auto cube = world.createGameObject<dx3d::GameObject>();
+			cube->createOrGetComponent<dx3d::CubeComponent>();
+			cube->objName = "Cube";
+			auto comp = cube->createOrGetComponent<dx3d::CubeComponent>();
+			comp->setMaterial(basicMat);
+			cube->getTransform().setScale({ scaleX,scaleY, scaleZ });
+			cube->getTransform().setPosition({ posX, posY, posZ });
+
+		}
+
+		std::cout << "Successfully loaded scene from " << filepath << std::endl;
+
+		bLoad = false;
+	}
+
+
 
 	m_worldRenderer->render(*m_world, 
 		m_display->getSwapChain(), 
