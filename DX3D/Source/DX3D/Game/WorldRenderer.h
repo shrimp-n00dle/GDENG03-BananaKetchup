@@ -57,8 +57,6 @@ namespace dx3d
 		RefPtr<Sampler> m_sampler{};
 
 		std::vector<Texture*> m_textures{};
-
-		//friend class SceneMaster;
 	};
 }
 

@@ -1,9 +1,10 @@
 #pragma once
 
-//#include <DX3D/Core/Core.h>
+#include <DX3D/Core/Core.h>
 //#include <DX3D/All.h>
-//#include <unordered_map>
-//#include <DX3D/Game/GameObject.h>
+#include <DX3D/Component/TransformComponent.h>
+#include <unordered_map>
+#include <DX3D/Game/GameObject.h>
 
 //file reader headers
 #include <iostream>
@@ -23,7 +24,7 @@ namespace dx3d {
 
 	public:
 		//Writer
-		void saveScene(/*const std::unordered_map<size_t, std::vector<UniquePtr<GameObject>>>& Objlist*/);
+		void saveScene(const std::unordered_map<size_t, std::vector<UniquePtr<GameObject>>>& Objlist);
 
 		//Reader
 		void loadScene();
