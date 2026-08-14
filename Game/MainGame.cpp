@@ -40,21 +40,22 @@ void MainGame::onCreate()
 
 
 	//SPHERE
-	//auto sphere = world.createGameObject<PhysicsObject>();
-	//sphere->createOrGetComponent<dx3d::SphereComponent>();
-	//auto comp = sphere->createOrGetComponent<dx3d::SphereComponent>();
-	//comp->setMaterial(basicMat);
-	//sphere->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
-	//sphere->getTransform().setPosition({ 2, 20, 0 });
-	//sphere->initializePhysicsObject(false);
+	auto sphere = world.createGameObject<PhysicsObject>();
+	sphere->createOrGetComponent<dx3d::SphereComponent>();
+	sphere->objName = "Sphere";
+	auto comp = sphere->createOrGetComponent<dx3d::SphereComponent>();
+	comp->setMaterial(basicMat);
+	sphere->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
+	sphere->getTransform().setPosition({ 2, 20, 0 });
+	sphere->initializePhysicsObject(false);
 
 	//CAPSULE
-	auto capsule = world.createGameObject<dx3d::GameObject>();
-	capsule->createOrGetComponent<dx3d::CapsuleComponent>();
-	auto comp = capsule->createOrGetComponent<dx3d::CapsuleComponent>();
-	comp->setMaterial(basicMat);
-	capsule->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
-	capsule->getTransform().setPosition({ 2, 0, 0 });
+	//auto capsule = world.createGameObject<dx3d::GameObject>();
+	//capsule->createOrGetComponent<dx3d::CapsuleComponent>();
+	//auto comp = capsule->createOrGetComponent<dx3d::CapsuleComponent>();
+	//comp->setMaterial(basicMat);
+	//capsule->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
+	//capsule->getTransform().setPosition({ 2, 0, 0 });
 
 
 
@@ -144,6 +145,7 @@ void MainGame::onCreate()
 	srand((unsigned int)time(NULL));
 
 	auto player = world.createGameObject<Player>();
+	player->objName = "Main Camera";
 	player->getTransform().setPosition({ 0, 1, -2});
 
 	//getInputSystem().setCursorLocked(true);

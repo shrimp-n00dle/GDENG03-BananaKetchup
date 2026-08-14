@@ -14,7 +14,7 @@ namespace dx3d
 		dx3d_typeid(GameObject)
 	public:
 		//NAMING
-		//std::string objName = "Cube";
+		std::string objName = "Cube";
 
 		explicit GameObject(const GameObjectDesc& desc);
 
