@@ -36,7 +36,7 @@ dx3d::Component* dx3d::GameObject::createComponentInternal(UniquePtr<Component>&
 	if (m_components.find(typeId) != m_components.end()) return {};
 	m_components.emplace(typeId, std::move(component));
 	m_world.addComponentInternal(*ptr);
-	objName = component->getTypeId();
+	//objName = component->getTypeId();
 	return ptr;
 }
 

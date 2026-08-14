@@ -9,7 +9,7 @@ dx3d::SceneMaster::~SceneMaster()
 {
 }
 
-void dx3d::SceneMaster::saveScene(const std::unordered_map<size_t, std::vector<UniquePtr<GameObject>>>& Objlist)
+void dx3d::SceneMaster::saveScene(/*const std::unordered_map<size_t, std::vector<UniquePtr<GameObject>>>& Objlist*/)
 {
 
 	//string filepath = this->getFilePath() + ".json";
@@ -30,33 +30,33 @@ void dx3d::SceneMaster::saveScene(const std::unordered_map<size_t, std::vector<U
 	//}
 	
 	// PRIMITIVES: Iterate through map, then iterate through each vector
-	for (const auto& [listsize, objVector] : Objlist) {
-		for (const auto& gameObj : objVector) {
-			if (gameObj) { // Always good practice to check if the unique_ptr is valid
-				myfile << gameObj->objName << std::endl;
+	//for (const auto& [listsize, objVector] : Objlist) {
+	//	for (const auto& gameObj : objVector) {
+	//		if (gameObj) { // Always good practice to check if the unique_ptr is valid
+	//			myfile << gameObj->objName << std::endl;
 
-				//POSITION
-				myfile << "POSITION" <<
-					gameObj->getTransform().getPosition().x << " " <<
-					gameObj->getTransform().getPosition().y << " " <<
-					gameObj->getTransform().getPosition().z << std::endl;
-
-
-				//ROTATION
-				myfile << "ROTATION" <<
-					gameObj->getTransform().getRotation().x << " " <<
-					gameObj->getTransform().getRotation().y << " " <<
-					gameObj->getTransform().getRotation().z << std::endl;
+	//			//POSITION
+	//			myfile << "POSITION" <<
+	//				gameObj->getTransform().getPosition().x << " " <<
+	//				gameObj->getTransform().getPosition().y << " " <<
+	//				gameObj->getTransform().getPosition().z << std::endl;
 
 
-				//SCALE
-				myfile << "SCALE" <<
-					gameObj->getTransform().getScale().x << " " <<
-					gameObj->getTransform().getScale().y << " " <<
-					gameObj->getTransform().getScale().z << std::endl;
-			}
-		}
-	}
+	//			//ROTATION
+	//			myfile << "ROTATION" <<
+	//				gameObj->getTransform().getRotation().x << " " <<
+	//				gameObj->getTransform().getRotation().y << " " <<
+	//				gameObj->getTransform().getRotation().z << std::endl;
+
+
+	//			//SCALE
+	//			myfile << "SCALE" <<
+	//				gameObj->getTransform().getScale().x << " " <<
+	//				gameObj->getTransform().getScale().y << " " <<
+	//				gameObj->getTransform().getScale().z << std::endl;
+	//		}
+	//	}
+	//}
 
 
 	//for (int i = 0; i < Objlist.size(); i++)

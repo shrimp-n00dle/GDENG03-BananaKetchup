@@ -15,8 +15,8 @@
 
 
 //Scene Saver/Reader
-//#include <DX3D/Scene/SceneMaster.h>
-class SceneMaster;
+#include <DX3D/Scene/SceneMaster.h>
+
 
 #include <DX3D/GUI/MenuBar.h>
 
@@ -46,7 +46,7 @@ namespace dx3d
 		int incCube = 0;
 
 		//SceneMaster
-		SceneMaster* sceneCall = nullptr;//new SceneMaster();
+		SceneMaster* sceneCall = new SceneMaster();
 
 	private:
 		GraphicsDevice& m_graphicsDevice;

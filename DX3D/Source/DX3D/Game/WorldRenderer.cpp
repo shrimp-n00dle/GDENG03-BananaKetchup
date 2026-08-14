@@ -38,8 +38,6 @@ dx3d::WorldRenderer::WorldRenderer(const WorldRendererDesc& desc): Base(desc.bas
 	m_materialCb = device.createConstantBuffer({ {}, dx3d::MaterialResource::MaxDataSize });
 
 	m_sampler = device.createSampler({});
-
-	sceneCall = new SceneMaster();
 }
 
 void dx3d::WorldRenderer::render(const World& world, SwapChain& swapChain, f32 deltaTime, ImDrawData* uiData, MenuBar* menu)
@@ -227,7 +225,7 @@ void dx3d::WorldRenderer::render(const World& world, SwapChain& swapChain, f32 d
 	//if the save button is pressed
 	if (menu->getShowSave())
 	{
-		sceneCall->saveScene(world.m_objects);
+		sceneCall->saveScene(/*world.m_objects*/);
 		menu->setShowSave(false);
 	}
 
