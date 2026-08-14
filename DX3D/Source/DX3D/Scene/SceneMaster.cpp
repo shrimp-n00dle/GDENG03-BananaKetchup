@@ -1,6 +1,5 @@
 #include <DX3D/Scene/SceneMaster.h>
 
-
 dx3d::SceneMaster::SceneMaster()
 {
 }
@@ -11,87 +10,79 @@ dx3d::SceneMaster::~SceneMaster()
 
 void dx3d::SceneMaster::saveScene(const std::unordered_map<size_t, std::vector<UniquePtr<GameObject>>>& Objlist)
 {
+    std::string filepath = "test.json";
+    std::cout << "Selected filename is " << filepath << std::endl;
 
-	//string filepath = this->getFilePath() + ".json";
+    // Root JSON object for Unity compatibility
+    Json::Value root;
+    Json::Value objectsArray(Json::arrayValue);
 
-	//TEST MUNA
-	string filepath = "vingno_test_banana.json";
+    // Iterate through map and vectors
+    for (const auto& [listsize, objVector] : Objlist) {
+        for (const auto& gameObj : objVector) {
+            if (gameObj) { // Check if unique_ptr is valid
+                Json::Value objJson;
 
-	ofstream myfile;
-	myfile.open(filepath, std::ios::out);
-	std::cout << "Selected filename is is " << filepath << std::endl;
+                // Optional: If your GameObject has a name property, uncomment/adjust this:
+                // objJson["name"] = gameObj->objName;
 
-	//PRIMITIVES
-	//int i = 0;
-	// for (const auto& [Listsize, obj] : Objlist) {
-	//	 //name
-	//	 myfile << obj[i]->objName << std::endl;
+                // POSITION
+                Json::Value position(Json::objectValue);
+                position["x"] = gameObj->getTransform().getPosition().x;
+                position["y"] = gameObj->getTransform().getPosition().y;
+                position["z"] = gameObj->getTransform().getPosition().z;
+                objJson["position"] = position;
 
-	//}
-	
-	// PRIMITIVES: Iterate through map, then iterate through each vector
-	for (const auto& [listsize, objVector] : Objlist) {
-		for (const auto& gameObj : objVector) {
-			if (gameObj) { // Always good practice to check if the unique_ptr is valid
-				//myfile << gameObj->objName << std::endl;
-				myfile << "MY OBJECT" << std::endl;
+                // ROTATION
+                Json::Value rotation(Json::objectValue);
+                rotation["x"] = gameObj->getTransform().getRotation().x;
+                rotation["y"] = gameObj->getTransform().getRotation().y;
+                rotation["z"] = gameObj->getTransform().getRotation().z;
+                objJson["rotation"] = rotation;
 
-				//POSITION
-				myfile << "POSITION " <<
-					gameObj->getTransform().getPosition().x << " " <<
-					gameObj->getTransform().getPosition().y << " " <<
-					gameObj->getTransform().getPosition().z << std::endl;
+                // SCALE
+                Json::Value scale(Json::objectValue);
+                scale["x"] = gameObj->getTransform().getScale().x;
+                scale["y"] = gameObj->getTransform().getScale().y;
+                scale["z"] = gameObj->getTransform().getScale().z;
+                objJson["scale"] = scale;
 
+                // Append the object to our JSON array
+                objectsArray.append(objJson);
+            }
+        }
+    }
 
-				//ROTATION
-				myfile << "ROTATION " <<
-					gameObj->getTransform().getRotation().x << " " <<
-					gameObj->getTransform().getRotation().y << " " <<
-					gameObj->getTransform().getRotation().z << std::endl;
+    // Attach the array to the root object
+    root["objects"] = objectsArray;
 
+    // Write to file using JsonCpp's StreamWriterBuilder
+    std::ofstream myfile(filepath, std::ios::out);
+    if (myfile.is_open()) {
+        Json::StreamWriterBuilder builder;
+        builder["indentation"] = "    "; // Pretty-print with 4 spaces for readability
+        std::unique_ptr<Json::StreamWriter> writer(builder.newStreamWriter());
 
-				//SCALE
-				myfile << "SCALE " <<
-					gameObj->getTransform().getScale().x << " " <<
-					gameObj->getTransform().getScale().y << " " <<
-					gameObj->getTransform().getScale().z << std::endl;
-			}
-		}
-	}
-
-
-	//for (int i = 0; i < Objlist.size(); i++)
-	//{
-	//	//Object Name
-	//	myfile << Objlist. << std::endl;
-	//	Vec3 position = Objlist
-
-	//}
-
-
-	//OBJ/Mesh Objects
-
-	//Physics Objects
-
-	myfile.close();
-	std::cout << "FILE NAMED " << filepath << " SAVED!" << std::endl;
+        writer->write(root, &myfile);
+        myfile.close();
+        std::cout << "FILE NAMED " << filepath << " SAVED!" << std::endl;
+    }
+    else {
+        std::cerr << "Error: Could not open file " << filepath << " for writing." << std::endl;
+    }
 }
 
 void dx3d::SceneMaster::loadScene()
 {
-	
+
 }
 
-string dx3d::SceneMaster::getFilePath()
+std::string dx3d::SceneMaster::getFilePath()
 {
-	return curr_path;
+    return curr_path;
 }
 
-void dx3d::SceneMaster::setFilePath(string path)
+void dx3d::SceneMaster::setFilePath(std::string path)
 {
-	curr_path = path;
+    curr_path = path;
 }
-
-
-
-
