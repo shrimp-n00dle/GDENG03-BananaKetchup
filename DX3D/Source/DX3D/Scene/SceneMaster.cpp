@@ -37,21 +37,21 @@ void dx3d::SceneMaster::saveScene(const std::unordered_map<size_t, std::vector<U
 				myfile << "MY OBJECT" << std::endl;
 
 				//POSITION
-				myfile << "POSITION" <<
+				myfile << "POSITION " <<
 					gameObj->getTransform().getPosition().x << " " <<
 					gameObj->getTransform().getPosition().y << " " <<
 					gameObj->getTransform().getPosition().z << std::endl;
 
 
 				//ROTATION
-				myfile << "ROTATION" <<
+				myfile << "ROTATION " <<
 					gameObj->getTransform().getRotation().x << " " <<
 					gameObj->getTransform().getRotation().y << " " <<
 					gameObj->getTransform().getRotation().z << std::endl;
 
 
 				//SCALE
-				myfile << "SCALE" <<
+				myfile << "SCALE " <<
 					gameObj->getTransform().getScale().x << " " <<
 					gameObj->getTransform().getScale().y << " " <<
 					gameObj->getTransform().getScale().z << std::endl;
@@ -79,6 +79,7 @@ void dx3d::SceneMaster::saveScene(const std::unordered_map<size_t, std::vector<U
 
 void dx3d::SceneMaster::loadScene()
 {
+	
 }
 
 string dx3d::SceneMaster::getFilePath()

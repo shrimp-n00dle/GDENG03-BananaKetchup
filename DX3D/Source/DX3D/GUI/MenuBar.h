@@ -27,6 +27,12 @@ public:
 	void setShowSave(bool b);
 	bool getShowSave();
 
+	//LOAD SCENE WINDOW
+	bool b_load = false;
+	void setShowLoad(bool b);
+	bool getShowLoad();
+
+
 	AboutWin* aboutWin = new AboutWin();
 
 };

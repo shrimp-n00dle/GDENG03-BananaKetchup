@@ -33,7 +33,7 @@ void MenuBar::initialize()
 			setShowSave(true);
 		}
 		if (ImGui::MenuItem("Load Scene")) {
-			
+			setShowLoad(true);
 		}
 
 		ImGui::EndMenu();
@@ -87,4 +87,8 @@ bool MenuBar::getShowColor(){return b_color;}
 //SAVE SCENE WINDOW
 void MenuBar::setShowSave(bool b) { b_save = b; }
 bool MenuBar::getShowSave() { return b_save; }
+
+//LOAD SCENE WINDOW
+void MenuBar::setShowLoad(bool b) { b_load = b; }
+bool MenuBar::getShowLoad() { return b_load; }
 

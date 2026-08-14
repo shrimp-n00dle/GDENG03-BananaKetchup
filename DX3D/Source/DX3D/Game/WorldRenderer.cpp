@@ -229,6 +229,13 @@ void dx3d::WorldRenderer::render(const World& world, SwapChain& swapChain, f32 d
 		menu->setShowSave(false);
 	}
 
+	//if the save button is pressed
+	if (menu->getShowLoad())
+	{
+		sceneCall->loadScene();
+		menu->setShowLoad(false);
+	}
+
 
 	m_graphicsDevice.executeCommandList(context);
 
