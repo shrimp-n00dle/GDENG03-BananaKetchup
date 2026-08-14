@@ -11,6 +11,9 @@ namespace dx3d
 	{
 		dx3d_typeid(GameObject)
 	public:
+		//NAMING
+		std::string objName;
+
 		explicit GameObject(const GameObjectDesc& desc);
 
 		template <typename T>
@@ -43,6 +46,8 @@ namespace dx3d
 	private:
 		Component* createComponentInternal(UniquePtr<Component>& component);
 		Component* getComponentInternal(size_t id);
+
+
 	private:
 		std::unordered_map<size_t, UniquePtr<Component>> m_components{};
 		TransformComponent* m_transform{};

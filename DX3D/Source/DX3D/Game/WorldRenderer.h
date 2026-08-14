@@ -15,7 +15,8 @@
 
 
 //Scene Saver/Reader
-#include <DX3D/Scene/SceneMaster.h>
+//#include <DX3D/Scene/SceneMaster.h>
+class SceneMaster;
 
 #include <DX3D/GUI/MenuBar.h>
 
@@ -44,9 +45,8 @@ namespace dx3d
 
 		int incCube = 0;
 
-
-		//?SceneMaster
-		SceneMaster* sceneCall = new SceneMaster();
+		//SceneMaster
+		SceneMaster* sceneCall = nullptr;//new SceneMaster();
 
 	private:
 		GraphicsDevice& m_graphicsDevice;
@@ -57,6 +57,8 @@ namespace dx3d
 		RefPtr<Sampler> m_sampler{};
 
 		std::vector<Texture*> m_textures{};
+
+		//friend class SceneMaster;
 	};
 }
 

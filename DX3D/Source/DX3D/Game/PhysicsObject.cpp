@@ -6,23 +6,6 @@ PhysicsObject::PhysicsObject(const dx3d::GameObjectDesc& desc) : dx3d::GameObjec
 
 	physicsWorld = desc.gameContext.physics.getPhysicsWorld();
 
-	// 1. Enable debug rendering on the world
-	physicsWorld->setIsDebugRenderingEnabled(true);
-
-	// 2. Get a reference to the DebugRenderer
-	reactphysics3d::DebugRenderer& debugRenderer = physicsWorld->getDebugRenderer();
-
-	// 3. Enable specific debug items
-	debugRenderer.setIsDebugItemDisplayed(
-		reactphysics3d::DebugRenderer::DebugItem::COLLISION_SHAPE, true
-	);
-	debugRenderer.setIsDebugItemDisplayed(
-		reactphysics3d::DebugRenderer::DebugItem::CONTACT_POINT, true
-	);
-	debugRenderer.setIsDebugItemDisplayed(
-		reactphysics3d::DebugRenderer::DebugItem::CONTACT_NORMAL, true
-	);
-
 }
 
 void PhysicsObject::initializePhysicsObject(bool isStatic)
