@@ -50,13 +50,23 @@ void MainGame::onCreate()
 	//sphere->initializePhysicsObject(false);*/
 
 	//CAPSULE
-	auto capsule = world.createGameObject<dx3d::GameObject>();
+	/*auto capsule = world.createGameObject<dx3d::GameObject>();
 	capsule->createOrGetComponent<dx3d::CapsuleComponent>();
 	capsule->objName = "Capsule";
 	auto comp = capsule->createOrGetComponent<dx3d::CapsuleComponent>();
 	comp->setMaterial(basicMat);
 	capsule->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
-	capsule->getTransform().setPosition({ 2, 0, 0 });
+	capsule->getTransform().setPosition({ 2, 0, 0 });*/
+
+
+	//ONE CUBE
+	//auto cube = world.createGameObject<dx3d::GameObject>();
+	//cube->createOrGetComponent<dx3d::CubeComponent>();
+	//cube->objName = "Cube";
+	//auto comp = cube->createOrGetComponent<dx3d::CubeComponent>();
+	//comp->setMaterial(basicMat);
+	//cube->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
+	//cube->getTransform().setPosition({ 2, 0, 0 });
 
 
 
@@ -75,6 +85,8 @@ void MainGame::onCreate()
 			auto width = (rand() % 600) + (200.0f);
 			width /= 1000.0f;
 
+			auto comp = cube->createOrGetComponent<dx3d::CubeComponent>();
+			comp->setMaterial(basicMat);
 			cube->getTransform().setScale({ width, height, width });
 			cube->getTransform().setPosition({ x * 1.4f, (height / 2.0f) - 1.0f, y * 1.4f });
 			cubeCount++;
