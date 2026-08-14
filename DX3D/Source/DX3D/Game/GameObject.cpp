@@ -28,6 +28,16 @@ dx3d::ResourceManager& dx3d::GameObject::getResourceManager() noexcept
 	return m_gameContext.resourceManager;
 }
 
+//void dx3d::GameObject::setObjName(std::string _name)
+//{
+//	objName = _name;
+//}
+//
+//std::string dx3d::GameObject::getObjName()
+//{
+//	return objName;
+//}
+
 dx3d::Component* dx3d::GameObject::createComponentInternal(UniquePtr<Component>& component)
 {
 	if (!component) return {};
@@ -36,7 +46,6 @@ dx3d::Component* dx3d::GameObject::createComponentInternal(UniquePtr<Component>&
 	if (m_components.find(typeId) != m_components.end()) return {};
 	m_components.emplace(typeId, std::move(component));
 	m_world.addComponentInternal(*ptr);
-	//objName = component->getTypeId();
 	return ptr;
 }
 

@@ -24,7 +24,7 @@ void dx3d::SceneMaster::saveScene(const std::unordered_map<size_t, std::vector<U
                 Json::Value objJson;
 
                 // Optional: If your GameObject has a name property, uncomment/adjust this:
-                // objJson["name"] = gameObj->objName;
+              //  objJson["name"] = gameObj->getObjName();
 
                 // POSITION
                 Json::Value position(Json::objectValue);

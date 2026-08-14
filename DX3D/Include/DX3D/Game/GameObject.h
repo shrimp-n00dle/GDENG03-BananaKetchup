@@ -5,6 +5,8 @@
 
 #include <unordered_map>
 
+#include <string>
+
 namespace dx3d
 {
 	class GameObject : public Identifiable
@@ -12,7 +14,7 @@ namespace dx3d
 		dx3d_typeid(GameObject)
 	public:
 		//NAMING
-		//std::string objName;
+		//std::string objName = "Cube";
 
 		explicit GameObject(const GameObjectDesc& desc);
 
@@ -40,6 +42,8 @@ namespace dx3d
 		World& getWorld() noexcept;
 		InputSystem& getInputSystem() noexcept;
 		ResourceManager& getResourceManager() noexcept;
+		//void setObjName(std::string _name);
+		//std::string getObjName();
 	protected:
 		virtual void onCreate() {}
 		virtual void onUpdate(f32 deltaTime) {}	
