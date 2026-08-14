@@ -40,21 +40,21 @@ void MainGame::onCreate()
 
 
 	//SPHERE
-	auto sphere = world.createGameObject<PhysicsObject>();
-	sphere->createOrGetComponent<dx3d::SphereComponent>();
-	auto comp = sphere->createOrGetComponent<dx3d::SphereComponent>();
-	comp->setMaterial(basicMat);
-	sphere->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
-	sphere->getTransform().setPosition({ 2, 20, 0 });
-	sphere->initializePhysicsObject(false);
+	//auto sphere = world.createGameObject<PhysicsObject>();
+	//sphere->createOrGetComponent<dx3d::SphereComponent>();
+	//auto comp = sphere->createOrGetComponent<dx3d::SphereComponent>();
+	//comp->setMaterial(basicMat);
+	//sphere->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
+	//sphere->getTransform().setPosition({ 2, 20, 0 });
+	//sphere->initializePhysicsObject(false);
 
 	//CAPSULE
-	//auto capsule = world.createGameObject<dx3d::GameObject>();
-	//capsule->createOrGetComponent<dx3d::CapsuleComponent>();
-	//auto comp = capsule->createOrGetComponent<dx3d::CapsuleComponent>();
-	//comp->setMaterial(basicMat);
-	//capsule->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
-	//capsule->getTransform().setPosition({ 2, 0, 0 });
+	auto capsule = world.createGameObject<dx3d::GameObject>();
+	capsule->createOrGetComponent<dx3d::CapsuleComponent>();
+	auto comp = capsule->createOrGetComponent<dx3d::CapsuleComponent>();
+	comp->setMaterial(basicMat);
+	capsule->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
+	capsule->getTransform().setPosition({ 2, 0, 0 });
 
 
 
@@ -131,13 +131,13 @@ void MainGame::onCreate()
 			basicMat->setTexture(0, floorTex);
 		}
 
-		auto floor = world.createGameObject<PhysicsObject>();
-		floor->createOrGetComponent<dx3d::CubeComponent>();
-		auto comp = floor->createOrGetComponent<dx3d::CubeComponent>();
-		comp->setMaterial(basicMat);
-		floor->getTransform().setScale({ 12.8f, 0.1f, 12.8f });
-		floor->getTransform().setPosition({ 0, 0, 0 });
-		floor->initializePhysicsObject(true);
+		//auto floor = world.createGameObject<PhysicsObject>();
+		//floor->createOrGetComponent<dx3d::CubeComponent>();
+		//auto comp = floor->createOrGetComponent<dx3d::CubeComponent>();
+		//comp->setMaterial(basicMat);
+		//floor->getTransform().setScale({ 12.8f, 0.1f, 12.8f });
+		//floor->getTransform().setPosition({ 0, 0, 0 });
+		//floor->initializePhysicsObject(true);
 		
 	}
 

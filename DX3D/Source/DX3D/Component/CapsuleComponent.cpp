@@ -6,154 +6,113 @@
 #include <DX3D/Graphics/GraphicsDevice.h>
 
 #include <DirectXMath.h>
+#include <iostream>
 
 dx3d::CapsuleComponent::CapsuleComponent(const ComponentDesc& data) : Component(data)
 {
-	//CREATE CYLINDER
-	std::vector<Vertex>  cy_list;
-	std::vector<ui32> cy_indices;
-	float height = 20, stackCount = 20, sliceCount = 20;
-	float topRadius = 1.0f, bottomRadius = 1.0f;
+    float totalHeight = 6.0f;
+    float radius = 1.5f;
+    uint32_t sliceCount = 24;
+    uint32_t stackCount = 12;
 
-	float stackHeight = height / stackCount;
-	float radiusStep = (topRadius - bottomRadius) / stackCount;
-	UINT ringCount = stackCount + 1;
+    std::vector<Vertex> vertices;
+    std::vector<uint32_t> indices;
 
+    float cylinderHeight = totalHeight - 2.0f * radius;
+    if (cylinderHeight < 0.0f) cylinderHeight = 0.0f;
 
-	for (UINT i = 0; i < ringCount; ++i) {
-		float y = -0.5f * height + i * stackHeight;
-		float r = bottomRadius + i * radiusStep;
+    float dTheta = 2.0f * DirectX::XM_PI / sliceCount;
+    float dPhi = DirectX::XM_PIDIV2 / stackCount;
 
+    // --- 1. Bottom Hemisphere ---
+    float yBottomCenter = -0.5f * cylinderHeight;
+    for (uint32_t i = 0; i <= stackCount; ++i) {
+        float phi = DirectX::XM_PIDIV2 + i * dPhi;
+        float sinPhi = sinf(phi);
+        float cosPhi = cosf(phi);
 
-		float dTheta = 2.0f * DirectX::XM_PI / sliceCount;
-		for (UINT j = 0; j <= sliceCount; ++j) {
-			float c = cosf(j * dTheta);
-			float s = sinf(j * dTheta);
+        float y = yBottomCenter + radius * cosPhi;
+        float r = radius * sinPhi;
 
+        for (uint32_t j = 0; j <= sliceCount; ++j) {
+            float theta = j * dTheta;
+            float c = cosf(theta);
+            float s = sinf(theta);
 
-			Vertex v;
-			v.position = { r * c, y, r * s };
-			// Normals and UVs can be calculated here for lighting and texturing
-		   // v.Normal = DirectX::XMFLOAT3(c, 0.0f, s); // simplified
-		   // v.TexCoord = DirectX::XMFLOAT2((float)j / sliceCount, (float)i / stackCount);
-			//v.color = randomizeColor();
+            Vertex v;
+            v.position = { r * c, y, r * s };
+            vertices.push_back(v);
+        }
+    }
 
+    // --- 2. Cylinder Top Ring ---
+    float yTopCenter = 0.5f * cylinderHeight;
+    for (uint32_t j = 0; j <= sliceCount; ++j) {
+        float theta = j * dTheta;
+        float c = cosf(theta);
+        float s = sinf(theta);
 
-			cy_list.push_back(v);
-		}
-	}
+        Vertex v;
+        v.position = { radius * c, yTopCenter, radius * s };
+        vertices.push_back(v);
+    }
 
+    // --- 3. Top Hemisphere ---
+    for (uint32_t i = 1; i <= stackCount; ++i) {
+        float phi = DirectX::XM_PIDIV2 - i * dPhi;
+        float sinPhi = sinf(phi);
+        float cosPhi = cosf(phi);
 
-	// Add indices for the cylinder body
-	UINT ringVertexCount = sliceCount + 1;
-	for (UINT i = 0; i < stackCount; ++i) {
-		for (UINT j = 0; j < sliceCount; ++j) {
-			cy_indices.push_back(i * ringVertexCount + j);
-			cy_indices.push_back((i + 1) * ringVertexCount + j);
-			cy_indices.push_back(i * ringVertexCount + j + 1);
+        float y = yTopCenter + radius * cosPhi;
+        float r = radius * sinPhi;
 
-			cy_indices.push_back(i * ringVertexCount + j + 1);
-			cy_indices.push_back((i + 1) * ringVertexCount + j);
-			cy_indices.push_back((i + 1) * ringVertexCount + j + 1);
-		}
-	}
-	//BOTTOM AND TOP CAP
-		 // --- BOTTOM CAP ---
-	UINT bottomCapStartIndex = (UINT)cy_list.size();
-	float yBottom = -0.5f * height;
+        for (uint32_t j = 0; j <= sliceCount; ++j) {
+            float theta = j * dTheta;
+            float c = cosf(theta);
+            float s = sinf(theta);
 
+            Vertex v;
+            v.position = { r * c, y, r * s };;
+            vertices.push_back(v);
+        }
+    }
 
-	// 1. Center vertex for the bottom cap
-	Vertex bottomCenter;
-	bottomCenter.position = { 0.0f, yBottom, 0.0f };
-	//bottomCenter.Normal = DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f);
-	//bottomCenter.TexCoord = DirectX::XMFLOAT2(0.5f, 0.5f);
-	cy_list.push_back(bottomCenter);
+    // --- 4. Indices Generation ---
+    uint32_t ringVertexCount = sliceCount + 1;
+    uint32_t totalRings = (stackCount + 1) + 1 + stackCount;
+    uint32_t totalSegments = totalRings - 1;
 
+    for (uint32_t i = 0; i < totalSegments; ++i) {
+        for (uint32_t j = 0; j < sliceCount; ++j) {
+            uint32_t i0 = i * ringVertexCount + j;
+            uint32_t i1 = (i + 1) * ringVertexCount + j;
+            uint32_t i2 = i * ringVertexCount + j + 1;
+            uint32_t i3 = (i + 1) * ringVertexCount + j + 1;
 
-	// 2. Ring vertices for the bottom cap
-	float dTheta = 2.0f * DirectX::XM_PI / sliceCount;
-	for (UINT i = 0; i <= sliceCount; ++i) {
-		float c = cosf(i * dTheta);
-		float s = sinf(i * dTheta);
+            indices.push_back(i0); indices.push_back(i1); indices.push_back(i2);
+            indices.push_back(i2); indices.push_back(i1); indices.push_back(i3);
+        }
+    }
 
+    Vertex cy_vertices[650];
 
-		Vertex v;
-		v.position = { bottomRadius * c, yBottom, bottomRadius * s };
-		//v.color = randomizeColor();
-		// v.Normal = DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f);
-		 // Map texture coordinates to a flat circle
-		// v.TexCoord = DirectX::XMFLOAT2(0.5f + 0.5f * c, 0.5f + 0.5f * s);
-		cy_list.push_back(v);
-	}
+    int cyCount = 0;
+    int inCount = 0;
+    for (int i = 0; i < vertices.size(); i++)
+     {
+        cy_vertices[i] = vertices[i];
+        cyCount++;
+     }
 
+    ui32 cy_i[3600];
 
-	// 3. Bottom cap indices (Clockwise winding order looking from below)
-	for (UINT i = 0; i < sliceCount; ++i) {
-		cy_indices.push_back(bottomCapStartIndex);
-		cy_indices.push_back(bottomCapStartIndex + 1 + i + 1);
-		cy_indices.push_back(bottomCapStartIndex + 1 + i);
-	}
+    for (int i = 0; i < indices.size(); i++)
+     {
+         cy_i[i] = indices[i];
+        inCount++;
+     }
 
-
-	// --- TOP CAP ---
-	UINT topCapStartIndex = (UINT)cy_list.size();
-	float yTop = 0.5f * height;
-
-
-	// 1. Center vertex for the top cap
-	Vertex topCenter;
-	topCenter.position = { 0.0f, yTop, 0.0f };
-	//topCenter.color = randomizeColor();
-	//topCenter.Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-   // topCenter.TexCoord = DirectX::XMFLOAT2(0.5f, 0.5f);
-	cy_list.push_back(topCenter);
-
-
-	// 2. Ring vertices for the top cap
-	for (UINT i = 0; i <= sliceCount; ++i) {
-		float c = cosf(i * dTheta);
-		float s = sinf(i * dTheta);
-
-
-		Vertex v;
-		v.position = { topRadius * c, yTop, topRadius * s };
-		//v.color = randomizeColor();
-		// v.Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-		 // Map texture coordinates to a flat circle
-		// v.TexCoord = DirectX::XMFLOAT2(0.5f + 0.5f * c, 0.5f + 0.5f * s);
-		cy_list.push_back(v);
-	}
-
-
-	// 3. Top cap indices (Clockwise winding order looking from above)
-	for (UINT i = 0; i < sliceCount; ++i) {
-		cy_indices.push_back(topCapStartIndex);
-		cy_indices.push_back(topCapStartIndex + 1 + i);
-		cy_indices.push_back(topCapStartIndex + 1 + i + 1);
-	}
-
-	//std::cout << "CYLINDER SIZE IS " << cy_list.size() << std::endl;
-	//std::cout << "CYLINDER INDCIDED SIZE IS " << cy_indices.size() << std::endl;
-
-
-	Vertex cy_vertices[485];
-
-	/* for (int i = 0; i < cy_list.size(); i++)
-	 {
-		 cy_vertices[i] = cy_list[i];
-	 }*/
-
-	ui32 cy_i[2520];
-
-	/* for (int i = 0; i < cy_indices.size(); i++)
-	 {
-		 cy_i[i] = cy_indices[i];
-	 }*/
-	 //Cylinder Stuff
-	 /*m_vb_cylinder = device.createVertexBuffer({ cy_vertices, std::size(cy_vertices), sizeof(Vertex) });
-	 m_ib_cylinder = device.createIndexBuffer({ cy_i, std::size(cy_i) });*/
-
+    std::cout << "TOTAL CYCOUNT IS " << cyCount << " AND TOTAL INCOUNT IS " << inCount << std::endl;
 
 	static const auto vb = m_context.device.createVertexBuffer({ cy_vertices, std::size(cy_vertices), sizeof(Vertex) });
 	static const auto ib = m_context.device.createIndexBuffer({ cy_i, std::size(cy_i) });

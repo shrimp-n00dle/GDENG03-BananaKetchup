@@ -1,7 +1,5 @@
 #include <DX3D/GUI/MenuBar.h>
 
-
-
 MenuBar::MenuBar()
 {
 }
@@ -29,10 +27,18 @@ void MenuBar::initialize()
 	};
 
 	//SAVE AND LOAD SCENE
-	if (ImGui::BeginMenu("Save Scene")) {
-		//Insert functionality here
+	if (ImGui::BeginMenu("Scene Settings")) {
+		if (ImGui::MenuItem("Save Scene")) {
+			//Insert functionality here
+			setShowSave(true);
+		}
+		if (ImGui::MenuItem("Load Scene")) {
+			
+		}
+
 		ImGui::EndMenu();
 	};
+
 
 	//SPAWNIES
 	if (ImGui::BeginMenu("Instantiate")) {
@@ -69,23 +75,16 @@ void MenuBar::initialize()
 
 }
 
-void MenuBar::setShow(bool b)
-{
-	b_show = b;
-}
 
-bool MenuBar::getShow()
-{
-	return b_show;
-}
+//ABOUT WINDOW
+void MenuBar::setShow(bool b){b_show = b;}
+bool MenuBar::getShow(){return b_show;}
 
-void MenuBar::setShowColor(bool b)
-{
-	b_color = b;
-}
+//COLOR PICKER WINDOW
+void MenuBar::setShowColor(bool b){b_color = b;}
+bool MenuBar::getShowColor(){return b_color;}
 
-bool MenuBar::getShowColor()
-{
-	return b_color;
-}
+//SAVE SCENE WINDOW
+void MenuBar::setShowSave(bool b) { b_save = b; }
+bool MenuBar::getShowSave() { return b_save; }
 

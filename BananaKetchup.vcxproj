@@ -179,6 +179,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Resource\Resource.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\ResourceManager.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Resource\TextureResource.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Scene\SceneMaster.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Window\Win32Window.cpp" />
     <ClCompile Include="Game\main.cpp" />
     <ClCompile Include="Game\MainGame.cpp" />
@@ -253,6 +254,7 @@
     <ClInclude Include="DX3D\Source\DX3D\GUI\MenuBar.h" />
     <ClInclude Include="DX3D\Source\DX3D\GUI\UIManager.h" />
     <ClInclude Include="DX3D\Source\DX3D\GUI\WinBase.h" />
+    <ClInclude Include="DX3D\Source\DX3D\Scene\SceneMaster.h" />
     <ClInclude Include="Game\MainGame.h" />
     <ClInclude Include="Game\Objects\Player.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ConstantBuffer.h" />

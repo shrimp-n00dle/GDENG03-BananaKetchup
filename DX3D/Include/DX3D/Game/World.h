@@ -50,10 +50,14 @@ namespace dx3d
 			EventType eventType{};
 		};
 
+
+	public:
+		std::unordered_map<size_t, std::vector<UniquePtr<GameObject>>> m_objects{};
+
 	private:	
 		GameContext m_gameContext;
 
-		std::unordered_map<size_t, std::vector<UniquePtr<GameObject>>> m_objects{};
+		
 		std::unordered_map<size_t, std::vector<Component*>> m_components{};
 
 		std::vector<TransformComponent*> m_dirtyTransforms{};

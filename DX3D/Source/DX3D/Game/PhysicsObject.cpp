@@ -56,8 +56,6 @@ void PhysicsObject::initializePhysicsObject(bool isStatic)
 	transform = this->rigidBody->getTransform();
 	float matrix[16];
 	transform.getOpenGLMatrix(matrix);
-
-
 }
 
 PhysicsObject::~PhysicsObject()

@@ -106,7 +106,12 @@ void dx3d::Game::onInternalUpdate()
 	aboutWin->initialize();
 	
 	if (menuBar->getShowColor())colorWin->initialize();
+
 	ImGui::Render();
 
-	m_worldRenderer->render(*m_world, m_display->getSwapChain(), deltaTime, ImGui::GetDrawData());
+	m_worldRenderer->render(*m_world, 
+		m_display->getSwapChain(), 
+		deltaTime, 
+		ImGui::GetDrawData(),
+		menuBar);
 }

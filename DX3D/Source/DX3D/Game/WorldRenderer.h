@@ -13,13 +13,19 @@
 #include <d3d11.h>
 #include <tchar.h>
 
+
+//Scene Saver/Reader
+#include <DX3D/Scene/SceneMaster.h>
+
+#include <DX3D/GUI/MenuBar.h>
+
 namespace dx3d
 {
 	class WorldRenderer final: public Base
 	{
 	public:
 		explicit WorldRenderer(const WorldRendererDesc& desc);
-		void render(const World& world, SwapChain& swapChain, f32 deltaTime, ImDrawData* uiData);
+		void render(const World& world, SwapChain& swapChain, f32 deltaTime, ImDrawData* uiData, MenuBar* menu);
 	private:
 		struct alignas(16) ObjectData
 		{
@@ -33,12 +39,14 @@ namespace dx3d
 	public:
 		//For seatwork
 		bool bSpawn = false;
-		//void callSpawn();
+
+		bool bSave = false;
 
 		int incCube = 0;
-		//void removeRecent();
 
-		//void closeProgram();
+
+		//?SceneMaster
+		SceneMaster* sceneCall = new SceneMaster();
 
 	private:
 		GraphicsDevice& m_graphicsDevice;

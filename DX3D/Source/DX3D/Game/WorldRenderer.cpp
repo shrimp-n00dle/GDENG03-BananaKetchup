@@ -40,7 +40,7 @@ dx3d::WorldRenderer::WorldRenderer(const WorldRendererDesc& desc): Base(desc.bas
 	m_sampler = device.createSampler({});
 }
 
-void dx3d::WorldRenderer::render(const World& world, SwapChain& swapChain, f32 deltaTime, ImDrawData* uiData)
+void dx3d::WorldRenderer::render(const World& world, SwapChain& swapChain, f32 deltaTime, ImDrawData* uiData, MenuBar* menu)
 {
 	auto size = swapChain.getSize();
 
@@ -220,6 +220,14 @@ void dx3d::WorldRenderer::render(const World& world, SwapChain& swapChain, f32 d
 				context.drawIndexedTriangleList(component->getIndexBuffer().getIndexListSize(), 0u, 0u);
 			}
 		}
+	}
+
+	//if the save button is pressed
+	if (menu->getShowSave())
+	{
+		/*world.m_objects;*/
+		sceneCall->saveScene();
+		menu->setShowSave(false);
 	}
 
 

@@ -34,6 +34,8 @@ namespace dx3d
 
 
 	protected:
+
+
 		MenuBar* menuBar = new MenuBar();
 		ColorWin* colorWin = new ColorWin();
 		AboutWin* aboutWin = new AboutWin();
