@@ -40,33 +40,35 @@ void MainGame::onCreate()
 
 
 	//SPHERE
-	auto sphere = world.createGameObject<PhysicsObject>();
-	sphere->createOrGetComponent<dx3d::SphereComponent>();
-	sphere->objName = "Sphere";
-	auto comp = sphere->createOrGetComponent<dx3d::SphereComponent>();
-	comp->setMaterial(basicMat);
-	sphere->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
-	sphere->getTransform().setPosition({ 2, 20, 0 });
-	sphere->initializePhysicsObject(false);
+	///*auto sphere = world.createGameObject<PhysicsObject>();
+	//sphere->createOrGetComponent<dx3d::SphereComponent>();
+	//sphere->objName = "Sphere";
+	//auto comp = sphere->createOrGetComponent<dx3d::SphereComponent>();
+	//comp->setMaterial(basicMat);
+	//sphere->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
+	//sphere->getTransform().setPosition({ 2, 20, 0 });
+	//sphere->initializePhysicsObject(false);*/
 
 	//CAPSULE
-	//auto capsule = world.createGameObject<dx3d::GameObject>();
-	//capsule->createOrGetComponent<dx3d::CapsuleComponent>();
-	//auto comp = capsule->createOrGetComponent<dx3d::CapsuleComponent>();
-	//comp->setMaterial(basicMat);
-	//capsule->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
-	//capsule->getTransform().setPosition({ 2, 0, 0 });
+	auto capsule = world.createGameObject<dx3d::GameObject>();
+	capsule->createOrGetComponent<dx3d::CapsuleComponent>();
+	capsule->objName = "Capsule";
+	auto comp = capsule->createOrGetComponent<dx3d::CapsuleComponent>();
+	comp->setMaterial(basicMat);
+	capsule->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
+	capsule->getTransform().setPosition({ 2, 0, 0 });
 
 
 
 	//CUBE
-	/*int cubeCount = 0;
+	int cubeCount = 0;
 	for (auto y = -2; y < 3; y++)
 	{
 		for (auto x = -2; x < 3; x++)
 		{
-			auto cube = world.createGameObject<PhysicsObject>();
+			auto cube = world.createGameObject<dx3d::GameObject>();
 			cube->createOrGetComponent<dx3d::CubeComponent>();
+			cube->objName = "Cube";
 			auto height = (rand() % 120) + (80.0f);
 			height /= 100.0f;
 
@@ -77,7 +79,7 @@ void MainGame::onCreate()
 			cube->getTransform().setPosition({ x * 1.4f, (height / 2.0f) - 1.0f, y * 1.4f });
 			cubeCount++;
 		}
-	}*/
+	}
 
 
 	//std::cout << "THERE ARE " << cubeCount << "cubes" << std::endl;
