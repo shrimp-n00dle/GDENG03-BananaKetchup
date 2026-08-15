@@ -25,16 +25,26 @@ void PhysicsObject::initializePhysicsObject(bool isStatic)
 		orientation);
 
 
-	BoxShape* boxShape = physicsCommon.createBoxShape(Vector3(scale.x/6, scale.y/6, scale.z/6));
+	BoxShape* boxShape = physicsCommon.createBoxShape(Vector3(scale.x/4, scale.y/4, scale.z/4));
 	this->rigidBody = physicsWorld->createRigidBody(transform);
 	this->rigidBody->addCollider(boxShape, Transform::identity());
 	this->rigidBody->updateMassPropertiesFromColliders();
 	this->rigidBody->setMass(this->mass);
 
+	if (this->isPhysics)
+	{
+		this->objName = this->objName + "_PHYSICS";
+	} else this->objName = this->objName + "_REGULAR";
+
 	if (isStatic)
 	{
 		this->rigidBody->setType(BodyType::STATIC);
-	} else this->rigidBody->setType(BodyType::DYNAMIC);
+		this->objName = this->objName + "_STATIC";
+	}
+	else {
+		this->rigidBody->setType(BodyType::DYNAMIC);
+		this->objName = this->objName + "_DYNAMIC";
+	}
 
 	transform = this->rigidBody->getTransform();
 	float matrix[16];
@@ -56,7 +66,8 @@ void PhysicsObject::isObjStatic(bool v)
 	if (v == true)
 	{
 		this->rigidBody->setType(BodyType::STATIC);
-	}
+		
+	} 
 }
 
 void PhysicsObject::onCreate()

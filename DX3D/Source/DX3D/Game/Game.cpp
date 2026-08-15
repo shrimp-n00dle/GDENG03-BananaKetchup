@@ -120,7 +120,7 @@ void dx3d::Game::onInternalUpdate()
 
 		auto& world = getWorld();
 
-		string curr_path = "test_export.json";
+		string curr_path = "Unity_Scene.json";
 		std::string filepath = curr_path.empty() ? "test.json" : curr_path;
 		std::cout << "Loading scene from filename: " << filepath << std::endl;
 
@@ -183,15 +183,51 @@ void dx3d::Game::onInternalUpdate()
 				basicMat->setTexture(0, brickTex);
 			}
 
+			if (objName == "Cube")
+			{
+				auto obj = world.createGameObject<dx3d::GameObject>();
+				obj->createOrGetComponent<dx3d::CubeComponent>();
+				auto comp = obj->createOrGetComponent<dx3d::CubeComponent>();
+				comp->setMaterial(basicMat);
+				obj->getTransform().setScale({ scaleX,scaleY, scaleZ });
+				obj->getTransform().setPosition({ posX, posY, posZ });
+				obj->getTransform().setRotation({ rotX, rotY, rotZ });
+			}
 
+			else if (objName == "Sphere")
+			{
+				auto obj = world.createGameObject<dx3d::GameObject>();
+				obj->createOrGetComponent<dx3d::SphereComponent>();
+				auto comp = obj->createOrGetComponent<dx3d::SphereComponent>();
+				comp->setMaterial(basicMat);
+				obj->getTransform().setPosition({ posX, posY, posZ });
+				obj->getTransform().setRotation({ rotX, rotY, rotZ });
+				obj->getTransform().setScale({ scaleX ,scaleY , scaleZ });
+			}
 
-			auto cube = world.createGameObject<dx3d::GameObject>();
-			cube->createOrGetComponent<dx3d::CubeComponent>();
-			cube->objName = "Cube";
-			auto comp = cube->createOrGetComponent<dx3d::CubeComponent>();
-			comp->setMaterial(basicMat);
-			cube->getTransform().setScale({ scaleX,scaleY, scaleZ });
-			cube->getTransform().setPosition({ posX, posY, posZ });
+			else if (objName == "Plane")
+			{
+				auto obj = world.createGameObject<dx3d::GameObject>();
+				obj->createOrGetComponent<dx3d::CubeComponent>();
+				auto comp = obj->createOrGetComponent<dx3d::CubeComponent>();
+				comp->setMaterial(basicMat);
+				obj->getTransform().setPosition({ posX, posY, posZ });
+				obj->getTransform().setRotation({ rotX, rotY, rotZ });
+				obj->getTransform().setScale({ scaleX ,scaleY , scaleZ });
+			}
+
+			else if (objName == "Capsule")
+			{
+				auto obj = world.createGameObject<dx3d::GameObject>();
+				obj->createOrGetComponent<dx3d::CapsuleComponent>();
+				auto comp = obj->createOrGetComponent<dx3d::CapsuleComponent>();
+				comp->setMaterial(basicMat);
+				obj->getTransform().setPosition({ posX, posY, posZ });
+				obj->getTransform().setRotation({ rotX, rotY, rotZ });
+				obj->getTransform().setScale({ scaleX,scaleY, scaleZ });
+			}
+			else if (objName == "") std::cout << "pass" << std::endl;
+	
 
 		}
 

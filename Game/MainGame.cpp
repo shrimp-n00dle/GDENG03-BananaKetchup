@@ -40,14 +40,34 @@ void MainGame::onCreate()
 
 
 	//SPHERE
-	///*auto sphere = world.createGameObject<PhysicsObject>();
-	//sphere->createOrGetComponent<dx3d::SphereComponent>();
-	//sphere->objName = "Sphere";
-	//auto comp = sphere->createOrGetComponent<dx3d::SphereComponent>();
-	//comp->setMaterial(basicMat);
-	//sphere->getTransform().setScale({ 5.0f, 5.0f, 5.0f });
-	//sphere->getTransform().setPosition({ 2, 20, 0 });
-	//sphere->initializePhysicsObject(false);*/
+	/*for (auto y = -2; y < 3; y++)
+	{
+		for (auto x = -2; x < 3; x++)
+		{
+	auto sphere = world.createGameObject<PhysicsObject>();
+	sphere->createOrGetComponent<dx3d::SphereComponent>();
+	sphere->objName = "Sphere";
+	sphere->isPhysics = true;
+	auto comp = sphere->createOrGetComponent<dx3d::SphereComponent>();
+	comp->setMaterial(basicMat);
+	sphere->getTransform().setScale({ 2.0f, 2.0f, 2.0f });
+	sphere->getTransform().setPosition({ x * 1.2f, 20, y * 1.2f });
+	sphere->initializePhysicsObject(false);
+
+		}
+	}
+
+	auto floor = world.createGameObject<PhysicsObject>();
+	floor->createOrGetComponent<dx3d::CubeComponent>();
+	floor->objName = "Cube";
+	floor->isPhysics = true;
+	auto comp2 = floor->createOrGetComponent<dx3d::CubeComponent>();
+	comp2->setMaterial(basicMat);
+	floor->getTransform().setScale({ 60.8f, 0.1f, 60.8f });
+	floor->getTransform().setPosition({5, 0, -5 }); 
+	floor->initializePhysicsObject(true);*/
+
+
 
 	//CAPSULE
 	/*auto capsule = world.createGameObject<dx3d::GameObject>();
@@ -66,7 +86,25 @@ void MainGame::onCreate()
 	//auto comp = cube->createOrGetComponent<dx3d::CubeComponent>();
 	//comp->setMaterial(basicMat);
 	//cube->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
-	//cube->getTransform().setPosition({ 2, 0, 0 });
+	//cube->getTransform().setPosition({ 0, 0.9, 0 });
+
+	////ONE CUBE
+	//auto cube2 = world.createGameObject<dx3d::GameObject>();
+	//cube2->createOrGetComponent<dx3d::CubeComponent>();
+	//cube2->objName = "Cube";
+	//auto comp2 = cube2->createOrGetComponent<dx3d::CubeComponent>();
+	//comp2->setMaterial(basicMat);
+	//cube2->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
+	//cube2->getTransform().setPosition({ -1.5, 2.0, 0 });
+
+	////ONE CUBE
+	//auto cube3 = world.createGameObject<dx3d::GameObject>();
+	//cube3->createOrGetComponent<dx3d::CubeComponent>();
+	//cube3->objName = "Cube";
+	//auto comp3 = cube3->createOrGetComponent<dx3d::CubeComponent>();
+	//comp3->setMaterial(basicMat);
+	//cube3->getTransform().setScale({ 1.0f, 1.0f, 1.0f });
+	//cube3->getTransform().setPosition({ -1.5, 3.0, -2.0 });
 
 
 
@@ -146,12 +184,12 @@ void MainGame::onCreate()
 			basicMat->setTexture(0, floorTex);
 		}
 
-		//auto floor = world.createGameObject<PhysicsObject>();
-		//floor->createOrGetComponent<dx3d::CubeComponent>();
-		//auto comp = floor->createOrGetComponent<dx3d::CubeComponent>();
-		//comp->setMaterial(basicMat);
-		//floor->getTransform().setScale({ 12.8f, 0.1f, 12.8f });
-		//floor->getTransform().setPosition({ 0, 0, 0 });
+	/*	auto floor = world.createGameObject<dx3d::GameObject>();
+		floor->createOrGetComponent<dx3d::CubeComponent>();
+		auto comp = floor->createOrGetComponent<dx3d::CubeComponent>();
+		comp->setMaterial(basicMat);
+		floor->getTransform().setScale({ 12.8f, 0.1f, 12.8f });
+		floor->getTransform().setPosition({ 2, 0, -5 });*/
 		//floor->initializePhysicsObject(true);
 		
 	}

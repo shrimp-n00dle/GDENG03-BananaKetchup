@@ -16,6 +16,8 @@ namespace dx3d
 		//NAMING
 		std::string objName = "Cube";
 
+		bool isPhysics = false;
+
 		explicit GameObject(const GameObjectDesc& desc);
 
 		template <typename T>
@@ -56,7 +58,7 @@ namespace dx3d
 		std::unordered_map<size_t, UniquePtr<Component>> m_components{};
 		TransformComponent* m_transform{};
 		GameContext m_gameContext;
-		World& m_world;	
+		World& m_world;
 		friend class World;
 	};
 }
