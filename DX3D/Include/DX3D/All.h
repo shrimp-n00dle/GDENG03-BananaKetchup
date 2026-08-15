@@ -1,17 +1,29 @@
 #pragma once
+
+
 #include <DX3D/Game/Component.h>
+
+#include <DX3D/Resource/TextureResource.h>
+#include <DX3D/Resource/MaterialResource.h>
+#include <DX3D/Resource/MeshResource.h>
+#include <DX3D/Resource/ResourceManager.h>
+
 
 #include <DX3D/Component/TransformComponent.h>
 #include <DX3D/Component/CubeComponent.h>
-#include <DX3D/Component/CameraComponent.h>
-#include <DX3D/Component/PlaneComponent.h>
-#include <DX3D/Component/SphereComponent.h>
-#include <DX3D/Component/PyramidComponent.h>
-#include <DX3D/Component/CylinderComponent.h>
 #include <DX3D/Component/CapsuleComponent.h>
+#include <DX3D/Component/SphereComponent.h>
+#include <DX3D/Component/CameraComponent.h>
+#include <DX3D/Component/MeshComponent.h>
 
 #include <DX3D/Game/GameObject.h>
+#include <DX3D/Game/PhysicsObject.h>
+#include <DX3D/Game/MeshObject.h>
 #include <DX3D/Game/World.h>
+
+
 
 #include <DX3D/Input/InputSystem.h>
 #include <DX3D/Game/Game.h>
+
+

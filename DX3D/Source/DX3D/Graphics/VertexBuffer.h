@@ -3,19 +3,17 @@
 
 namespace dx3d
 {
-	class VertexBuffer final : public GraphicsResource
+	class VertexBuffer final: public GraphicsResource
 	{
 	public:
-		VertexBuffer(const VertexBufferDesc& desc,const GraphicsResourceDesc& gDesc);
+		VertexBuffer(const VertexBufferDesc& desc, const GraphicsResourceDesc& gDesc);
 		ui32 getVertexListSize() const noexcept;
-		Microsoft::WRL::ComPtr<ID3D11Buffer> getBuffer();
-		int TEST();
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_buffer{};
 		ui32 m_vertexSize{};
-
-		ui32 m_vertextListSize{};
+		ui32 m_vertexListSize{};
 
 		friend class DeviceContext;
 	};
 }
+

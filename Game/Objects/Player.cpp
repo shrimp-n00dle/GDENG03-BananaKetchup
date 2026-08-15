@@ -1,6 +1,6 @@
-#include "Player.h"
-#include <iostream>
 
+
+#include "Player.h"
 
 Player::Player(const dx3d::GameObjectDesc& desc) : dx3d::GameObject(desc)
 {
@@ -8,11 +8,6 @@ Player::Player(const dx3d::GameObjectDesc& desc) : dx3d::GameObject(desc)
 
 Player::~Player()
 {
-}
-
-Player* Player::getPlayer()
-{
-	return this;
 }
 
 void Player::onCreate()
@@ -31,36 +26,28 @@ void Player::onUpdate(dx3d::f32 deltaTime)
 	rot.y += getInputSystem().getMouseDelta().x * sensitivity;
 	if (rot.x > 1.57f) rot.x = 1.57f;
 	else if (rot.x < -1.57f) rot.x = -1.57f;
-	//std::cout << rot.x << "  " << rot.y << std::endl;
 	getTransform().setRotation(rot);
 
 
 	auto pos = getTransform().getPosition();
 	auto forward = 0.0f;
 	auto right = 0.0f;
-	auto speed = 3.0f;
 	auto up = 0.0f;
+	auto speed = 3.0f;
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::W)) forward = 1.0f;
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::S)) forward = -1.0f;
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::D)) right = 1.0f;
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::A)) right = -1.0f;
 
-	//UP
+	//UP DOWN
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::Q)) up = 1.0f;
-	//DOWN
 	if (getInputSystem().isKeyDown(dx3d::KeyCode::E)) up = -1.0f;
-
-	
-
-	
-
 
 	auto forwardDir = getTransform().forward() * forward;
 	auto rightDir = getTransform().right() * right;
 	auto upDir = getTransform().up() * up;
+
 	auto direction = dx3d::Vec3::normalize(forwardDir + rightDir + upDir);
 	pos = pos + direction * speed * deltaTime;
-	//std::cout << pos.x << "  " << pos.y << "  " << pos.z << "  " << std::endl;
-
 	getTransform().setPosition(pos);
 }

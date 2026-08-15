@@ -3,6 +3,7 @@
 #include <DX3D/Core/Base.h>
 #include <DX3D/Core/Identifiable.h>
 
+//class PhysicsSystem;
 namespace dx3d
 {
 	class Component : public Identifiable
@@ -11,9 +12,13 @@ namespace dx3d
 	public:
 		explicit Component(const ComponentDesc& desc);
 		GameObject& getGameObject() noexcept;
-
+	
 	protected:
 		GameObject& m_object;
 		World& m_world;
+		GameContext& m_context;
+
+		//PhysicsSystem* physicsSystem;
 	};
 }
+

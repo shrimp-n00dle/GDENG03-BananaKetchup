@@ -23,6 +23,7 @@ bool dx3d::InputSystem::isKeyReleased(KeyCode key) const
 		m_previousKeys[static_cast<std::size_t>(key)];
 }
 
+
 dx3d::Vec2 dx3d::InputSystem::getMousePosition() const noexcept
 {
 	return m_mousePosition;
@@ -32,6 +33,7 @@ dx3d::Vec2 dx3d::InputSystem::getMouseDelta() const noexcept
 {
 	return m_mouseDelta;
 }
+
 
 void dx3d::InputSystem::setCursorVisible(bool visible)
 {
@@ -67,7 +69,7 @@ void dx3d::InputSystem::update()
 {
 	m_previousKeys = m_currentKeys;
 
-	for (auto i : std::views::iota(0u, static_cast<std::size_t>(KeyCode::Count)))
+	for (auto i: std::views::iota(0u,static_cast<std::size_t>(KeyCode::Count)))
 	{
 		const auto vk = getInternalKeyCode(static_cast<KeyCode>(i));
 		m_currentKeys[i] = (GetAsyncKeyState(vk) & 0x8000) != 0;
@@ -87,26 +89,26 @@ void dx3d::InputSystem::update()
 	if (m_cursorLocked) centerCursor();
 }
 
-dx3d::Command* dx3d::InputSystem::handleInput()
-{
-	if (isKeyReleased(dx3d::KeyCode::Space))
-	{
-		return spaceBar;
-	}
-	if (isKeyReleased(dx3d::KeyCode::Backspace))
-	{
-		return backSpace;
-	}
-	if (isKeyReleased(dx3d::KeyCode::Delete))
-	{
-		return deleteBtn;
-	}
-	if (isKeyReleased(dx3d::KeyCode::Escape))
-	{
-		return esc;
-	}
-	return NULL;
-}
+//dx3d::Command* dx3d::InputSystem::handleInput()
+//{
+//	/*if (isKeyReleased(dx3d::KeyCode::Space))
+//	{
+//		return spaceBar;
+//	}
+//	if (isKeyReleased(dx3d::KeyCode::Backspace))
+//	{
+//		return backSpace;
+//	}
+//	if (isKeyReleased(dx3d::KeyCode::Delete))
+//	{
+//		return deleteBtn;
+//	}*/
+//	/*if (isKeyReleased(dx3d::KeyCode::Escape))
+//	{
+//		return esc;
+//	}*/
+//	return NULL;
+//}
 
 short dx3d::InputSystem::getInternalKeyCode(const KeyCode& key)
 {
@@ -118,12 +120,9 @@ short dx3d::InputSystem::getInternalKeyCode(const KeyCode& key)
 
 	switch (key)
 	{
-	case KeyCode::Backspace: return VK_BACK;
+	case KeyCode::Shift: return VK_SHIFT;
 	case KeyCode::Escape: return VK_ESCAPE;
 	case KeyCode::Space: return VK_SPACE;
-	case KeyCode::Delete: return VK_DELETE;
-
-	case KeyCode::Shift: return VK_SHIFT;
 	case KeyCode::Enter: return VK_RETURN;
 	case KeyCode::MouseLeft: return VK_LBUTTON;
 	case KeyCode::MouseMiddle: return VK_MBUTTON;
@@ -135,4 +134,3 @@ short dx3d::InputSystem::getInternalKeyCode(const KeyCode& key)
 	default: return 0;
 	}
 }
-

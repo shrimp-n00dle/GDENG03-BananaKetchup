@@ -66,7 +66,6 @@ namespace dx3d
 			return res;
 		}
 
-
 		static Mat4x4 rotateZ(f32 z) noexcept
 		{
 			Mat4x4 res{};
@@ -144,7 +143,7 @@ namespace dx3d
 
 			return out;
 		}
-
+		 
 		static f32 determinant(const Mat4x4& rhs) noexcept
 		{
 			auto v1 = Vec4(rhs.m_data[0][0], rhs.m_data[1][0], rhs.m_data[2][0], rhs.m_data[3][0]);
@@ -160,6 +159,7 @@ namespace dx3d
 			return det;
 		}
 
+
 		Vec4 row(ui32 index) const
 		{
 			assert(index < 4 && "Matrix row index out of range");
@@ -171,10 +171,6 @@ namespace dx3d
 			assert(index < 4 && "Matrix column index out of range");
 			return { m_data[0][index], m_data[1][index], m_data[2][index], m_data[3][index] };
 		}
-
-
-
-
 
 		Mat4x4 operator *(const Mat4x4& rhs) const noexcept
 		{

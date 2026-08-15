@@ -5,12 +5,19 @@
 
 #include <unordered_map>
 
+#include <string>
+
 namespace dx3d
 {
 	class GameObject : public Identifiable
 	{
 		dx3d_typeid(GameObject)
 	public:
+		//NAMING
+		std::string objName = "Cube";
+
+		bool isPhysics = false;
+
 		explicit GameObject(const GameObjectDesc& desc);
 
 		template <typename T>
@@ -21,7 +28,8 @@ namespace dx3d
 			UniquePtr<Component> cp = std::make_unique<T>(ComponentDesc{
 								{m_logger},
 								*this,
-								m_world
+								m_world,
+								m_gameContext
 				});
 			return static_cast<T*>(createComponentInternal(cp));
 		}
@@ -33,25 +41,25 @@ namespace dx3d
 		}
 
 		TransformComponent& getTransform() noexcept;
-
 		World& getWorld() noexcept;
 		InputSystem& getInputSystem() noexcept;
-
+		ResourceManager& getResourceManager() noexcept;
+		//void setObjName(std::string _name);
+		//std::string getObjName();
 	protected:
 		virtual void onCreate() {}
-		virtual void onUpdate(f32 deltaTime) {}
-
+		virtual void onUpdate(f32 deltaTime) {}	
 	private:
 		Component* createComponentInternal(UniquePtr<Component>& component);
 		Component* getComponentInternal(size_t id);
 
+
 	private:
 		std::unordered_map<size_t, UniquePtr<Component>> m_components{};
 		TransformComponent* m_transform{};
-
 		GameContext m_gameContext;
 		World& m_world;
-
 		friend class World;
 	};
 }
+

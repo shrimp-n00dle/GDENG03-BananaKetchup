@@ -1,7 +1,6 @@
 #pragma once
 #include <DX3D/Core/Core.h>
 
-
 namespace dx3d
 {
 	class Vec4
@@ -19,10 +18,7 @@ namespace dx3d
 				 -(v1.x * (v2.y * v3.z - v3.y * v2.z) - v1.y * (v2.x * v3.z - v3.x * v2.z) + v1.z * (v2.x * v3.y - v3.x * v2.y))
 			};
 		}
-
 	public:
 		f32 x{}, y{}, z{}, w{};
-
 	};
 }
-

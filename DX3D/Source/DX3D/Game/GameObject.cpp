@@ -23,6 +23,20 @@ dx3d::InputSystem& dx3d::GameObject::getInputSystem() noexcept
 	return m_gameContext.input;
 }
 
+dx3d::ResourceManager& dx3d::GameObject::getResourceManager() noexcept
+{
+	return m_gameContext.resourceManager;
+}
+
+//void dx3d::GameObject::setObjName(std::string _name)
+//{
+//	objName = _name;
+//}
+//
+//std::string dx3d::GameObject::getObjName()
+//{
+//	return objName;
+//}
 
 dx3d::Component* dx3d::GameObject::createComponentInternal(UniquePtr<Component>& component)
 {

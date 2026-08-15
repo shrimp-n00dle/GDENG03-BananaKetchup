@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include <DX3D/Graphics/GraphicsEngine.h>
+#include <DX3D/Game/WorldRenderer.h>
 #include <string.h>
 
 
@@ -16,11 +16,11 @@ namespace dx3d
 		std::vector<std::string> queueList;
 
 		virtual ~Command() {}
-		virtual void execute(GraphicsEngine& g) = 0;
+		virtual void execute(WorldRenderer& g) = 0;
 
 		//std::vector<CubeClone*> cubeList;
 		//for undoing commands
-		virtual void undo(GraphicsEngine& g) = 0;
+		virtual void undo(WorldRenderer& g) = 0;
 
 		//for redoing commands
 		//virtual void redo() = 0;
@@ -30,38 +30,29 @@ namespace dx3d
 	};
 
 	//Space Bar - Spawn Shapes
-	class SpawnCommand : public Command
-	{
+	//class SpawnCommand : public Command
+	//{
 
-	public:
-		virtual void execute(GraphicsEngine& g);
-		virtual void undo(GraphicsEngine& g);
-	};
+	//public:
+	//	virtual void execute(WorldRenderer& g);
+	//	virtual void undo(WorldRenderer& g);
+	//};
 
 	//Backspace - remove the latest shape added
-	class RemoveCommand : public Command
-	{
-	public:
-		virtual void execute(GraphicsEngine& g);
-		virtual void undo(GraphicsEngine& g);
+	//class DeleteCommand : public Command
+	//{
+	//public:
+	//	virtual void execute(WorldRenderer& g);
+	//	virtual void undo(WorldRenderer& g);
 
-	};
-
-	//Delete - remove all shapes
-	class DeleteCommand : public Command
-	{
-	public:
-		virtual void execute(GraphicsEngine& g);
-		virtual void undo(GraphicsEngine& g);
-
-	};
+	//};
 
 	//Escape - closes program
 	class EndCommand : public Command
 	{
 	public:
-		virtual void execute(GraphicsEngine& g);
-		virtual void undo(GraphicsEngine& g);
+		virtual void execute(WorldRenderer& g);
+		virtual void undo(WorldRenderer& g);
 	};
 
 

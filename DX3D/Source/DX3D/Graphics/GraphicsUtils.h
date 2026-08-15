@@ -3,7 +3,6 @@
 #include <d3d11.h>
 #include <bit>
 
-
 namespace dx3d
 {
 	namespace GraphicsUtils
@@ -15,7 +14,6 @@ namespace dx3d
 			case ShaderType::VertexShader: return "vs_5_0";
 			case ShaderType::PixelShader: return "ps_5_0";
 			default: return "";
-
 			}
 		}
 
@@ -34,16 +32,16 @@ namespace dx3d
 				}
 			};
 
-			auto typeIndex = 0u;
 
+			auto typeIndex = 0u;
 			switch (type)
 			{
-				case D3D_REGISTER_COMPONENT_FLOAT32: typeIndex = 0u; break;
-				default: return DXGI_FORMAT_UNKNOWN;
+			case D3D_REGISTER_COMPONENT_FLOAT32: typeIndex = 0u; break;
+			default: return DXGI_FORMAT_UNKNOWN;
 			}
 
-
-			return formatTable[typeIndex][componentCount  - 1];
+			return formatTable[typeIndex][componentCount - 1];
 		}
+
 	}
 }

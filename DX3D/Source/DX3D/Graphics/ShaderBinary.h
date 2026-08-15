@@ -1,13 +1,12 @@
 #pragma once
 #include <DX3D/Graphics/GraphicsResource.h>
 
-
 namespace dx3d
 {
 	class ShaderBinary final: public GraphicsResource
 	{
 	public:
-		ShaderBinary(const ShaderCompileDesc& desc,const GraphicsResourceDesc& gDesc);
+		ShaderBinary(const ShaderCompileDesc& desc, const GraphicsResourceDesc& gDesc);
 		BinaryData getData() const noexcept;
 		ShaderType getType() const noexcept;
 	private:

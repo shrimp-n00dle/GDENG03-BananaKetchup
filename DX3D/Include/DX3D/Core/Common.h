@@ -3,8 +3,12 @@
 #include <DX3D/Core/Logger.h>
 #include <DX3D/Math/Rect.h>
 
+#include <DX3D/Math/Vec3.h>
+#include <vector>
+
 namespace dx3d
 {
+
 	struct BaseDesc
 	{
 		Logger& logger;
@@ -13,22 +17,21 @@ namespace dx3d
 	struct WindowDesc
 	{
 		BaseDesc base;
-		//Size of window
 		Rect size{};
 	};
 
 	struct DisplayDesc
 	{
 		WindowDesc window;
-		RenderSystem& renderSystem;
+		GraphicsDevice& graphicsDevice;
 	};
 
-	struct SpawnerDesc
+	struct GraphicsDeviceDesc
 	{
 		BaseDesc base;
 	};
 
-	struct RenderSystemDesc
+	struct PhysicsSystemDesc
 	{
 		BaseDesc base;
 	};
@@ -39,7 +42,7 @@ namespace dx3d
 		Rect winSize{};
 	};
 
-	enum class  ShaderType
+	enum class ShaderType
 	{
 		VertexShader = 0,
 		PixelShader
@@ -49,35 +52,26 @@ namespace dx3d
 	{
 		const char* shaderSourceName{};
 		const void* shaderSourceCode{};
-
 		size_t shaderSourceCodeSize{};
-		const char* shaderSourceEntryPoint{};
-
+		const char* shaderEntryPoint{};
 		ShaderType shaderType{};
 	};
 
-	struct VertexShaderSignatureDesc
+	struct GraphicsPipelineLayoutDesc
 	{
 		const RefPtr<ShaderBinary>& vsBinary;
-
+		const RefPtr<ShaderBinary>& psBinary;
 	};
 
 	struct BinaryData
 	{
 		const void* data{};
 		size_t dataSize{};
-
 	};
 
 	struct GraphicsPipelineStateDesc
 	{
-		const VertexShaderSignature& vs;
-		const ShaderBinary& ps;
-
-		const VertexShaderSignature& vs_sphere;
-		const ShaderBinary& ps_sphere;
-
-
+		const GraphicsPipelineLayout& layout;
 	};
 
 	struct VertexBufferDesc
@@ -99,12 +93,30 @@ namespace dx3d
 		ui32 indexListSize{};
 	};
 
-	struct GameContext
+
+	struct Vertex
 	{
-		InputSystem& input;
+		Vec3 position;
 	};
 
 
+	struct MeshBufferDesc
+	{
+		std::vector<Vertex> verticesList{};
+		std::vector<ui32> indicesList{};
+
+		//VertexBufferDesc& vertex;
+		//IndexBufferDesc& index;
+	};
+
+
+	struct GameContext
+	{
+		InputSystem& input;
+		ResourceManager& resourceManager;
+		GraphicsDevice& device;
+		PhysicsSystem& physics;
+	};
 
 	struct GameDesc
 	{
@@ -112,8 +124,7 @@ namespace dx3d
 		Logger::LogLevel logLevel = Logger::LogLevel::Error;
 	};
 
-
-	struct WorldDesc
+	struct WorldDesc 
 	{
 		BaseDesc base;
 		GameContext gameContext;
@@ -126,17 +137,25 @@ namespace dx3d
 		World& world;
 	};
 
+	struct MeshObjectDesc
+	{
+		BaseDesc base;
+		GameContext gameContext;
+		World& world;
+	};
+
 	struct ComponentDesc
 	{
 		BaseDesc base;
 		GameObject& object;
 		World& world;
+		GameContext& context;
 	};
 
-	struct GraphicsEngineDesc
+	struct WorldRendererDesc
 	{
 		BaseDesc base;
-		RenderSystem& engine;
+		GraphicsDevice& engine;
 	};
 
 	enum class KeyCode
@@ -165,8 +184,6 @@ namespace dx3d
 		Shift,
 		Space,
 		Enter,
-		Delete,
-		Backspace,
 
 		// Mouse buttons (optional inclusion)
 		MouseLeft,
@@ -185,5 +202,49 @@ namespace dx3d
 	struct InputSystemDesc
 	{
 		BaseDesc base;
+	};
+
+	struct ResourceDesc
+	{
+		BaseDesc base;
+		const wchar_t* path{};
+		ResourceManager& manager;
+	};
+
+	struct MaterialResourceDesc
+	{
+		ResourceDesc base;
+		GraphicsDevice& graphicsDevice;
+	};
+	struct TextureResourceDesc
+	{
+		ResourceDesc base;
+		GraphicsDevice& graphicsDevice;
+	};
+
+	struct MeshResourceDesc
+	{
+		ResourceDesc base;
+		GraphicsDevice& graphicsDevice;
+	};
+
+	struct SystemContext
+	{
+		GraphicsDevice& graphicsDevice;
+	};
+		
+	struct ResourceManagerDesc
+	{
+		BaseDesc base;
+		SystemContext context;
+	};
+
+	struct TextureDesc
+	{
+		Rect size{};
+		const void* pixels{};
+	};
+	struct SamplerDesc
+	{
 	};
 }

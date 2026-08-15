@@ -13,7 +13,7 @@ void dx3d::World::update(f32 deltaTime)
 	{
 		std::swap(m_events, m_eventsSwapBuffer);
 		std::swap(m_pendingObjects, m_pendingObjectsSwapBuffer);
-
+	
 		for (auto& e : m_eventsSwapBuffer)
 		{
 			auto objTypeId = e.object->getTypeId();
@@ -23,10 +23,8 @@ void dx3d::World::update(f32 deltaTime)
 			{
 				auto& obj = m_pendingObjectsSwapBuffer[pendingObjIndex];
 				auto ptr = obj.get();
-
 				m_objects[objTypeId].push_back(std::move(obj));
-
-				ptr->onCreate();
+				ptr->onCreate();		
 			}
 		}
 
@@ -40,7 +38,7 @@ void dx3d::World::update(f32 deltaTime)
 		{
 			object->onUpdate(deltaTime);
 		}
-	}
+	}	
 
 	for (auto& comp : m_dirtyTransforms)
 	{
@@ -56,7 +54,6 @@ dx3d::GameObject* dx3d::World::createGameObjectInternal(UniquePtr<GameObject>& o
 	auto ptr = object.get();
 
 	auto index = m_pendingObjects.size();
-
 	m_pendingObjects.push_back(std::move(object));
 	m_events.push_back({ ptr, index, EventType::Create });
 

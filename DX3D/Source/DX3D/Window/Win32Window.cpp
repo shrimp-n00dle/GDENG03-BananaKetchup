@@ -1,7 +1,20 @@
 #include <DX3D/Window/Window.h>
 
+#include <DX3D/Graphics/ImGui/imgui.h>
+#include <DX3D/Graphics/ImGui/imgui_impl_win32.h>
+#include <DX3D/Graphics/ImGui/imgui_impl_dx11.h>
+
+#include <iostream>
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+
 static LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
+	if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam)) {
+		
+		return true;
+	}
+
 	switch (msg)
 	{
 
@@ -13,6 +26,9 @@ static LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPAR
 	default:
 		return DefWindowProc(hwnd, msg, wparam, lparam);
 	}
+
+	
+
 	return 0;
 }
 
@@ -67,6 +83,7 @@ dx3d::Window::Window(const WindowDesc& desc) : Base(desc.base), m_size(desc.size
 		DX3DLogThrowError("CreateWindowEx failed");
 	}
 
+	
 	ShowWindow(static_cast<HWND>(m_handle), SW_SHOW);
 }
 

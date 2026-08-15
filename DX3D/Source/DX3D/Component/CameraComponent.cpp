@@ -6,10 +6,12 @@
 #include <DX3D/Game/GameObject.h>
 #include <algorithm>
 
+
 dx3d::CameraComponent::CameraComponent(const ComponentDesc& data) : Component(data)
 {
 	computeProjectionMatrix();
 }
+
 dx3d::Mat4x4 dx3d::CameraComponent::getViewMatrix() noexcept
 {
 	return Mat4x4::inverse(m_object.getTransform().getRigidWorldMatrix());
@@ -75,3 +77,4 @@ void dx3d::CameraComponent::computeProjectionMatrix() noexcept
 	m_projection = Mat4x4::perspectiveFovLH(m_fieldOfView, (f32)m_viewportSize.width / (f32)m_viewportSize.height,
 		m_nearPlane, m_farPlane);
 }
+
